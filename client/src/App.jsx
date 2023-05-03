@@ -1,13 +1,16 @@
 import React from 'react';
-import RatingsReviews from './RatingsReviews/RatingsReviews.jsx'
+// import Overview from './Overview';
+import QuestionsAnswers from './QuestionsAnswers';
+// import RatingsReviews from './RatingsReviews';
+// import RelatedItemsComparisons from './RelatedItemsComparisons';
 
 export default function App() {
   return (
-  <div>
-    <h1> App </h1>
-    <h1> --- Ratings & Reviews Section --- </h1>
-    <div> < RatingsReviews /> </div>
-  </div>);
+    <div>
+      {/* <Overview /> */}
+      <QuestionsAnswers />
+      {/* <RatingsReviews /> */}
+      {/* <RelatedItemsComparisons /> */}
+    </div>
+  );
 }
-
-// ok

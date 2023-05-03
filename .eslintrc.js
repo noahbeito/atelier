@@ -18,10 +18,11 @@ module.exports = {
     'react',
   ],
   rules: {
-    settings: {
-      react: {
-        version: 'detect',
-      },
+    semi: ['error', 'always'],
+  },
+  settings: {
+    react: {
+      version: 'detect',
     },
   },
 };
