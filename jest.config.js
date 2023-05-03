@@ -1,6 +1,6 @@
 module.exports = {
   collectCoverage: true,
-  collectCoverageFrom: ['jest.config.js'],
+  collectCoverageFrom: ['sum.test.js'],
   coverageDirectory: 'coverage',
   testEnvironment: 'jsdom',
 }
