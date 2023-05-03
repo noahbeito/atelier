@@ -1,12 +1,12 @@
 import Redux from 'redux';
 
-// import overviewReducer from '../Overview/reducers';
+import overviewReducer from '../Overview/reducers';
 import questionsAnswersReducer from '../QuestionsAnswers/reducers';
 // import ratingsReviewsReducer from '../RatingsReviews/reducers';
 // import relatedItemsReducer from '../RelatedItems/reducers';
 
 const rootReducer = Redux.combineReducers({
-  // overview: overviewReducer,
+  overview: overviewReducer,
   questionsAnswers: questionsAnswersReducer,
   // ratingsReviews: ratingsReviewsReducer,
   // relatedItems: relatedItemsReducer,
