@@ -1,7 +1,7 @@
 import React from 'react';
 // import Overview from './Overview';
 import QuestionsAnswers from './QuestionsAnswers';
-// import RatingsReviews from './RatingsReviews';
+import RatingsReviews from './RatingsReviews';
 // import RelatedItemsComparisons from './RelatedItemsComparisons';
 
 export default function App() {
@@ -9,7 +9,7 @@ export default function App() {
     <div>
       {/* <Overview /> */}
       <QuestionsAnswers />
-      {/* <RatingsReviews /> */}
+      <RatingsReviews />
       {/* <RelatedItemsComparisons /> */}
     </div>
   );
