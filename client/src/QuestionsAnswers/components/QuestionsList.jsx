@@ -6,7 +6,6 @@ export default function QuestionsList() {
     <>
       <Question />
       <Question />
-      <Question />
     </>
   );
 }
