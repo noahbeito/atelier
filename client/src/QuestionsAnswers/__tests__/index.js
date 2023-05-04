@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'jest';
+/* eslint-env jest */
 
-describe('Items 1', () => {
-  it('Item 1 should work', () => {
+describe('app2', () => {
+  it('This is inside Overview', () => {
     expect(true).toBe(true);
   });
 });
