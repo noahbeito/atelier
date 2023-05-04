@@ -7,9 +7,5 @@ node_modules/
 dist/
 
 lib-cov
-<<<<<<< HEAD
-coverage
-=======
 
 coverage
->>>>>>> f2597c2204aabb075d2001cea64cf9ab1a4d65df
