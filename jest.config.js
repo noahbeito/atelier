@@ -1,5 +1,5 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['sum.test.js'],
-  coverageDirectory: 'coverage'
-}
+  coverageDirectory: 'coverage',
+};
