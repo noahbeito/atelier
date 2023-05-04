@@ -76,10 +76,42 @@ module.exports = {
   },
 
   putHelpful: (req, res) => {
-
+    axios({
+      baseURL: process.env.SERVER,
+      url: '/reviews/:review_id/helpful',
+      responseType: 'json',
+      requestType: 'json',
+      headers: { Authorization: process.env.API_TOKEN },
+      params: {
+        review_id: req.query.review_id,
+      },
+    })
+      .then(() => {
+        console.log(`Success at PUT/reviews/${req.query.review_id}/helpful for marking ${req.query.review_id} as helpful`);
+        res.sendStatus(204);
+      })
+      .catch(() => {
+        res.sendStatus(500);
+      });
   },
 
   putReport: (req, res) => {
-
+    axios({
+      baseURL: process.env.SERVER,
+      url: '/reviews/:review_id/helpful',
+      responseType: 'json',
+      requestType: 'json',
+      headers: { Authorization: process.env.API_TOKEN },
+      params: {
+        review_id: req.query.review_id,
+      },
+    })
+      .then(() => {
+        console.log(`Success at PUT/reviews/${req.query.review_id}/report for reporting ${req.query.review_id}`);
+        res.sendStatus(204);
+      })
+      .catch(() => {
+        res.sendStatus(500);
+      });
   },
 };
