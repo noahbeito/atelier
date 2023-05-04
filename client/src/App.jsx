@@ -3,6 +3,8 @@ import React from 'react';
 import QuestionsAnswers from './QuestionsAnswers';
 // import RatingsReviews from './RatingsReviews';
 import RelatedItemsComparisons from './RelatedItemsComparison';
+import RatingsReviews from './RatingsReviews';
+// import RelatedItemsComparisons from './RelatedItemsComparisons';
 
 export default function App() {
   return (
@@ -11,6 +13,7 @@ export default function App() {
       <QuestionsAnswers />
       {/* <RatingsReviews /> */}
       <RelatedItemsComparisons />
+      <RatingsReviews />
     </div>
   );
 }
