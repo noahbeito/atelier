@@ -1,23 +1,22 @@
 import React from 'react';
-import Button from '../../components/Button';
+import Divider from '../../components/Divider';
+import Helpful from '../../components/Helpful';
+import Report from '../../components/Report';
+import NameDate from '../../components/NameDate';
+import PhotoList from './PhotoList';
 
 export default function Answer() {
   return (
-    <>
+    <div>
       <div>Tootsie Roll Pudding</div>
+      <PhotoList />
       <div>
-        <div>
-          <span>by User1337, May 1, 2019</span>
-        </div>
-        <div>
-          <span>Helpful?</span>
-          <Button>Yes</Button>
-          <span>(25)</span>
-        </div>
-        <div>
-          <Button>Report</Button>
-        </div>
+        <Divider>
+          <NameDate />
+          <Helpful />
+          <Report />
+        </Divider>
       </div>
-    </>
+    </div>
   );
 }

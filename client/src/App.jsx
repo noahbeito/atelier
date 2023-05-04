@@ -8,8 +8,8 @@ export default function App() {
   return (
     <div>
       {/* <Overview /> */}
+      <RelatedItemsComparisons />
       <QuestionsAnswers />
-      {/* <RelatedItemsComparisons /> */}
       {/* <RatingsReviews /> */}
     </div>
   );
