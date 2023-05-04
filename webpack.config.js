@@ -12,7 +12,12 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Atelier',
+      inject: 'body',
+      template: 'index.html',
+    })],
   module: {
     rules: [
       {
