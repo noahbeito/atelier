@@ -6,7 +6,6 @@ export default function AnswersList() {
     <>
       <Answer />
       <Answer />
-      <Answer />
     </>
   );
 }
