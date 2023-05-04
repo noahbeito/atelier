@@ -8,7 +8,7 @@ module.exports = (app) => {
       const agent = request(app);
       const productsResponse = await agent.get('/products').expect(200);
       const products = JSON.parse(productsResponse.text);
-      expect(products).toBeDefined();
+      expect(products.length).toBeGreaterThan(0);
     });
   });
 };
