@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-describe('app', () => {
+describe('app2', () => {
   it('This is inside Overview', () => {
     expect(true).toBe(true);
   });
