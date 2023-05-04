@@ -3,6 +3,7 @@
 const app = require('../index');
 const productTests = require('./products.test');
 const qaTests = require('./qa.test');
+const reviewsTests = require('./reviews.test');
 
 let server;
 
@@ -17,4 +18,5 @@ afterAll((done) => {
 describe('Server Routes', () => {
   productTests(app);
   qaTests(app);
+  reviewsTests(app);
 });
