@@ -20,9 +20,4 @@ app.use(express.static(path.join(__dirname, '../../client/dist')));
 // Set up routes
 routes(app);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server available at http://localhost:${PORT}`);
-});
-
 module.exports = app;
