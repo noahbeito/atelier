@@ -3,7 +3,7 @@
 const app = require('../index');
 const productTests = require('./products.test');
 const qaTests = require('./qa.test');
-const reviewsTests = request('./reviews.test');
+const reviewsTests = require('./reviews.test');
 
 let server;
 

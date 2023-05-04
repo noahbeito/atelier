@@ -3,6 +3,7 @@ const axios = require('axios');
 module.exports = {
   getReviews: (req, res) => {
     axios({
+      method: 'GET',
       baseURL: process.env.SERVER,
       url: '/reviews',
       responseType: 'json',
@@ -16,7 +17,7 @@ module.exports = {
       },
     })
       .then((result) => {
-        console.log(`Success at GET/reviews for ${JSON.stringify(req.query)} with ${result.data.length} results`);
+        console.log(`Success at GET/reviews for ${JSON.stringify(req.query)} with ${result.data.results.length} results`);
         res.status(200);
         res.send(result.data);
       })
@@ -27,6 +28,7 @@ module.exports = {
 
   getReviewsMeta: (req, res) => {
     axios({
+      method: 'GET',
       baseURL: process.env.SERVER,
       url: '/reviews/meta',
       responseType: 'json',
@@ -48,6 +50,7 @@ module.exports = {
 
   postReviews: (req, res) => {
     axios({
+      method: 'POST',
       baseURL: process.env.SERVER,
       url: '/reviews',
       responseType: 'json',
@@ -77,14 +80,13 @@ module.exports = {
 
   putHelpful: (req, res) => {
     axios({
+      method: 'PUT',
       baseURL: process.env.SERVER,
-      url: '/reviews/:review_id/helpful',
+      url: `/reviews/${req.params.review_id}/helpful`,
       responseType: 'json',
       requestType: 'json',
       headers: { Authorization: process.env.API_TOKEN },
-      params: {
-        review_id: req.query.review_id,
-      },
+      params: req.params,
     })
       .then(() => {
         console.log(`Success at PUT/reviews/${req.query.review_id}/helpful for marking ${req.query.review_id} as helpful`);
@@ -97,14 +99,13 @@ module.exports = {
 
   putReport: (req, res) => {
     axios({
+      method: 'PUT',
       baseURL: process.env.SERVER,
-      url: '/reviews/:review_id/helpful',
+      url: `/reviews/${req.params.review_id}/report`,
       responseType: 'json',
       requestType: 'json',
       headers: { Authorization: process.env.API_TOKEN },
-      params: {
-        review_id: req.query.review_id,
-      },
+      params: req.params,
     })
       .then(() => {
         console.log(`Success at PUT/reviews/${req.query.review_id}/report for reporting ${req.query.review_id}`);
