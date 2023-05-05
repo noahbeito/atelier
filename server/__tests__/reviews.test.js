@@ -61,13 +61,13 @@ module.exports = (app) => {
         .expect(201);
     });
 
-    xit('should receive 204 status on PUT/reviews/:reviews_id/helpful', async () => {
+    it('should receive 204 status on PUT/reviews/:reviews_id/helpful', async () => {
       const testReviewId = await reviewId();
       await agent.put(`/reviews/${testReviewId}/helpful`)
         .expect(204);
     });
 
-    xit('should receive 204 status on PUT/reviews/:reviews_id/report', async () => {
+    it('should receive 204 status on PUT/reviews/:reviews_id/report', async () => {
       const testReviewId = await reviewId();
       await agent.put(`/reviews/${testReviewId}/report`)
         .expect(204);

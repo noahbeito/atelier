@@ -5,9 +5,9 @@ module.exports.questions = {
     axios({
       method: 'GET',
       url: '/qa/questions',
-      baseURL: process.env.SERVER,
       responseType: 'json',
       requestType: 'json',
+      baseURL: process.env.SERVER,
       headers: { Authorization: process.env.API_TOKEN },
       params: { product_id: req.query.product_id },
     })
@@ -18,14 +18,11 @@ module.exports.questions = {
     axios({
       method: 'POST',
       url: '/qa/questions',
-      baseURL: process.env.SERVER,
       responseType: 'json',
       requestType: 'json',
+      baseURL: process.env.SERVER,
       headers: { Authorization: process.env.API_TOKEN },
-      params: {
-        ...req.query,
-        product_id: Number(req.query.product_id),
-      },
+      data: req.body,
     })
       .then((data) => res.status(201).send(data.data))
       .catch(() => res.sendStatus(500));
@@ -82,10 +79,7 @@ module.exports.answers = {
       responseType: 'json',
       requestType: 'json',
       headers: { Authorization: process.env.API_TOKEN },
-      params: {
-        ...req.query,
-        product_id: Number(req.query.product_id),
-      },
+      data: req.body,
     })
       .then((data) => res.status(201).send(data.data))
       .catch(() => res.sendStatus(500));
@@ -93,7 +87,7 @@ module.exports.answers = {
   markHelpful: (req, res) => {
     axios({
       method: 'PUT',
-      url: `/qa/answers/${req.params.question_id}/helpful`,
+      url: `/qa/answers/${req.params.answer_id}/helpful`,
       baseURL: process.env.SERVER,
       responseType: 'json',
       requestType: 'json',
@@ -105,7 +99,7 @@ module.exports.answers = {
   },
   report: (req, res) => {
     axios({
-      url: `/qa/answers/${req.params.question_id}/report`,
+      url: `/qa/answers/${req.params.answer_id}/report`,
       method: 'put',
       baseURL: process.env.SERVER,
       responseType: 'json',
