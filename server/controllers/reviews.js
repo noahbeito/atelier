@@ -17,7 +17,6 @@ module.exports = {
       },
     })
       .then((result) => {
-        console.log(`Success at GET/reviews for ${JSON.stringify(req.query)} with ${result.data.results.length} results`);
         res.status(200);
         res.send(result.data);
       })
@@ -39,7 +38,6 @@ module.exports = {
       },
     })
       .then((result) => {
-        console.log(`Success at GET/reviews/meta for ${JSON.stringify(req.query)} with ${result.data.product_id} results`);
         res.status(200);
         res.send(result.data);
       })
@@ -69,7 +67,6 @@ module.exports = {
       },
     })
       .then((result) => {
-        console.log(`Success at POST/reviews for ${req.query.product_id} for product ${req.query.product_id}`);
         res.status(201);
         res.send(result.data);
       })
@@ -89,7 +86,6 @@ module.exports = {
       params: req.params,
     })
       .then(() => {
-        console.log(`Success at PUT/reviews/${req.query.review_id}/helpful for marking ${req.query.review_id} as helpful`);
         res.sendStatus(204);
       })
       .catch(() => {
@@ -108,7 +104,6 @@ module.exports = {
       params: req.params,
     })
       .then(() => {
-        console.log(`Success at PUT/reviews/${req.query.review_id}/report for reporting ${req.query.review_id}`);
         res.sendStatus(204);
       })
       .catch(() => {
