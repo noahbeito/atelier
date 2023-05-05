@@ -1,23 +1,17 @@
 import React from 'react';
-import AddToCart from './components/AddToCart';
-import StyleSelector from './components/StyleSelector';
+import AddToCart from '../AddToCart/AddToCart';
+import StyleSelector from '../StyleSelector/StyleSelector';
 // import StarReview from './components/StarReview';
 
-
-
-const ProductDisplay = () => {
-
-  render(
+export default function ProductDisplay() {
+  return (
     <>
       {/* <StarReview />
       <p>{product.title}</p>
       <p>{product.price}</p>
       <p>{product.category}</p> */}
-      <StyleSelector  />
+      <StyleSelector />
       <AddToCart />
     </>
-  )
+  );
 }
-
-
-export default ProductDisplay;

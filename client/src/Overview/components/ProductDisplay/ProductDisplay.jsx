@@ -1,19 +1,12 @@
 import React from 'react';
-import ImageGallery from './components/ImageGallery';
-import CheckoutDisplay from './components/CheckoutDisplay';
+import ImageGallery from '../ImageGallery/ImageGallery';
+import CheckoutDisplay from '../CheckoutDisplay/CheckoutDisplay';
 
-
-
-
-const ProductDisplay = () => {
-
-  render(
+export default function ProductDisplay() {
+  return (
     <>
-      <ImageGallery  />
+      <ImageGallery />
       <CheckoutDisplay />
     </>
-  )
+  );
 }
-
-
-export default ProductDisplay;
