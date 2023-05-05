@@ -14,18 +14,23 @@ export default function AddAnswer() {
           required
           label="Your answer"
           validation={(value) => value.length <= 1000}
+          id="answer"
         />
         <Input
           required
           label="Your nickname"
           validation={(value) => value.length <= 60}
-          placeHolder="Example: jack543!"
+          placeholder="Example: jack543!"
+          warning="For privacy reasons, do not use your full name or email address"
+          id="answer-nickname"
         />
         <Input
           required
           label="Your email"
           validation={(value) => value.length <= 60}
-          placeHolder="Example: jack@email.com!"
+          placeholder="Example: jack@email.com!"
+          warning="For authentication reasons, you will not be emailed"
+          id="answer-email"
         />
         {/* <ImageUpload
           label="Upload your photos"

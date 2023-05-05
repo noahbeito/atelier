@@ -1,5 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function NameDate({ username, date, isVerified, isSeller }) {
-  return 'by User1234, January 1, 2019';
+export default function NameDate({
+  username,
+  date,
+  isVerified,
+  isSeller,
+  includeBy,
+}) {
+  const dateString = new Date(date);
+  const fdate = dateString.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+
+  return (
+    <>
+      { includeBy ? 'by ' : '' }
+      { isVerified ? 'V' : '' }
+      { username }
+      { isSeller ? <strong>Seller</strong> : '' }
+      ,
+      { fdate }
+    </>
+  );
 }
+
+NameDate.propTypes = {
+  username: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  isVerified: PropTypes.bool,
+  isSeller: PropTypes.bool,
+  includeBy: PropTypes.bool,
+};
+
+NameDate.defaultProps = {
+  isVerified: false,
+  isSeller: false,
+  includeBy: false,
+};
