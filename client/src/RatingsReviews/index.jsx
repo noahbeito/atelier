@@ -1,7 +1,7 @@
 import React from 'react';
+import ReviewList from './components/ReviewsList/ReviewList';
 
-export default function RatingsReviews () {
-
+export default function RatingsReviews() {
   return (
     <div>
       <div>
@@ -19,11 +19,15 @@ export default function RatingsReviews () {
       <div>
         <h2> --- Reviews List --- </h2>
         <div> --- Sort Options --- </div>
-        <div> --- Individual Review Tile --- </div>
+        <div>
+          {' '}
+          <ReviewList />
+          {' '}
+        </div>
       </div>
       <div>
         <h2> --- Write New Review --- </h2>
       </div>
     </div>
-  )
+  );
 }
