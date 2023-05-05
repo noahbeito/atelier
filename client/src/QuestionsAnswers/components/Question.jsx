@@ -13,7 +13,7 @@ export default function Question() {
         <div>Who what which?</div>
         <div>
           <Divider>
-            <Helpful />
+            <Helpful helpfulness={18} />
             <div>
               <Button variant="small">Add Answer</Button>
             </div>
