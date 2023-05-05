@@ -12,8 +12,12 @@ export default function Answer() {
       <PhotoList />
       <div>
         <Divider>
-          <NameDate />
-          <Helpful />
+          <NameDate
+            username="User1337"
+            date="May 1, 2019"
+            includeBy
+          />
+          <Helpful helpfulness={2} />
           <Report />
         </Divider>
       </div>
