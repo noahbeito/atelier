@@ -19,6 +19,7 @@ module.exports = {
   ],
   rules: {
     semi: ['error', 'always'],
+    'react/jsx-props-no-spreading': 'off',
   },
   settings: {
     react: {
