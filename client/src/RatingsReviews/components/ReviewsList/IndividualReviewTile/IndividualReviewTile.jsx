@@ -83,10 +83,9 @@ export default function ReviewTile({
   className,
 }) {
   const hasResponse = () => response !== null;
-  console.log(hasResponse, response);
 
   return (
-    <StyledReviewTile className="ReviewTile">
+    <StyledReviewTile className={`${className} ReviewTile`}>
       <StyledUserInfo>
         <StyledStarRating rating={rating} className="StarRating" />
         <StyledNameDate className="NameDate">
@@ -121,7 +120,7 @@ export default function ReviewTile({
       }
       <Divider>
         <Helpful className="Helpful" helpfulness={helpfulness} />
-        <Report className="Report"/>
+        <Report className="Report" />
       </Divider>
       {/* <div>
         {photos}
@@ -140,10 +139,12 @@ ReviewTile.propTypes = {
   reviewerName: PropTypes.string.isRequired,
   helpfulness: PropTypes.number.isRequired,
   photos: PropTypes.array.isRequired,
+  className: PropTypes.string,
 };
 
 ReviewTile.defaultProps = {
   recommend: false,
   response: null,
   body: '',
+  className: '',
 };
