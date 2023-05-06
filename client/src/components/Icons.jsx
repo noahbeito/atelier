@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCoffee, faCircleCheck, faMagnifyingGlass, faStar as Star, faArrowRight, faArrowLeft,
-  faChevronUp, faChevronDown, faChevronLeft, faChevronRight, faCheck,
+  faChevronUp, faChevronDown, faChevronLeft, faChevronRight, faCheck, faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { faStar as EmptyStar, faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 
@@ -21,6 +21,7 @@ const iconMap = {
   ChevronRight: faChevronRight,
   Check: faCheck,
   Exit: faCircleXmark,
+  Plus: faPlus,
 };
 
 /**

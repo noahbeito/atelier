@@ -7,7 +7,7 @@ export default function Search() {
       <input
         placeholder="Have a question? Search for answers..."
       />
-      <Icons.Search size="x2" />
+      <Icons.Search size="lg" />
     </div>
   );
 }
