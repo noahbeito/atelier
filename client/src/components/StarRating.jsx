@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const StarBox = styled.div`
+const StyledStarBox = styled.div`
 `;
 
-const Star = styled.span`
+const StyledStar = styled.span`
   display:inline-block;
   position: relative;
   &::before {
@@ -26,7 +26,7 @@ const Star = styled.span`
   }
 `;
 
-export default function StarRating({ rating }) {
+export default function StarRating({ rating, className }) {
   // TODO: Need to refactor to include onClick on each start
   const roundedRating = (Math.round(rating * 4) / 4).toFixed(2);
   const fullStars = Math.floor(roundedRating);
@@ -47,14 +47,14 @@ export default function StarRating({ rating }) {
     }
   }
 
-  const star = starArr.map((val, i) => <Star key={i} id={i} val={val} />);
+  const star = starArr.map((val, i) => <StyledStar key={i} id={i} val={val} />);
 
   return (
-    <StarBox>
+    <StyledStarBox className = {className}>
       {' '}
       {star}
       {' '}
-    </StarBox>
+    </StyledStarBox>
   );
 }
 
