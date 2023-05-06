@@ -1,31 +1,45 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import AnswersList from './AnswersList';
 import Button from '../../components/ui/Button';
 import Divider from '../../components/Divider';
 import Helpful from '../../components/Helpful';
 import Report from '../../components/Report';
 
+import { LargeLetter, FlexBetween } from '../styles';
+
+const StyledQuestion = styled.div`
+  & .question {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  & .question::before {
+    content: "Q";
+    ${LargeLetter}
+  }
+  & .big-A {
+    ${LargeLetter}
+  }
+`;
+
 export default function Question() {
   return (
-    <>
-      <div>
-        <div>Q:</div>
-        <div>Who what which?</div>
-        <div>
+    <StyledQuestion>
+      <FlexBetween>
+        <span className="question">Who what which?</span>
+        <span>
           <Divider>
             <Helpful helpfulness={18} />
-            <div>
-              <Button variant="small">Add Answer</Button>
-            </div>
+            <Button variant="small">Add Answer</Button>
             <Report />
           </Divider>
-        </div>
-      </div>
+        </span>
+      </FlexBetween>
       <div>
-        <div>A:</div>
-        <AnswersList />
+        <span className="big-A">A</span>
+        <AnswersList className="answers" />
       </div>
-      <Button variant="medium">Load More Answers</Button>
-    </>
+    </StyledQuestion>
   );
 }
