@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card } from '../../styles';
 
-const Text = styled.div`
+const StyledText = styled.div`
+  // This is just a placeholder. will likely rename
 `;
 export default function AddItemToOutfit() {
   return (
     <Card>
-      <Text>+</Text>
+      <StyledText>+</StyledText>
     </Card>
   );
 }

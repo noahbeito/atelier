@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+const Title = styled.h2`
+  margin-inline: auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  width: 60%;
+`;
+
 const Card = styled.div`
   height: 300px;
   border: 1px solid black;
@@ -23,4 +30,4 @@ const Carousel = styled.div`
   scroll-snap-type: inline mandatory; // this might change when implementing right/left buttons
 `;
 
-export { Card, Carousel };
+export { Title, Card, Carousel };
