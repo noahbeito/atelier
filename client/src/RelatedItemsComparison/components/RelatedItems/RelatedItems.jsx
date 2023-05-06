@@ -9,7 +9,6 @@ export default function RelatedItems() {
   const Container = styled.div`
   display: grid;
   gap: 1rem;
-  margin-bottom: 1rem;
   grid-auto-flow: column;
   grid-auto-columns: 23%;
 
@@ -17,7 +16,6 @@ export default function RelatedItems() {
   overscroll-behavior-inline: contain;
 
   scroll-snap-type: inline mandatory; // this might change when implementing right/left buttons
-
 `;
   return (
     <div>

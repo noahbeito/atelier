@@ -4,6 +4,8 @@ import AddItemToOutfit from './AddItemToOutfit';
 import ProductCard from '../ProductCard/ProductCard';
 
 export default function YourOutfit() {
+  const Title = styled.h2`
+  `;
   const YourOutfitList = styled.div`
     display: grid;
     gap: 1rem;
@@ -17,14 +19,17 @@ export default function YourOutfit() {
     scroll-padding-inline: 2rem; // this isnt working
   `;
   return (
-    <YourOutfitList>
-      <AddItemToOutfit />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-    </YourOutfitList>
+    <div>
+      <Title>Your Outfit</Title>
+      <YourOutfitList>
+        <AddItemToOutfit />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+      </YourOutfitList>
+    </div>
   );
 }
