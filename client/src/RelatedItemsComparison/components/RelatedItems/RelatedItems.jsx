@@ -1,28 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProductCard from '../ProductCard/ProductCard';
+import { Carousel } from '../../styles';
 
 const Title = styled.h2`
   margin-inline: auto;
   margin-top: 1.5rem;
   width: 60%;
 `;
-const Container = styled.div`
-  display: grid;
-  gap: 1rem;
-  grid-auto-flow: column;
-  grid-auto-columns: 23%;
-
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-
-  scroll-snap-type: inline mandatory; // this might change when implementing right/left buttons
-`;
 export default function RelatedItems() {
   return (
     <div>
       <Title>Related Items</Title>
-      <Container>
+      <Carousel>
         <ProductCard />
         <ProductCard />
         <ProductCard />
@@ -30,7 +20,7 @@ export default function RelatedItems() {
         <ProductCard />
         <ProductCard />
         <ProductCard />
-      </Container>
+      </Carousel>
     </div>
   );
 }

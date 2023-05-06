@@ -11,7 +11,16 @@ const Card = styled.div`
   scroll-snap-align: start;
 `;
 
-const Button = styled.button`
+const Carousel = styled.div`
+  display: grid;
+  gap: 1rem;
+  grid-auto-flow: column;
+  grid-auto-columns: 23%;
+
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+
+  scroll-snap-type: inline mandatory; // this might change when implementing right/left buttons
 `;
 
-export { Card, Button };
+export { Card, Carousel };
