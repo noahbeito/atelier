@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import AddToCartButton from './AddToCartButton';
-import AddToFavButton from './AddToFavButton';
 
 const Div = styled.section`
-  width: 100%;
+  width: 30%;
   height: 100px;
   display: flex;
   justify-content: space-around;
@@ -13,11 +11,10 @@ const Div = styled.section`
   margin:0px;
   padding:5px;
 `;
-export default function AddToCart() {
+export default function AddToFavButton() {
   return (
     <Div>
-      <AddToCartButton />
-      <AddToFavButton />
+      <button type="button">Star</button>
     </Div>
   );
 }

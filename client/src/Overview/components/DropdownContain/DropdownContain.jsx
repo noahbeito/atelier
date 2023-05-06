@@ -1,23 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import AddToCartButton from './AddToCartButton';
-import AddToFavButton from './AddToFavButton';
+import SizeDropdown from '../SizeDropdown/SizeDropdown';
+import QuantityDropdown from '../QuantityDropdown/QuantityDropdown';
 
 const Div = styled.section`
   width: 100%;
   height: 100px;
   display: flex;
-  justify-content: space-around;
   align-items: center;
   border: solid 2px black;
   margin:0px;
-  padding:5px;
+  padding:0px;
 `;
-export default function AddToCart() {
+export default function DropdownContain() {
   return (
     <Div>
-      <AddToCartButton />
-      <AddToFavButton />
+      <SizeDropdown />
+      <QuantityDropdown />
     </Div>
   );
 }

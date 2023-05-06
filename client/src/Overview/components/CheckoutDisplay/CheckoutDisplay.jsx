@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import AddToCart from '../AddToCart/AddToCart';
 import StyleSelector from '../StyleSelector/StyleSelector';
+import DropdownContain from '../DropdownContain/DropdownContain';
 // import StarReview from './components/StarReview';
 
 const Div = styled.section`
@@ -15,6 +16,14 @@ const Div = styled.section`
   margin:2px;
   padding:5px;
 `;
+const Section = styled.section`
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  border: solid 2px blue;
+  padding:2px;
+`;
 export default function ProductDisplay() {
   return (
     <Div>
@@ -23,7 +32,10 @@ export default function ProductDisplay() {
       <p>Price</p>
       <p>Category</p>
       <StyleSelector />
-      <AddToCart />
+      <Section>
+        <DropdownContain />
+        <AddToCart />
+      </Section>
     </Div>
   );
 }

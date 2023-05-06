@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
+// import styled, { css } from 'styled-components';
 
-const Section = styled.section`
-  width: 100%;
-  height: 900px;
-  display: flex;
-`;
+// const Section = styled.section`
+//   width: 100%;
+//   height: 900px;
+//   display: flex;
+// `;
 
-export { Section };
+// export { Section };
