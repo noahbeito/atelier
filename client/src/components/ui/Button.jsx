@@ -15,7 +15,7 @@ const buttonBuilder = ({ variant, width }) => {
     transition: 0.2s;
     width: ${width || 'auto'};
     &:hover {
-      color: teal;
+      color: ${(props) => props.theme.secondaryColor};
     }
   `;
   const large = css`
@@ -33,7 +33,7 @@ const buttonBuilder = ({ variant, width }) => {
     height: 80px;
     &:hover {
       background: #eee;
-      border-color: teal;
+      border-color: ${(props) => props.theme.secondaryColor};
     }
   `;
   switch (variant) {
@@ -60,11 +60,13 @@ const buttonBuilder = ({ variant, width }) => {
         position: relative;
         padding-right: 50px;
         &:after {
-          content: "+";
+          content: "\u002b";
+          font-family: "Font Awesome 5 Free";
+          font-weight: 900;
           position: absolute;
-          font-size: 1.5em;
+          font-size: 1.3em;
           line-height: 0.75em;
-          top: calc(50% - 1px);
+          top: 50%;
           transform: translateY(-50%);
           right: 20px;
         }
@@ -72,14 +74,14 @@ const buttonBuilder = ({ variant, width }) => {
     case 'form':
       return css`
         ${reset}
-        background-color: teal;
+        background-color: ${(props) => props.theme.secondaryColor};
         padding: 10px 15px;
         font-size: 1.1rem;
         margin: 10px;
         color: white;
-        border: 2px solid teal;
+        border: 2px solid ${(props) => props.theme.secondaryColor};
         &:hover {
-          color: teal;
+          color: ${(props) => props.theme.secondaryColor};
           background-color: white;
         }
       `;
