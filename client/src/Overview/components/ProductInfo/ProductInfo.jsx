@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Aside = styled.section`
+const StyledAside = styled.aside`
   width: 100%;
   height: 20%;
   display: flex;
@@ -9,7 +9,7 @@ const Aside = styled.section`
 `;
 export default function ProductInfo() {
   return (
-    <Aside>
+    <StyledAside>
       <section>
         {/* This should condionally render the desciption for the current item.
           If description is not there. The should be a "No current description
@@ -23,6 +23,6 @@ export default function ProductInfo() {
       <section>
         {/* This will be where the social media links go FB, TWITTER PINTRIST */}
       </section>
-    </Aside>
+    </StyledAside>
   );
 }

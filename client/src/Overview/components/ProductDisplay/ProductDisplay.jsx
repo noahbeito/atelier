@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import CheckoutDisplay from '../CheckoutDisplay/CheckoutDisplay';
 
-const Div = styled.section`
+const StyledDiv = styled.div`
   width: 100%;
   height: 80%;
   display: flex;
@@ -11,9 +11,9 @@ const Div = styled.section`
 `;
 export default function ProductDisplay() {
   return (
-    <Div>
+    <StyledDiv>
       <ImageGallery />
       <CheckoutDisplay />
-    </Div>
+    </StyledDiv>
   );
 }

@@ -5,7 +5,7 @@ import StyleSelector from '../StyleSelector/StyleSelector';
 import DropdownContain from '../DropdownContain/DropdownContain';
 // import StarReview from './components/StarReview';
 
-const Div = styled.section`
+const StyledDiv = styled.div`
   width: 40%;
   height: 98%;
   display: flex;
@@ -16,7 +16,7 @@ const Div = styled.section`
   margin:2px;
   padding:5px;
 `;
-const Section = styled.section`
+const StyledSection = styled.section`
   width: 100%;
   height: 200px;
   display: flex;
@@ -26,16 +26,16 @@ const Section = styled.section`
 `;
 export default function ProductDisplay() {
   return (
-    <Div>
+    <StyledDiv>
       {/* <StarReview /> */}
       <p>Title</p>
       <p>Price</p>
       <p>Category</p>
       <StyleSelector />
-      <Section>
+      <StyledSection>
         <DropdownContain />
         <AddToCart />
-      </Section>
-    </Div>
+      </StyledSection>
+    </StyledDiv>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Div = styled.section`
+const StyledDiv = styled.div`
   width: 70%;
   height: 100px;
   display: flex;
@@ -11,7 +11,7 @@ const Div = styled.section`
   margin:0px;
   padding:5px;
 `;
-const Button = styled.button`
+const StyledButton = styled.button`
   width: 250px;
   height: 50px;
   display: flex;
@@ -23,8 +23,8 @@ const Button = styled.button`
 `;
 export default function AddToCartButton() {
   return (
-    <Div>
-      <Button type="button">Add to Cart</Button>
-    </Div>
+    <StyledDiv>
+      <StyledButton type="button">Add to Cart</StyledButton>
+    </StyledDiv>
   );
 }

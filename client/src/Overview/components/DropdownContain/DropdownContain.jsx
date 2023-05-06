@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SizeDropdown from '../SizeDropdown/SizeDropdown';
 import QuantityDropdown from '../QuantityDropdown/QuantityDropdown';
 
-const Div = styled.section`
+const StyledDiv = styled.div`
   width: 100%;
   height: 100px;
   display: flex;
@@ -14,9 +14,9 @@ const Div = styled.section`
 `;
 export default function DropdownContain() {
   return (
-    <Div>
+    <StyledDiv>
       <SizeDropdown />
       <QuantityDropdown />
-    </Div>
+    </StyledDiv>
   );
 }

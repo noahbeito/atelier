@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Div = styled.section`
+const StyledDiv = styled.div`
   width: 60%;
   height: 98%;
   display: flex;
@@ -12,10 +12,10 @@ const Div = styled.section`
 `;
 export default function ImageGallery() {
   return (
-    <Div>
+    <StyledDiv>
       <div>Test</div>
       {/* HERE I AM GOING TO Render the main Image along with the zoom in display and the other
       pics as thumbnails aswell */}
-    </Div>
+    </StyledDiv>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Div = styled.section`
+const StyledDiv = styled.div`
   width: 30%;
   height: 100px;
   display: flex;
@@ -13,8 +13,8 @@ const Div = styled.section`
 `;
 export default function AddToFavButton() {
   return (
-    <Div>
+    <StyledDiv>
       <button type="button">Star</button>
-    </Div>
+    </StyledDiv>
   );
 }

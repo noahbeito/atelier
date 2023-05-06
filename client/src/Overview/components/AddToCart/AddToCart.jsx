@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import AddToCartButton from './AddToCartButton';
 import AddToFavButton from './AddToFavButton';
 
-const Div = styled.section`
+const StyledSection = styled.section`
   width: 100%;
   height: 100px;
   display: flex;
@@ -15,9 +15,9 @@ const Div = styled.section`
 `;
 export default function AddToCart() {
   return (
-    <Div>
+    <StyledSection>
       <AddToCartButton />
       <AddToFavButton />
-    </Div>
+    </StyledSection>
   );
 }

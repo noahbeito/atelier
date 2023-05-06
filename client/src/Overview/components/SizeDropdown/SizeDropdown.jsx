@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Div = styled.div`
+const StyledDiv = styled.div`
   width: 50%;
   height: 100%;
   margin:0px;
@@ -11,7 +11,7 @@ const Div = styled.div`
   justify-content: space-around;
   align-items: center;
 `;
-const Select = styled.select`
+const StyledSelect = styled.select`
   width: 170px;
   height: 50px;
   margin:2px;
@@ -20,12 +20,12 @@ const Select = styled.select`
 `;
 export default function SizeDropdown() {
   return (
-    <Div>
-      <Select>
+    <StyledDiv>
+      <StyledSelect>
         <option value="default">Size</option>
         <option value="vegetable">Small</option>
         <option value="meat">Medium</option>
-      </Select>
-    </Div>
+      </StyledSelect>
+    </StyledDiv>
   );
 }

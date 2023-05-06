@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Div = styled.section`
+const StyledDiv = styled.div`
   width: 50%;
   height: 100%;
   margin:0px;
@@ -11,7 +11,7 @@ const Div = styled.section`
   justify-content: space-around;
   align-items: center;
 `;
-const Select = styled.select`
+const StyledSelect = styled.select`
   width: 170px;
   height: 50px;
   margin:2px;
@@ -20,14 +20,14 @@ const Select = styled.select`
 `;
 export default function QuantityDropdown() {
   return (
-    <Div>
-      <Select>
+    <StyledDiv>
+      <StyledSelect>
         <option value="default">Quantity</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
-      </Select>
-    </Div>
+      </StyledSelect>
+    </StyledDiv>
   );
 }
