@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// import { starIcon } from '@styled-icons/boxicons-solid';
 
 const StarBox = styled.div`
-
 `;
 
 const Star = styled.span`
