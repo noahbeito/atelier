@@ -5,7 +5,7 @@ export default function ProductCard() {
   const Card = styled.div`
     border: 1px solid black;
     border-radius: 5px;
-    width: 25%;
+    width: 20vw;
     height: 300px;
     flex: 0 0 auto;
   `;
