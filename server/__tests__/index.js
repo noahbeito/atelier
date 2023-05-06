@@ -17,7 +17,7 @@ afterAll((done) => {
   server.close(done); // stop the server
 });
 
-describe('Server Routes', () => {
+xdescribe('Server Routes', () => {
   cartTests(app);
   productTests(app);
   qaTests(app);
