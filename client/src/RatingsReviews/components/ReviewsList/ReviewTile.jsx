@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import NameDate from '../../../../components/NameDate';
-import StarRating from '../../../../components/StarRating';
-import Divider from '../../../../components/Divider';
-import Report from '../../../../components/Report';
-import Helpful from '../../../../components/Helpful';
+import NameDate from '../../../components/NameDate';
+import StarRating from '../../../components/StarRating';
+import Divider from '../../../components/Divider';
+import Report from '../../../components/Report';
+import Helpful from '../../../components/Helpful';
 import Response from './Response';
 
 // Example Review Object
@@ -138,7 +138,7 @@ ReviewTile.propTypes = {
   date: PropTypes.string.isRequired,
   reviewerName: PropTypes.string.isRequired,
   helpfulness: PropTypes.number.isRequired,
-  photos: PropTypes.array.isRequired,
+  // photos: PropTypes.array.isRequired,
   className: PropTypes.string,
 };
 
