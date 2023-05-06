@@ -10,7 +10,6 @@ import Report from '../../components/Report';
 import { LargeLetter, FlexBetween } from '../styles';
 
 const StyledQuestion = styled.div`
-  width: 1000px;
   & .question {
     font-size: 1.4rem;
     font-weight: bold;

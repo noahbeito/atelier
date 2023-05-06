@@ -20,14 +20,17 @@ const buttonBuilder = ({ variant, width }) => {
   `;
   const large = css`
     ${reset}
-    padding: 20px;
+    padding: 0 20px;
     font-size: 1.1rem;
     border: 2px solid black;
     text-transform: uppercase;
     font-weight: bold;
     margin: 10px;
-    display: block;
+    display: inline flex;
+    align-items: center;
+    justify-content: center;
     transition: 0.2s;
+    height: 80px;
     &:hover {
       background: #eee;
       border-color: teal;
@@ -54,13 +57,16 @@ const buttonBuilder = ({ variant, width }) => {
     case 'large-add':
       return css`
         ${large}
-        display: inline flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
+        padding-right: 50px;
         &:after {
           content: "+";
+          position: absolute;
           font-size: 1.5em;
-          margin-left: 0.5em;
+          line-height: 0.75em;
+          top: calc(50% - 1px);
+          transform: translateY(-50%);
+          right: 20px;
         }
       `;
     case 'form':
