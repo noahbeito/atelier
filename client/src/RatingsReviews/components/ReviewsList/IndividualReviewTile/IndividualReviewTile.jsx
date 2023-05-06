@@ -6,6 +6,7 @@ import StarRating from '../../../../components/StarRating';
 import Divider from '../../../../components/Divider';
 import Report from '../../../../components/Report';
 import Helpful from '../../../../components/Helpful';
+import Response from './Response';
 
 // Example Review Object
 // {
@@ -26,6 +27,49 @@ import Helpful from '../../../../components/Helpful';
 //   ]
 // }
 
+const StyledUserInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 2%;
+`;
+
+const StyledStarRating = styled(StarRating)`
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+`;
+
+const StyledNameDate = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+`;
+
+const StyledSummary = styled.div`
+  font-weight: bold;
+  font-size: 150%;
+  padding-bottom: 2%;
+`;
+
+const StyledBody = styled.div`
+  padding-bottom: 2%;
+`;
+
+const StyledRecommend = styled.div`
+  padding-bottom: 2%;
+`;
+
+const StyledResponse = styled(Response)`
+  margin-bottom: 2%;
+  border: transparent;
+`;
+
+const StyledReviewTile = styled.div`
+  padding-top: 5%;
+  padding-bottom: 3%;
+  border-bottom: solid black 2px;
+`;
+
 export default function ReviewTile({
   rating,
   summary,
@@ -36,45 +80,53 @@ export default function ReviewTile({
   reviewerName,
   helpfulness,
   photos,
+  className,
 }) {
+  const hasResponse = () => response !== null;
+  console.log(hasResponse, response);
+
   return (
-    <div>
-      <StarRating rating={rating} />
-      <NameDate
-        username={reviewerName}
-        date={date}
-        // TODO: Will have to update isVerified and isSeller
-        // once we learn how to query for this data
-        isVerified={false}
-      />
-      <h3>
+    <StyledReviewTile className="ReviewTile">
+      <StyledUserInfo>
+        <StyledStarRating rating={rating} className="StarRating" />
+        <StyledNameDate className="NameDate">
+          <NameDate
+            username={reviewerName}
+            date={date}
+            // TODO: Will have to update isVerified and isSeller
+            // once we learn how to query for this data
+            isVerified={false}
+          />
+        </StyledNameDate>
+      </StyledUserInfo>
+      <StyledSummary className="Summary">
         {' '}
         {summary}
         {' '}
-      </h3>
-      <div>
+      </StyledSummary>
+      <StyledBody className="Body">
         {' '}
         {body}
         {' '}
-      </div>
-      <div>
-        {' '}
-        {response}
-        {' '}
-      </div>
-      <div>
-        {' '}
-        {recommend}
-        {' '}
-      </div>
+      </StyledBody>
+      {
+        recommend
+          ? <StyledRecommend className="Recommned"> ✓ I recommend this product </StyledRecommend>
+          : ''
+      }
+      {
+        hasResponse()
+          ? <StyledResponse className="Response" response={response} />
+          : ''
+      }
       <Divider>
-        <Helpful helpfulness={helpfulness} />
-        <Report />
+        <Helpful className="Helpful" helpfulness={helpfulness} />
+        <Report className="Report"/>
       </Divider>
       {/* <div>
         {photos}
       </div> */}
-    </div>
+    </StyledReviewTile>
   );
 }
 
@@ -94,4 +146,4 @@ ReviewTile.defaultProps = {
   recommend: false,
   response: null,
   body: '',
-}
+};
