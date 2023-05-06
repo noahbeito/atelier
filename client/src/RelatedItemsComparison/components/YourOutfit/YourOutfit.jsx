@@ -5,11 +5,16 @@ import ProductCard from '../ProductCard/ProductCard';
 
 export default function YourOutfit() {
   const YourOutfitList = styled.div`
-    display: flex;
-    flex-wrap: nowrap;
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    grid-auto-columns: 23%;
+
     overflow-x: auto;
-    padding-left: 5%;
-    padding-right: 5%;
+    overscroll-behavior-inline: contain;
+
+    scroll-snap-type: inline mandatory; // this might change when impletmenting right and left buttons
+    scroll-padding-inline: 2rem; // this isnt working
   `;
   return (
     <YourOutfitList>

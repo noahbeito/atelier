@@ -7,11 +7,17 @@ export default function RelatedItems() {
 
   `;
   const Container = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  grid-auto-flow: column;
+  grid-auto-columns: 23%;
+
   overflow-x: auto;
-  padding-left: 5%;
-  padding-right: 5%;
+  overscroll-behavior-inline: contain;
+
+  scroll-snap-type: inline mandatory; // this might change when implementing right/left buttons
+
 `;
   return (
     <div>

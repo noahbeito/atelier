@@ -3,11 +3,13 @@ import styled from 'styled-components';
 
 export default function ProductCard() {
   const Card = styled.div`
+    height: 300px;
     border: 1px solid black;
     border-radius: 5px;
-    width: 20vw;
-    height: 300px;
-    flex: 0 0 auto;
+
+    padding: 1rem;
+
+    scroll-snap-align: start;
   `;
   const Category = styled.div`
   `;
