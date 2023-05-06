@@ -11,7 +11,7 @@ module.exports.products = {
       .then((data) => res.status(200).send(data.data))
       .catch(() => res.sendStatus(500));
   },
-  getOneById: (req, res) => {
+  getProductById: (req, res) => {
     axios({
       url: `products/${req.params.product_id}`,
       method: 'get',
