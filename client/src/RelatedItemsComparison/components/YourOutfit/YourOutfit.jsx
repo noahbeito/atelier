@@ -5,6 +5,10 @@ import ProductCard from '../ProductCard/ProductCard';
 
 export default function YourOutfit() {
   const Title = styled.h2`
+    margin-inline: auto;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    width: 60%;
   `;
   const YourOutfitList = styled.div`
     display: grid;

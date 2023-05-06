@@ -4,7 +4,9 @@ import ProductCard from '../ProductCard/ProductCard';
 
 export default function RelatedItems() {
   const Title = styled.h2`
-
+    margin-inline: auto;
+    margin-top: 1.5rem;
+    width: 60%;
   `;
   const Container = styled.div`
   display: grid;
