@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     semi: ['error', 'always'],
     'react/jsx-props-no-spreading': 'off',
+    'no-underscore-dangle': 'off',
   },
   settings: {
     react: {
