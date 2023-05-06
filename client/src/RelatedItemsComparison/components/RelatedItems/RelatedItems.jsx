@@ -2,13 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import ProductCard from '../ProductCard/ProductCard';
 
-export default function RelatedItems() {
-  const Title = styled.h2`
-    margin-inline: auto;
-    margin-top: 1.5rem;
-    width: 60%;
-  `;
-  const Container = styled.div`
+const Title = styled.h2`
+  margin-inline: auto;
+  margin-top: 1.5rem;
+  width: 60%;
+`;
+const Container = styled.div`
   display: grid;
   gap: 1rem;
   grid-auto-flow: column;
@@ -19,6 +18,7 @@ export default function RelatedItems() {
 
   scroll-snap-type: inline mandatory; // this might change when implementing right/left buttons
 `;
+export default function RelatedItems() {
   return (
     <div>
       <Title>Related Items</Title>

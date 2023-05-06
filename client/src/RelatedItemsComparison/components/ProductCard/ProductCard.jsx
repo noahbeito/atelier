@@ -1,31 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Card } from '../../styles';
 
+const StyledCategory = styled.div`
+`;
+const StyledName = styled.div`
+`;
+const StyledPrice = styled.div`
+`;
+const Rating = styled.div`
+  // will likely delete this when the Rating component is eventually imported and used
+`;
+const StyledImg = styled.div`
+`;
 export default function ProductCard() {
-  const Card = styled.div`
-    height: 300px;
-    border: 1px solid black;
-    border-radius: 5px;
-
-    padding: 1rem;
-
-    scroll-snap-align: start;
-  `;
-  const Category = styled.div`
-  `;
-  const Name = styled.div`
-  `;
-  const Price = styled.div`
-  `;
-  const Rating = styled.div`
-  `;
-  const Img = styled.div`
-  `;
   return (
     <Card>
-      <Category>Category</Category>
-      <Name>Name</Name>
-      <Price>
+      <StyledCategory>Category</StyledCategory>
+      <StyledName>Name</StyledName>
+      <StyledPrice>
         Price - for the default style
         <br />
         Sale prices should be reflected
@@ -33,9 +26,9 @@ export default function ProductCard() {
         if on sale:
         <br />
         sale price in red and og price struckthrough
-      </Price>
-      <Rating>star rating</Rating>
-      <Img>preview image/images</Img>
+      </StyledPrice>
+      <Rating />
+      <StyledImg>preview image/images</StyledImg>
     </Card>
   );
 }
