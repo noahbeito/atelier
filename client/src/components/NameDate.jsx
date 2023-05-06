@@ -17,12 +17,13 @@ export default function NameDate({
 
   return (
     <>
-      { includeBy ? 'by ' : '' }
-      { isVerified ? 'V' : '' }
-      { username }
-      { isSeller ? <strong>Seller</strong> : '' }
+      {includeBy ? 'by ' : ''}
+      {isVerified ? 'V' : ''}
+      {username}
+      {isSeller && <strong> - Seller</strong>}
       ,
-      { fdate }
+      {' '}
+      {fdate}
     </>
   );
 }

@@ -1,11 +1,15 @@
 import React from 'react';
 import Photo from './Photo';
+import { FlexWrap } from '../styles';
 
-export default function Answer() {
+export default function PhotoList() {
   return (
-    <div>
+    <FlexWrap>
       <Photo />
       <Photo />
-    </div>
+      <Photo />
+      <Photo />
+      <Photo />
+    </FlexWrap>
   );
 }
