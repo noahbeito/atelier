@@ -5,7 +5,7 @@
   "results": [
       {
           "review_id": 1115859,
-          "rating": 5,
+          "rating": 4.5,
           "summary": "",
           "recommend": true,
           "response": null,
@@ -34,7 +34,7 @@
       },
       {
           "review_id": 1274707,
-          "rating": 3,
+          "rating": 3.3,
           "summary": "w",
           "recommend": true,
           "response": null,
@@ -54,7 +54,7 @@
           "rating": 3,
           "summary": "s",
           "recommend": true,
-          "response": null,
+          "response": "I love this product",
           "body": "",
           "date": "2022-05-29T00:00:00.000Z",
           "reviewer_name": "s",
