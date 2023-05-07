@@ -29,5 +29,5 @@ export default function RatingsReviews() {
         <h2> --- Write New Review --- </h2>
       </div>
     </div>
-  )
+  );
 }

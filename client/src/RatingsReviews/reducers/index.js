@@ -1,3 +1,3 @@
 const ratingsReviewsReducer = (state = {}) => state;
 
-export default ratingsReviewsReducer
+export default ratingsReviewsReducer;
