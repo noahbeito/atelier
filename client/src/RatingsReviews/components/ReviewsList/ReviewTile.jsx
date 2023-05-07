@@ -79,7 +79,7 @@ export default function ReviewTile({
   date,
   reviewerName,
   helpfulness,
-  photos,
+  // photos,
   className,
 }) {
   const hasResponse = () => response !== null;
