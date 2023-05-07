@@ -14,6 +14,10 @@ const Rating = styled.div`
 const StyledImg = styled.div`
 `;
 export default function ProductCard() {
+  // use Selector to retrieve current state / product_id
+
+  // send axios get request;
+
   return (
     <Card>
       <StyledCategory>Category</StyledCategory>
