@@ -18,6 +18,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - run: npm run lint
         env:
           PORT: 3000
           SERVER: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/'
