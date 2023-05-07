@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/app.js",
-    "build": "webpack --config ./webpack.config.js  -w",
+    "build": "webpack --config ./webpack.config.js",
+    "client-dev": "webpack --config ./webpack.config.js  -w",
     "test": "jest --verbose",
     "lint": "eslint --ext .jsx --ext .js ."
   },
