@@ -15,7 +15,7 @@ export default () => {
 
       expect(buttonElement).toBeInTheDocument();
       expect(buttonElement.tagName).toBe('BUTTON');
-      expect(buttonElement.textContent).toBe('Click me!');
+      expect(buttonElement.textContent).toBe('Click me!')
 
       // Simulate a click on the button and verify that onClick function is executed
       fireEvent.click(buttonElement);

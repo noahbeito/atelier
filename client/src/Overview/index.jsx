@@ -1,16 +1,10 @@
 import React from 'react';
-import ProductDisplay from './components/ProductDisplay';
-import ProductInfo from './components/ProductInfo'
-
-
-
+import ProductDisplay from './components/ProductDisplay/ProductDisplay';
+import ProductInfo from './components/ProductInfo/ProductInfo';
 
 const Overview = () => {
-
-  render(
     <>
       <ProductDisplay />
       <ProductInfo />
-    </>
-  )
-}
+    </>;
+};
