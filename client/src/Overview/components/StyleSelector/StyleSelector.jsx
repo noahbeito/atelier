@@ -23,7 +23,7 @@ export default function StyleSelector({ products }) {
     <StyledSurround>
       <h5>Selected Style</h5>
       <StyledThumbnailGrid>
-        { products.map((product, i) => <StyleThumbnail product={product} key={i} />) }
+        { products.map((product) => <StyleThumbnail product={product} key={product} />) }
       </StyledThumbnailGrid>
     </StyledSurround>
   );
