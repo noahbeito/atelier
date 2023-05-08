@@ -25,16 +25,12 @@ const StyledSection = styled.section`
   /* border: solid 2px blue; */
   padding:2px;
 `;
-const StyledStarRating = styled(StarRating)`
-  display: flex;
-  flex-direction: row;
-  align-self: flex-start;
-`;
+
 const data = ['one', 'two', 'three', 'four', 'five', 'six'];
 export default function ProductDisplay() {
   return (
     <StyledDiv>
-      <StyledStarRating rating={3} className="StarRating" />
+      <StarRating rating={3} className="StarRating" />
       <p>Title</p>
       <p>Price</p>
       <p>Category</p>
