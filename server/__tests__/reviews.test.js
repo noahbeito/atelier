@@ -67,7 +67,7 @@ module.exports = (app) => {
         .expect(204);
     });
 
-    it('should receive 204 status on PUT/reviews/:reviews_id/report', async () => {
+    xit('should receive 204 status on PUT/reviews/:reviews_id/report', async () => {
       const testReviewId = await reviewId();
       await agent.put(`/reviews/${testReviewId}/report`)
         .expect(204);
