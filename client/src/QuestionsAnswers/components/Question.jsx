@@ -21,22 +21,39 @@ const StyledQuestion = styled.div`
   }
   & .accordion-title {
     border-radius: 5px;
-    padding: 10px 15px 10px 0;
+    padding: 10px 40px 10px 0;
     background-color: #eee;
     border-bottom: 2px solid ${(props) => props.theme.secondaryColor};
     margin-top: 10px;
+    position: relative;
     cursor: pointer;
+
     &:hover .question {
       color: ${(props) => props.theme.secondaryColor};
     }
+    &.open::after, &.closed::after {
+      content: '\uf077';
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      font-family: "Font Awesome 5 Free";
+      transition: 0.5s;
+    }
+    &.open::after {
+      transform: translateY(-50%) scaleY(1);
+    }
+    &.closed::after {
+      transform: translateY(-50%) scaleY(-1);
+    }
   }
+
   & .big-A {
     ${LargeLetter}
     top: 0;
     position: sticky;
   }
   & .accordion-body {
-    transition: 0.2s;
+    transition: 0.5s ease-in-out;
     overflow: scroll;
   }
   & .open + .accordion-body {
