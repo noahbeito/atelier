@@ -15,6 +15,8 @@ const Card = styled.div`
   padding: 1rem;
 
   scroll-snap-align: start;
+
+  cursor: pointer;
 `;
 
 const Carousel = styled.div`
