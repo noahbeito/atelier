@@ -10,7 +10,7 @@ const Title = styled.h2`
 const Card = styled.div`
   height: 300px;
   border-radius: 5px;
-  background-color: teal;
+  background-color: ${(props) => props.theme.secondaryColor};
 
   padding: 1rem;
 
