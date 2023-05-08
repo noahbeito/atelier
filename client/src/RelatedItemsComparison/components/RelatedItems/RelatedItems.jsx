@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ProductCard from '../ProductCard/ProductCard';
 import { Title, Carousel } from '../../styles';
 
 export default function RelatedItems() {
+  const dispatch = useDispatch();
   const [relatedProducts, setRelatedProducts] = useState([]);
   // useSelector to retrieve product_id of current view state from the redux store;
   // const productId = useSelector((state) => state.product_id);
@@ -25,16 +26,25 @@ export default function RelatedItems() {
       });
   }, []);
 
-  // upon recieving array of related product_ids;
-  // set state of related products
-  // use map to dynamically render a product card for
-  // each product_id and pass down the product_id as a prop;
-  // add a key for each and set to product_id as well.
+  // add click handler to pass down to each product card as prop
+  // add prop type
+  // in click handler, dispatch an update store action with the new productID
+  const handleClick = (clickedProductId) => {
+    dispatch({ type: '@product/FETCH_DATA' });
+    axios.get(`/products/${clickedProductId}`)
+      .then((result) => {
+        dispatch({ type: '@products/SET_DATA', payload: result.data });
+      })
+      .catch((err) => {
+        dispatch({ type: '@product/FETCH_FAILED', payload: err.message });
+      });
+  };
+
   return (
     <div>
       <Title>Related Items</Title>
       <Carousel>
-        {relatedProducts.map((id) => <ProductCard id={id} key={id} />)}
+        {relatedProducts.map((id) => <ProductCard id={id} handleClick={handleClick} key={id} />)}
       </Carousel>
     </div>
   );
