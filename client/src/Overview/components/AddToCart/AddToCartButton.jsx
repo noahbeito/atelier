@@ -7,7 +7,7 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: solid 2px black;
+  /* border: solid 2px black; */
   margin:0px;
   padding:5px;
 `;
@@ -20,6 +20,7 @@ const StyledButton = styled.button`
   border: solid 2px black;
   margin:0px;
   padding:5px;
+  background-color: white;
 `;
 export default function AddToCartButton() {
   return (

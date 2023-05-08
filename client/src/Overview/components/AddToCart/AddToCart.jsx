@@ -9,7 +9,7 @@ const StyledSection = styled.section`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: solid 2px black;
+  /* border: solid 2px black; */
   margin:0px;
   padding:5px;
 `;

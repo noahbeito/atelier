@@ -6,7 +6,7 @@ const StyledDiv = styled.div`
   height: 100%;
   margin:0px;
   padding:5px;
-  border: solid 2px black;
+  /* border: solid 2px black; */
   display: flex;
   justify-content: space-around;
   align-items: center;
