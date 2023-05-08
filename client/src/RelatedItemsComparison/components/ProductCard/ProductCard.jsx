@@ -16,6 +16,7 @@ const Rating = styled.div`
   // will likely delete this when the Rating component is eventually imported and used
 `;
 const StyledImg = styled.img`
+  max-width: 100%;
 `;
 export default function ProductCard({ id }) {
   // create states for all relevant pieces of data;
