@@ -7,7 +7,9 @@ export default function YourOutfit() {
   const [outfit, setOutfit] = useState([]);
 
   const AddToOutfitClickHandler = (productId) => {
-    setOutfit([...outfit, productId]);
+    if (!outfit.includes(productId)) {
+      setOutfit([...outfit, productId]);
+    }
   };
 
   return (
