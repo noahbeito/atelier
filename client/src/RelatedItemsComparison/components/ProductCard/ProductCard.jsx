@@ -56,17 +56,17 @@ export default function ProductCard({ id }) {
 
   // will likely have to wrap this in a useEffect
   axios.all([
-    getNameAndCategory,
-    getPhotosAndPrices,
+    getNameAndCategory(),
+    getPhotosAndPrices(),
     // getRatings,
   ])
     .then((axios.spread(
       (nameAndCategory, photosAndPrices /* ratings */) => {
-        setCategory(nameAndCategory.category);
-        setName(nameAndCategory.name);
-        setPhoto(photosAndPrices.results[0].thumbnail_url);
-        setPrice(photosAndPrices.results[0].original_price);
-        setSalePrice(photosAndPrices.results[0].sale_price);
+        setCategory(nameAndCategory.data.category);
+        setName(nameAndCategory.data.name);
+        setPhoto(photosAndPrices.data.results[0].thumbnail_url);
+        setPrice(photosAndPrices.data.results[0].original_price);
+        setSalePrice(photosAndPrices.data.results[0].sale_price);
         // setAvgRating(calculateAvgRating(ratings.ratings));
       },
     )))
