@@ -15,11 +15,11 @@ const StyledPrice = styled.div`
 const Rating = styled.div`
   // will likely delete this when the Rating component is eventually imported and used
 `;
-const StyledImg = styled.div`
+const StyledImg = styled.img`
 `;
 export default function ProductCard({ id }) {
   // create states for all relevant pieces of data;
-  const [photo, setPhoto] = useState('');
+  const [photoURL, setPhotoURL] = useState('');
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState(null);
@@ -64,9 +64,10 @@ export default function ProductCard({ id }) {
       (nameAndCategory, photosAndPrices /* ratings */) => {
         setCategory(nameAndCategory.data.category);
         setName(nameAndCategory.data.name);
-        setPhoto(photosAndPrices.data.results[0].thumbnail_url);
+        setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
         setPrice(photosAndPrices.data.results[0].original_price);
         setSalePrice(photosAndPrices.data.results[0].sale_price);
+        console.log('PHOTO:', photosAndPrices.data.results[0]);
         // setAvgRating(calculateAvgRating(ratings.ratings));
       },
     )))
@@ -79,11 +80,11 @@ export default function ProductCard({ id }) {
 
   return (
     <Card>
+      <StyledImg src={photoURL} />
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>
       <StyledPrice>{salePrice || price}</StyledPrice>
       <Rating />
-      <StyledImg>{photo}</StyledImg>
     </Card>
   );
 }
