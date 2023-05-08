@@ -17,6 +17,8 @@ const Rating = styled.div`
 `;
 const StyledImg = styled.img`
   max-width: 100%;
+  aspect-ratio: .7;
+  object-fit: cover;
 `;
 export default function ProductCard({ id }) {
   // create states for all relevant pieces of data;
