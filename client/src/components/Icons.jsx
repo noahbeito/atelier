@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCoffee, faCircleCheck, faMagnifyingGlass, faStar as Star, faArrowRight, faArrowLeft,
   faChevronUp, faChevronDown, faChevronLeft, faChevronRight, faCheck, faPlus, faExpand,
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { faStar as EmptyStar, faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 
@@ -23,8 +24,8 @@ const iconMap = {
   Exit: faCircleXmark,
   Plus: faPlus,
   Expand: faExpand,
+  Loading: faSpinner,
 };
-
 /**
  * ### ADD ICON:
  * To add a new icon, use `iconMap` whose values are the relevant font-awesome (individual import)
