@@ -11,7 +11,7 @@ const Rule = styled.hr`
 
 const StyledAnswers = styled.div`
   position: relative;
-  width: 72.5%;
+  width: 90%;
   left: 1.8rem;
   bottom: 1.8rem;
 `;
