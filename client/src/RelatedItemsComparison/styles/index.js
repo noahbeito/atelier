@@ -20,6 +20,7 @@ const Card = styled.div`
 
 const Carousel = styled.div`
   display: grid;
+  margin-left: 20%;
   gap: 1rem;
   grid-auto-flow: column;
   grid-auto-columns: 23%;
