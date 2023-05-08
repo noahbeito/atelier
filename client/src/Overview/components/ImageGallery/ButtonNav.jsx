@@ -35,11 +35,11 @@ export default function ImageGallery() {
   return (
     <StyledDiv>
       <StyledExpandButton>
-        <Icons.ChevronLeft />
+        <Icons.Expand />
       </StyledExpandButton>
       <StyledLeftRightNavigation>
-        <Icons.ChevronLeft />
-        <Icons.ChevronRight />
+        <Icons.ArrowLeft />
+        <Icons.ArrowRight />
       </StyledLeftRightNavigation>
     </StyledDiv>
   );
