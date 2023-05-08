@@ -11,9 +11,6 @@ import { GlobalStyle, Theme } from './globalStyles';
 
 export default function App() {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.product.data);
-
-  console.log(data);
 
   useEffect(() => {
     dispatch({ type: '@product/FETCH_DATA' });

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Answer from './Answer';
 import Button from '../../components/ui/Button';
@@ -31,3 +32,7 @@ export default function AnswersList({ answers }) {
     </StyledAnswers>
   );
 }
+
+AnswersList.propTypes = {
+  answers: PropTypes.objectOf(Answer.propTypes.answer).isRequired,
+};

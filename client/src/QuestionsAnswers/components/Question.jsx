@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import AnswersList from './AnswersList';
 import Button from '../../components/ui/Button';
@@ -68,6 +69,8 @@ export default function Question({ question }) {
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
 
+  console.log('SHOW ANSWERS', showAnswers);
+
   const handleAccordionClick = () => {
     setShowAnswers(!showAnswers);
   };
@@ -83,7 +86,6 @@ export default function Question({ question }) {
   const handleReportQuestion = (e) => {
     e.stopPropagation();
   };
-  console.log(question);
   return (
     <StyledQuestion>
       <FlexBetween className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')}`} onClick={handleAccordionClick}>
@@ -109,3 +111,11 @@ export default function Question({ question }) {
     </StyledQuestion>
   );
 }
+
+Question.propTypes = {
+  question: PropTypes.shape({
+    answers: AnswersList.propTypes.answers,
+    question_body: PropTypes.string,
+    question_helpfulness: PropTypes.number,
+  }).isRequired,
+};

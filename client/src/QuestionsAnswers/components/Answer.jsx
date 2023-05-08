@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Divider from '../../components/Divider';
 import Helpful from '../../components/Helpful';
@@ -22,7 +23,7 @@ export default function Answer({ answer }) {
     <StyledAnswer>
       <p>{answer.body}</p>
       <PhotoList photos={answer.photos} />
-      <div>
+      <div style={{ marginTop: '10px', color: '#666' }}>
         <Divider>
           <NameDate
             username={answer.answerer_name}
@@ -36,3 +37,13 @@ export default function Answer({ answer }) {
     </StyledAnswer>
   );
 }
+
+Answer.propTypes = {
+  answer: PropTypes.shape({
+    answerer_name: PropTypes.string,
+    body: PropTypes.string,
+    date: PropTypes.string,
+    helpfulness: PropTypes.number,
+    photos: PhotoList.propTypes.photos,
+  }).isRequired,
+};

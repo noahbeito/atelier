@@ -26,11 +26,8 @@ const StyledLoading = styled.div`
 export default function QuestionsAnswers() {
   const isLoading = useSelector((state) => state.product.isLoading
                                         || state.questionsAnswers.main.loading);
-  console.log('loading', isLoading);
   const productId = useSelector((state) => state.product.data.id);
   const dispatch = useDispatch();
-
-  console.log(productId);
 
   useEffect(() => {
     if (productId) {
