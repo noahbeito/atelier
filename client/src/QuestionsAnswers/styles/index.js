@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const LargeLetter = css`
-  color: teal;
+  color: ${(props) => props.theme.secondaryColor};
   font-size: 1.8rem;
   font-family: sans-serif;
   font-weight: bold;
