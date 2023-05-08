@@ -26,9 +26,9 @@ const buttonBuilder = ({ variant, width }) => {
     text-transform: uppercase;
     font-weight: bold;
     margin: 10px;
-    display: inline flex;
+    display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     transition: 0.2s;
     height: 80px;
     &:hover {
