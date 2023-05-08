@@ -53,7 +53,7 @@ export default function StarRating({
   const star = starArr.map((val, i) => <StyledStar id={i} val={val} />);
 
   return (
-    <StyledStarBox>
+    <StyledStarBox {...props}>
       {' '}
       {star}
       {' '}
@@ -64,6 +64,7 @@ export default function StarRating({
 StarRating.propTypes = {
   className: PropTypes.string,
   rating: PropTypes.number.isRequired,
+  props: PropTypes.node.isRequired,
 };
 
 StarRating.defaultProps = {
