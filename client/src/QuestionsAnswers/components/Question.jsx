@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import AnswersList from './AnswersList';
@@ -64,8 +64,9 @@ const StyledQuestion = styled.div`
   }
 `;
 
-export default function Question() {
+export default function Question({ question }) {
   const [showAnswers, setShowAnswers] = useState(false);
+  const answerCount = useRef(Object.entries(question.answers).length);
 
   const handleAccordionClick = () => {
     setShowAnswers(!showAnswers);
@@ -82,22 +83,28 @@ export default function Question() {
   const handleReportQuestion = (e) => {
     e.stopPropagation();
   };
-
+  console.log(question);
   return (
     <StyledQuestion>
-      <FlexBetween className={`accordion-title ${(showAnswers ? 'open' : 'closed')}`} onClick={handleAccordionClick}>
-        <span className="question">Who what which?</span>
+      <FlexBetween className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')}`} onClick={handleAccordionClick}>
+        <span className="question">{question.question_body}</span>
         <span>
           <Divider>
-            <Helpful helpfulness={18} onClick={handleHelpful} />
+            <Helpful helpfulness={question.question_helpfulness} onClick={handleHelpful} />
             <Button variant="small" onClick={handleAddAnswer}>Add Answer</Button>
             <Report onClick={handleReportQuestion} />
           </Divider>
         </span>
       </FlexBetween>
       <div className="accordion-body">
-        <span className="big-A">A</span>
-        <AnswersList className="answers" />
+        {answerCount.current !== 0
+          ? (
+            <>
+              <span className="big-A">A</span>
+              <AnswersList className="answers" answers={question.answers} />
+            </>
+          )
+          : ''}
       </div>
     </StyledQuestion>
   );

@@ -8,6 +8,7 @@ export default function NameDate({
   isSeller,
   includeBy,
 }) {
+  console.log('date', date);
   const dateString = new Date(date);
   const fdate = dateString.toLocaleDateString('en-US', {
     month: 'long',

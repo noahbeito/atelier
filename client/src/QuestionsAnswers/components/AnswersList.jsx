@@ -16,12 +16,17 @@ const StyledAnswers = styled.div`
   bottom: 1.8rem;
 `;
 
-export default function AnswersList() {
+export default function AnswersList({ answers }) {
   return (
     <StyledAnswers>
-      <Answer />
-      <Rule />
-      <Answer />
+      {
+        Object.entries(answers).map(([answerId, answer]) => (
+          <>
+            <Answer key={answerId} answer={answer} />
+            <Rule key={`r-${answerId}`} />
+          </>
+        ))
+      }
       <Button variant="medium">Load More Answers</Button>
     </StyledAnswers>
   );
