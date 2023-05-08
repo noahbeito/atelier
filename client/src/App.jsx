@@ -1,5 +1,5 @@
 import React from 'react';
-// import Overview from './Overview';
+import Overview from './Overview';
 import QuestionsAnswers from './QuestionsAnswers';
 import RelatedItemsComparisons from './RelatedItemsComparison';
 import RatingsReviews from './RatingsReviews';
@@ -11,7 +11,7 @@ export default function App() {
     <div>
       <Theme>
         <GlobalStyle />
-        {/* <Overview /> */}
+        <Overview />
         <RelatedItemsComparisons />
         <QuestionsAnswers />
         <RatingsReviews />
