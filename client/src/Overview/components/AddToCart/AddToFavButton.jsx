@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '../../../components/ui/Button';
+import Icons from '../../../components/Icons';
 
 const StyledDiv = styled.div`
   width: 30%;
@@ -14,7 +16,9 @@ const StyledDiv = styled.div`
 export default function AddToFavButton() {
   return (
     <StyledDiv>
-      <button type="button">Star</button>
+      <Button variant="large" style={{ color: 'orange', height: '50px', width: '50px' }}>
+        <Icons.Star />
+      </Button>
     </StyledDiv>
   );
 }
