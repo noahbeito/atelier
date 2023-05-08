@@ -10,23 +10,26 @@ const StyledStar = styled.span`
   position: relative;
   &::before {
     display: block;
-    // TODO: Need to update the star icon based on stylin
-    content: '★';
+    content: "\uf005";
+    font-family: "Font Awesome 5 Free";
     color: #C3C3C3;
   }
   &::after {
     display: block;
     position:absolute;
     top: 0;
-    content: '★';
-    // TODO: Need to update the star icon based on stylin
+    content: "\uf005";
+    font-family: "Font Awesome 5 Free";
     overflow: hidden;
     width: ${(props) => props.val * 100}%;
     color: #080808;
   }
 `;
 
-export default function StarRating({ rating, className }) {
+export default function StarRating({
+  rating,
+  ...props
+}) {
   // TODO: Need to refactor to include onClick on each start
   const roundedRating = (Math.round(rating * 4) / 4).toFixed(2);
   const fullStars = Math.floor(roundedRating);
@@ -50,7 +53,7 @@ export default function StarRating({ rating, className }) {
   const star = starArr.map((val, i) => <StyledStar id={i} val={val} />);
 
   return (
-    <StyledStarBox className={className}>
+    <StyledStarBox>
       {' '}
       {star}
       {' '}
