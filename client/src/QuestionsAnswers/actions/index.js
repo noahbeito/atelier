@@ -6,13 +6,13 @@ export const fetchInitialQuestions = (productId) => (dispatch) => {
     dispatch({ type: '@questions/FETCH_DATA' });
     axios.get('/qa/questions/', { params: { product_id: productId, page: 1, count: 6 } })
       .then(({ data }) => {
-        console.log('ADD INITIAL', data.results);
         dispatch({ type: '@questions/SET_DATA', payload: data.results });
       })
       .catch(({ message }) => dispatch({ type: '@questions/FETCH_FAILED', payload: message }));
   }
 };
 
+// A thunk with a closure to keep track of the current page
 export const fetchMoreQuestions = (() => {
   let currentPage = 2;
   return (productId) => (dispatch) => {
@@ -20,7 +20,6 @@ export const fetchMoreQuestions = (() => {
       dispatch({ type: '@questions/FETCH_DATA' });
       axios.get('/qa/questions/', { params: { product_id: productId, page: currentPage, count: 6 } })
         .then(({ data }) => {
-          console.log('ADD MORE', currentPage, data.results);
           dispatch({ type: '@questions/ADD_QUESTIONS', payload: data.results });
           currentPage += 1;
         })
@@ -29,4 +28,5 @@ export const fetchMoreQuestions = (() => {
   };
 })();
 
+// Template thunk
 export const example = () => () => {};

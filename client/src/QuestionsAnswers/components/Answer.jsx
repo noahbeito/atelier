@@ -40,7 +40,7 @@ export default function Answer({ answer }) {
             date={answer.date}
             includeBy
           />
-          <Helpful helpfulness={answer.helpfulness} onClick={handleHelpful}/>
+          <Helpful helpfulness={answer.helpfulness} onClick={handleHelpful} />
           <Report onClick={handleReportAnswer} />
         </Divider>
       </div>
@@ -55,5 +55,6 @@ Answer.propTypes = {
     date: PropTypes.string,
     helpfulness: PropTypes.number,
     photos: PhotoList.propTypes.photos,
+    id: PropTypes.number,
   }).isRequired,
 };

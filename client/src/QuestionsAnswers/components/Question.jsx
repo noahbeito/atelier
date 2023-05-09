@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 import AnswersList from './AnswersList';
 import Button from '../../components/ui/Button';
@@ -11,7 +10,6 @@ import Helpful from '../../components/Helpful';
 import Report from '../../components/Report';
 
 import { LargeLetter, FlexBetween } from '../styles';
-import { fetchQuestionData } from '../actions';
 
 const StyledQuestion = styled.div`
   position: relative;
@@ -71,7 +69,6 @@ const StyledQuestion = styled.div`
 export default function Question({ question }) {
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
-  const productId = useSelector((state) => state.product.data.id);
   const dispatch = useDispatch();
 
   const handleAccordionClick = () => {
@@ -122,7 +119,15 @@ export default function Question({ question }) {
 
 Question.propTypes = {
   question: PropTypes.shape({
-    answers: AnswersList.propTypes.answers,
+    question_id: PropTypes.number,
+    answers: PropTypes.objectOf(PropTypes.shape({
+      id: PropTypes.number,
+      body: PropTypes.string,
+      date: PropTypes.string,
+      answerer_name: PropTypes.string,
+      helpfulness: PropTypes.number,
+      photos: PropTypes.arrayOf(PropTypes.string),
+    })),
     question_body: PropTypes.string,
     question_helpfulness: PropTypes.number,
   }).isRequired,

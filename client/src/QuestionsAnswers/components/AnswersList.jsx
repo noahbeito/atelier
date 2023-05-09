@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Answer from './Answer';
 import Button from '../../components/ui/Button';
@@ -20,8 +20,6 @@ const StyledAnswers = styled.div`
 
 export default function AnswersList({ questionId }) {
   const [maxAnswers, setMaxAnswers] = useState(2);
-
-  console.log('MAX ANSWERS', maxAnswers);
 
   const [answers, currentAnswersCount] = useSelector((state) => {
     const arr = state.questionsAnswers.main.questions;
@@ -57,4 +55,5 @@ export default function AnswersList({ questionId }) {
 }
 
 AnswersList.propTypes = {
+  questionId: PropTypes.number.isRequired,
 };

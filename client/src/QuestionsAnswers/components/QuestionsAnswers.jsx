@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 
 import Icons from '../../components/Icons';
 
@@ -25,21 +24,19 @@ const StyledLoading = styled.div`
   color: gray;
 `;
 
+const getQuestionCount = (state) => state.questionsAnswers.main.questions.length;
+const getQuestions = (maxQuestions) => (state) => state
+  .questionsAnswers.main.questions
+  .slice(0, maxQuestions);
+
+const getIsLoading = (state) => state.product.isLoading || state.questionsAnswers.main.loading;
+
 export default function QuestionsAnswers() {
   const [maxQuestions, setMaxQuestions] = useState(4);
 
-  const currentQuestionCount = useSelector(
-    (state) => state.questionsAnswers.main.questions.length,
-  );
-
-  const questions = useSelector(
-    (state) => state.questionsAnswers.main.questions.slice(0, maxQuestions),
-  );
-
-  console.log('Current question count', currentQuestionCount, 'Max', maxQuestions, 'QUESTIONS', questions);
-
-  const isLoading = useSelector((state) => state.product.isLoading
-                                        || state.questionsAnswers.main.loading);
+  const currentQuestionCount = useSelector(getQuestionCount);
+  const questions = useSelector(getQuestions(maxQuestions));
+  const isLoading = useSelector(getIsLoading);
 
   const productId = useSelector((state) => state.product.data.id);
   const dispatch = useDispatch();
