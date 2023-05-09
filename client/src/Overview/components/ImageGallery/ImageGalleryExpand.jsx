@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ButtonNav from './ButtonNav';
 
@@ -26,9 +27,9 @@ const StyledButtonContainer = styled.div`
   /* border: solid 2px black; */
 `;
 
-export default function ImageGalleryExpand() {
+export default function ImageGalleryExpand({ onClickHandler }) {
   return (
-    <StyledDiv>
+    <StyledDiv onClick={onClickHandler}>
       <StyledImageTop>
         <StyledButtonContainer>
           <ButtonNav />
@@ -37,3 +38,7 @@ export default function ImageGalleryExpand() {
     </StyledDiv>
   );
 }
+
+ImageGalleryExpand.propTypes = {
+  onClickHandler: PropTypes.func.isRequired,
+};

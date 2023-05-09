@@ -1,6 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ProductDisplay from './components/ProductDisplay/ProductDisplay';
 import ProductInfo from './components/ProductInfo/ProductInfo';
@@ -15,31 +16,27 @@ const Section = styled.section`
 `;
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
-  // const isLoading = useSelector((state) => state.product.isLoading
-  //                                       || state.questionsAnswers.main.loading);
-  // const productId = useSelector((state) => state.product.data.id);
-  // const productStyles = useSelector((state) => state.product.data.id.styles);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (productId) {
-  //     dispatch({ type: '@styles/FETCH_DATA' });
-  //     axios.get('/products/40344/styles', { params: { product_id: productId } })
-  //       .then((result) => {
-  //         dispatch({ type: '@styles/SET_DATA', payload: result.data.styles });
-  //       })
-  //       .catch((error) => {
-  //         dispatch({ type: '@styles/FETCH_FAILED', payload: error });
-  //       });
-  //   }
-  // }, [productId]);
+  useEffect(() => {
+    dispatch({ type: '@styles/FETCH_DATA' });
+    axios.get('/products/40349/styles')
+      .then((result) => {
+        console.log('This is result', result);
+        dispatch({ type: '@styles/SET_DATA', payload: result.data });
+      })
+      .catch((error) => {
+        dispatch({ type: '@styles/FETCH_FAILED', payload: error.message });
+      });
+  }, [dispatch]);
   const onClick = useCallback(() => {
     setRenderCheckout(!renderCheckout);
   }, [renderCheckout]);
   return (
     <Section>
+      {/* <p>{product}</p> */}
       { renderCheckout ? <ProductDisplay onClickHandler={onClick} />
-        : <ImageGalleryExpand />}
+        : <ImageGalleryExpand onClickHandler={onClick} />}
       {/* <ProductDisplay /> */}
       <ProductInfo />
     </Section>

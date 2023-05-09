@@ -6,7 +6,7 @@ const stylesReducer = (state = { styles: {}, loading: true, error: null }, actio
     case '@styles/FETCH_DATA':
       return { ...state, loading: true };
     case '@styles/SET_DATA':
-      console.log('action recieved');
+      // console.log('action recieved');
       return { ...state, loading: false, styles: action.payload };
     case '@styles/FETCH_FAILED':
       return { ...state, loading: false, error: action.payload };
@@ -15,12 +15,12 @@ const stylesReducer = (state = { styles: {}, loading: true, error: null }, actio
   }
 };
 
-const typesOfStyleReducer = (state = { styles: {}, loading: true, error: null }, action = {}) => {
+const stylePropsReducer = (state = { styleTypes: {}, loading: true, error: null }, action = {}) => {
   switch (action.type) {
     case '@styleTypes/FETCH_DATA':
       return { ...state, loading: true };
     case '@styleTypes/SET_DATA':
-      console.log('action recieved');
+      // console.log('action recieved');
       return { ...state, loading: false, styles: action.payload };
     case '@styleTypes/FETCH_FAILED':
       return { ...state, loading: false, error: action.payload };
@@ -31,6 +31,6 @@ const typesOfStyleReducer = (state = { styles: {}, loading: true, error: null },
 
 const overviewReducer = combineReducers({
   productStyles: stylesReducer,
-  typesOfStyle: typesOfStyleReducer,
+  styleProps: stylePropsReducer,
 });
 export default overviewReducer;
