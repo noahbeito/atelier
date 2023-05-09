@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -32,8 +33,9 @@ const StyledWrap = styled.div`
   }
 `;
 export default function ProductCard({
-  id, handleClick, action, symbol,
+  id, action, symbol,
 }) {
+  const dispatch = useDispatch();
   // create states for all relevant pieces of data;
   const [photoURL, setPhotoURL] = useState('');
   const [category, setCategory] = useState('');
@@ -70,6 +72,18 @@ export default function ProductCard({
   //   })
   // );
 
+  const handleClick = () => {
+    dispatch({ type: '@product/FETCH_DATA' });
+    axios.get(`/products/${id}`)
+      .then((result) => {
+        console.log('datadata: ', result.data);
+        dispatch({ type: '@product/SET_DATA', payload: result.data });
+      })
+      .catch((err) => {
+        dispatch({ type: '@product/FETCH_FAILED', payload: err.message });
+      });
+  };
+
   // will likely have to wrap this in a useEffect
   axios.all([
     getNameAndCategory(),
@@ -91,7 +105,7 @@ export default function ProductCard({
     });
 
   return (
-    <Card onClick={() => handleClick(id)}>
+    <Card onClick={() => handleClick()}>
       <StyledWrap>
         <ActionButton action={action} symbol={symbol} />
       </StyledWrap>
@@ -106,7 +120,6 @@ export default function ProductCard({
 
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
-  handleClick: PropTypes.func.isRequired,
   action: PropTypes.func.isRequired,
   symbol: PropTypes.string.isRequired,
 };
