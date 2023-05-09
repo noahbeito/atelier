@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import AddToCart from '../AddToCart/AddToCart';
 import StyleSelector from '../StyleSelector/StyleSelector';
 import DropdownContain from '../DropdownContain/DropdownContain';
-import StarRating from '../../../components/StarRating';
+// import StarRating from '../../../components/StarRating';
 
 const StyledDiv = styled.div`
   /* width: 40%; */
@@ -29,7 +29,7 @@ const StyledProductDetails = styled.div`
   /* border: solid 2px black; */
   margin:2px;
   padding:5px;
- 
+
 `;
 const StyledSection = styled.section`
   width: 100%;
@@ -45,7 +45,7 @@ export default function ProductDisplay() {
   return (
     <StyledDiv>
       <StyledProductDetails>
-        <StarRating rating={3} className="StarRating" />
+        {/* <StarRating rating={3} className="StarRating" /> */}
         <p>Title</p>
         <p>Price</p>
         <p>Category</p>

@@ -1,7 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+// import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import StyleThumbnail from '../StyleThumbnail/StyleThumbnail';
+import Icons from '../../../components/Icons';
 
 const StyledThumbnailGrid = styled.div`
   /* display: flex;
@@ -19,22 +21,31 @@ const StyledSurround = styled.div`
   width:95%;
   /* margin: 5px; */
 `;
+const StyledLoading = styled.div`
+  margin: 50px auto;
+  text-align: center;
+  color: gray;
+`;
+export default function StyleSelector() {
+  const isLoading = useSelector((state) => state.product.isLoading
+                                        || state.overview.productStyles.loading);
 
-export default function StyleSelector({ products }) {
+  const styles = useSelector((state) => state.overview.productStyles.styles.results);
+  console.log('This is styles in styleselector: ', styles);
+
   return (
     <StyledSurround>
-      <p><b>STYLE</b></p>
-      <StyledThumbnailGrid>
-        { products.map((product) => <StyleThumbnail product={product} key={product} />) }
-      </StyledThumbnailGrid>
+      {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
+        : (
+          <>
+            <p><b>STYLE</b></p>
+            <StyledThumbnailGrid>
+              { styles.map((styletype) => (
+                <StyleThumbnail name={styletype.name} key={styletype.style_id} />
+              ))}
+            </StyledThumbnailGrid>
+          </>
+        )}
     </StyledSurround>
   );
 }
-
-StyleSelector.propTypes = {
-  products: PropTypes.node,
-};
-
-StyleSelector.defaultProps = {
-  products: [],
-};
