@@ -22,8 +22,6 @@ const Card = styled(DefaultCard)`
   border: none;
 `;
 
-
-
 const Carousel = styled.div`
   display: grid;
   margin-left: 20%;
