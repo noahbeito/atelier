@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -32,7 +33,7 @@ const StyledQuestion = styled.div`
     &:hover .question {
       color: ${(props) => props.theme.secondaryColor};
     }
-    &.open::after, &.closed::after {
+    &.open:not(.empty-chevron)::after, &.closed:not(.empty-chevron)::after {
       content: '\uf077';
       position: absolute;
       top: 50%;
@@ -68,8 +69,7 @@ const StyledQuestion = styled.div`
 export default function Question({ question }) {
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
-
-  console.log('SHOW ANSWERS', showAnswers);
+  const dispatch = useDispatch();
 
   const handleAccordionClick = () => {
     setShowAnswers(!showAnswers);
@@ -77,6 +77,7 @@ export default function Question({ question }) {
 
   const handleHelpful = (e) => {
     e.stopPropagation();
+    dispatch({ type: '@questions/MARK_HELPFUL', question_id: question.question_id });
   };
 
   const handleAddAnswer = (e) => {
@@ -85,10 +86,14 @@ export default function Question({ question }) {
 
   const handleReportQuestion = (e) => {
     e.stopPropagation();
+    dispatch({ type: '@questions/REPORT', question_id: question.question_id });
   };
   return (
     <StyledQuestion>
-      <FlexBetween className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')}`} onClick={handleAccordionClick}>
+      <FlexBetween
+        className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')} ${answerCount.current === 0 ? 'empty-chevron' : ''}`}
+        onClick={handleAccordionClick}
+      >
         <span className="question">{question.question_body}</span>
         <span>
           <Divider>
@@ -103,7 +108,7 @@ export default function Question({ question }) {
           ? (
             <>
               <span className="big-A">A</span>
-              <AnswersList className="answers" answers={question.answers} />
+              <AnswersList className="answers" questionId={question.question_id} />
             </>
           )
           : ''}
@@ -114,7 +119,15 @@ export default function Question({ question }) {
 
 Question.propTypes = {
   question: PropTypes.shape({
-    answers: AnswersList.propTypes.answers,
+    question_id: PropTypes.number,
+    answers: PropTypes.objectOf(PropTypes.shape({
+      id: PropTypes.number,
+      body: PropTypes.string,
+      date: PropTypes.string,
+      answerer_name: PropTypes.string,
+      helpfulness: PropTypes.number,
+      photos: PropTypes.arrayOf(PropTypes.string),
+    })),
     question_body: PropTypes.string,
     question_helpfulness: PropTypes.number,
   }).isRequired,
