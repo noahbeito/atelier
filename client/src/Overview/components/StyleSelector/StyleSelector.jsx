@@ -16,12 +16,14 @@ const StyledSurround = styled.div`
   border: lightgrey 3px solid;
   border-radius: 5px;
   padding: 5px;
+  width:95%;
+  /* margin: 5px; */
 `;
 
 export default function StyleSelector({ products }) {
   return (
     <StyledSurround>
-      <h5>Selected Style</h5>
+      <p><b>STYLE</b></p>
       <StyledThumbnailGrid>
         { products.map((product) => <StyleThumbnail product={product} key={product} />) }
       </StyledThumbnailGrid>

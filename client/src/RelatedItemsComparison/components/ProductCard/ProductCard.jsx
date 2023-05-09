@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -16,9 +17,13 @@ const Rating = styled.div`
   // will likely delete this when the Rating component is eventually imported and used
 `;
 const StyledImg = styled.img`
+  max-width: 100%;
+  aspect-ratio: .7;
+  object-fit: cover;
 `;
 export default function ProductCard({ id }) {
-  // create states for all relevant pieces of data;
+  const dispatch = useDispatch();
+
   const [photoURL, setPhotoURL] = useState('');
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
@@ -54,6 +59,18 @@ export default function ProductCard({ id }) {
   //   })
   // );
 
+  const handleClick = () => {
+    dispatch({ type: '@product/FETCH_DATA' });
+    axios.get(`/products/${id}`)
+      .then((result) => {
+        console.log('datadata: ', result.data);
+        dispatch({ type: '@product/SET_DATA', payload: result.data });
+      })
+      .catch((err) => {
+        dispatch({ type: '@product/FETCH_FAILED', payload: err.message });
+      });
+  };
+
   // will likely have to wrap this in a useEffect
   axios.all([
     getNameAndCategory(),
@@ -67,19 +84,15 @@ export default function ProductCard({ id }) {
         setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
         setPrice(photosAndPrices.data.results[0].original_price);
         setSalePrice(photosAndPrices.data.results[0].sale_price);
-        console.log('PHOTO:', photosAndPrices.data.results[0]);
         // setAvgRating(calculateAvgRating(ratings.ratings));
       },
     )))
     .catch((err) => {
       console.log(err);
     });
-  // once have all the data, set the states for each piece of data.
-
-  // use the state below.
 
   return (
-    <Card>
+    <Card onClick={() => handleClick()}>
       <StyledImg src={photoURL} />
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>

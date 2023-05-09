@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Answer from './Answer';
 import Button from '../../components/ui/Button';
@@ -11,18 +12,27 @@ const Rule = styled.hr`
 
 const StyledAnswers = styled.div`
   position: relative;
-  width: 72.5%;
+  width: 90%;
   left: 1.8rem;
   bottom: 1.8rem;
 `;
 
-export default function AnswersList() {
+export default function AnswersList({ answers }) {
   return (
     <StyledAnswers>
-      <Answer />
-      <Rule />
-      <Answer />
+      {
+        Object.entries(answers).map(([answerId, answer]) => (
+          <>
+            <Answer key={answerId} answer={answer} />
+            <Rule key={`r-${answerId}`} />
+          </>
+        ))
+      }
       <Button variant="medium">Load More Answers</Button>
     </StyledAnswers>
   );
 }
+
+AnswersList.propTypes = {
+  answers: PropTypes.objectOf(Answer.propTypes.answer).isRequired,
+};

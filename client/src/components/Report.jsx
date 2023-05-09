@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from './ui/Button';
 
-export default function Divider() {
-  return <Button variant="small">Report</Button>;
+export default function Report({ ...props }) {
+  return <Button variant="small" {...props}>Report</Button>;
 }
