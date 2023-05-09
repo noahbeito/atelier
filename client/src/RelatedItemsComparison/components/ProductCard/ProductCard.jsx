@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 import styled from 'styled-components';
 import { Card } from '../../styles';
 
@@ -8,27 +10,87 @@ const StyledName = styled.div`
 `;
 const StyledPrice = styled.div`
 `;
+// const StyledSalePrice ...
+
 const Rating = styled.div`
   // will likely delete this when the Rating component is eventually imported and used
 `;
-const StyledImg = styled.div`
+const StyledImg = styled.img`
+  max-width: 100%;
+  aspect-ratio: .7;
+  object-fit: cover;
 `;
-export default function ProductCard() {
+export default function ProductCard({ id }) {
+  // create states for all relevant pieces of data;
+  const [photoURL, setPhotoURL] = useState('');
+  const [category, setCategory] = useState('');
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState(null);
+  const [salePrice, setSalePrice] = useState('');
+  // const [avgRating, setAvgRating] = useState('');
+
+  // const calculateAvgRating = (ratings) => {
+  //   // calculate and return avg of all ratings in ratings obj
+  // };
+
+  // send an axios.all/axios.spread request to the following endpoints:
+  // 1) /products/:product_id
+  //   --> name and category from response
+  // 2) /products/:product_id/styles
+  //   --> photo, original price, sale price (prices for the default? === true style only)
+  // 3) /reviews
+  //   --> average of all reviews to render stars
+  //    (need to calculate average manually, refer to Thangs formula);
+  const getNameAndCategory = () => (
+    axios.get(`/products/${id}`)
+  );
+
+  const getPhotosAndPrices = () => (
+    axios.get(`/products/${id}/styles`)
+  );
+
+  // const getRatings = () => (
+  //   axios({
+  //     url: '/reviews/meta',
+  //     method: 'GET',
+  //     params: { product_id: id },
+  //   })
+  // );
+
+  // will likely have to wrap this in a useEffect
+  axios.all([
+    getNameAndCategory(),
+    getPhotosAndPrices(),
+    // getRatings,
+  ])
+    .then((axios.spread(
+      (nameAndCategory, photosAndPrices /* ratings */) => {
+        setCategory(nameAndCategory.data.category);
+        setName(nameAndCategory.data.name);
+        setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
+        setPrice(photosAndPrices.data.results[0].original_price);
+        setSalePrice(photosAndPrices.data.results[0].sale_price);
+        // setAvgRating(calculateAvgRating(ratings.ratings));
+      },
+    )))
+    .catch((err) => {
+      console.log(err);
+    });
+  // once have all the data, set the states for each piece of data.
+
+  // use the state below.
+
   return (
     <Card>
-      <StyledCategory>Category</StyledCategory>
-      <StyledName>Name</StyledName>
-      <StyledPrice>
-        Price - for the default style
-        <br />
-        Sale prices should be reflected
-        <br />
-        if on sale:
-        <br />
-        sale price in red and og price struckthrough
-      </StyledPrice>
+      <StyledImg src={photoURL} />
+      <StyledCategory>{category}</StyledCategory>
+      <StyledName>{name}</StyledName>
+      <StyledPrice>{salePrice || price}</StyledPrice>
       <Rating />
-      <StyledImg>preview image/images</StyledImg>
     </Card>
   );
 }
+
+ProductCard.propTypes = {
+  id: PropTypes.number.isRequired,
+};
