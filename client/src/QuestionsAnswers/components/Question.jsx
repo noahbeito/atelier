@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import AnswersList from './AnswersList';
 import Button from '../../components/ui/Button';
@@ -9,6 +11,7 @@ import Helpful from '../../components/Helpful';
 import Report from '../../components/Report';
 
 import { LargeLetter, FlexBetween } from '../styles';
+import { fetchQuestionData } from '../actions';
 
 const StyledQuestion = styled.div`
   position: relative;
@@ -68,6 +71,8 @@ const StyledQuestion = styled.div`
 export default function Question({ question }) {
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
+  const productId = useSelector((state) => state.product.data.id);
+  const dispatch = useDispatch();
 
   const handleAccordionClick = () => {
     setShowAnswers(!showAnswers);
@@ -75,6 +80,7 @@ export default function Question({ question }) {
 
   const handleHelpful = (e) => {
     e.stopPropagation();
+    dispatch({ type: '@questions/MARK_HELPFUL', question_id: question.question_id });
   };
 
   const handleAddAnswer = (e) => {
@@ -83,6 +89,7 @@ export default function Question({ question }) {
 
   const handleReportQuestion = (e) => {
     e.stopPropagation();
+    dispatch({ type: '@questions/REPORT', question_id: question.question_id });
   };
   return (
     <StyledQuestion>
@@ -104,7 +111,7 @@ export default function Question({ question }) {
           ? (
             <>
               <span className="big-A">A</span>
-              <AnswersList className="answers" answers={question.answers} />
+              <AnswersList className="answers" questionId={question.question_id} />
             </>
           )
           : ''}

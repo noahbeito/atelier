@@ -9,7 +9,7 @@ module.exports.questions = {
       requestType: 'json',
       baseURL: process.env.SERVER,
       headers: { Authorization: process.env.API_TOKEN },
-      params: { product_id: req.query.product_id },
+      params: req.query,
     })
       .then((data) => res.status(200).send(data.data))
       .catch(() => res.sendStatus(500));
@@ -66,7 +66,7 @@ module.exports.answers = {
       responseType: 'json',
       requestType: 'json',
       headers: { Authorization: process.env.API_TOKEN },
-      params: { product_id: req.query.product_id },
+      params: req.query,
     })
       .then((data) => res.status(200).send(data.data))
       .catch((err) => {

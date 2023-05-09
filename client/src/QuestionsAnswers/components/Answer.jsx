@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import Divider from '../../components/Divider';
 import Helpful from '../../components/Helpful';
@@ -19,6 +20,15 @@ const StyledAnswer = styled.div`
 `;
 
 export default function Answer({ answer }) {
+  const dispatch = useDispatch();
+  const handleHelpful = () => {
+    dispatch({ type: '@answers/MARK_HELPFUL', answer_id: answer.id });
+  };
+
+  const handleReportAnswer = () => {
+    dispatch({ type: '@answers/REPORT', answer_id: answer.id });
+  };
+
   return (
     <StyledAnswer>
       <p>{answer.body}</p>
@@ -30,8 +40,8 @@ export default function Answer({ answer }) {
             date={answer.date}
             includeBy
           />
-          <Helpful helpfulness={answer.helpfulness} />
-          <Report />
+          <Helpful helpfulness={answer.helpfulness} onClick={handleHelpful}/>
+          <Report onClick={handleReportAnswer} />
         </Divider>
       </div>
     </StyledAnswer>

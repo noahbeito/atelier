@@ -15,15 +15,15 @@ export default function RelatedItems() {
   const productId = 40350;
 
   // send axios get request to related products endpoint;
-  useEffect(() => {
-    axios.get(`/products/${productId}/related`)
-      .then((relatedIds) => {
-        setRelatedProducts(relatedIds.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`/products/${productId}/related`)
+  //     .then((relatedIds) => {
+  //       setRelatedProducts(relatedIds.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   // upon recieving array of related product_ids;
   // set state of related products
