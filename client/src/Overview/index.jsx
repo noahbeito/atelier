@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ProductDisplay from './components/ProductDisplay/ProductDisplay';
@@ -14,13 +14,13 @@ const Section = styled.section`
 `;
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
-  const onClick = useCallback(() => {
+  const onClickHandler = () => {
     console.log('I have been clicked!');
     setRenderCheckout(!renderCheckout);
-  }, [renderCheckout]);
+  };
   return (
     <Section>
-      { renderCheckout ? <ProductDisplay onClickHandler={onClick} />
+      { renderCheckout ? <ProductDisplay onClickHandler={onClickHandler} />
         : <ImageGalleryExpand />}
       {/* <ProductDisplay /> */}
       <ProductInfo />
