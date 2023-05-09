@@ -9,13 +9,14 @@ const Title = styled.h2`
 
 const Card = styled.div`
   height: 300px;
-  border: 1px solid black;
   border-radius: 5px;
-  // margin-left: 1rem; having trouble matching this on related items list. this is the space to the left of the list.
+  background-color: ${(props) => props.theme.secondaryColor};
 
   padding: 1rem;
 
   scroll-snap-align: start;
+
+  cursor: pointer;
 `;
 
 const Carousel = styled.div`
