@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -31,7 +31,7 @@ export default function Overview() {
   }, [dispatch]);
   const onClick = useCallback(() => {
     setRenderCheckout(!renderCheckout);
-  }, [renderCheckout]);
+  });
   return (
     <Section>
       {/* <p>{product}</p> */}
