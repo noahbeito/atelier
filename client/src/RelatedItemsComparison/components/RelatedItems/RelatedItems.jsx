@@ -21,7 +21,7 @@ export default function RelatedItems() {
         setRelatedProducts(relatedIds.data);
       })
       .catch((err) => {
-        console.log('THIS ERROR?', err);
+        console.log(err);
       });
   }, []);
 
