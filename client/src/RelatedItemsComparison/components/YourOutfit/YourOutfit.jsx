@@ -23,12 +23,20 @@ export default function YourOutfit() {
     }
   };
 
+  const action = () => {
+    // remove item from list
+  };
+
+  const symbol = 'Exit';
+
   return (
     <div>
       <Title>Your Outfit</Title>
       <Carousel>
         <AddItemToOutfit clickHandler={AddToOutfitClickHandler} />
-        {outfit.map((productId) => <ProductCard id={productId} key={productId} />)}
+        {outfit.map((productId) => (
+          <ProductCard id={productId} action={action} symbol={symbol} key={productId} />
+        ))}
       </Carousel>
     </div>
   );
