@@ -29,11 +29,19 @@ export default function RelatedItems() {
     }
   }, [productId]);
 
+  const action = () => {
+    // render comparison modal
+  };
+
+  const symbol = 'EmptyStar';
+
   return (
     <div>
       <Title>Related Items</Title>
       <Carousel>
-        {relatedProducts.map((id) => <ProductCard id={id} key={id} />)}
+        {relatedProducts.map((id) => (
+          <ProductCard id={id} action={action} symbol={symbol} key={id} />
+        ))}
       </Carousel>
     </div>
   );
