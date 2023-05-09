@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewList from './components/ReviewsList/ReviewList';
+import RatingBreakdown from './components/RatingBreakdown/RatingBreakdown';
 
 export default function RatingsReviews() {
   return (
@@ -12,6 +13,7 @@ export default function RatingsReviews() {
       </div>
       <div>
         <h2> --- Product Breakdon --- </h2>
+        <RatingBreakdown />
       </div>
       <div>
         <h2> --- Keyword Search --- </h2>

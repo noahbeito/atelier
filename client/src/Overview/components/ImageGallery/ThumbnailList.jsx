@@ -1,24 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import StyleThumbnail from '../StyleThumbnail/StyleThumbnail';
+import Icons from '../../../components/Icons';
 
 const StyledDiv = styled.div`
-  width: 100%;
-  height: 98%;
+  width: 110px;
+  height: 90%;
   display: flex;
   flex-direction: column;
-  border: solid 2px black;
+  border: solid 2px lightgrey;
+  margin 2px;
+  border-radius: 5px;
   /* margin:2px;
   padding:5px; */
 `;
 
-export default function ThumbnailList() {
+export default function ThumbnailList({ products }) {
   return (
     <StyledDiv>
-      {/* <Thumbnails></Thumbnails> */}
-      <p>Test</p>
+      { products.map((product) => <StyleThumbnail product={product} key={product} />) }
+      <Icons.ChevronDown />
     </StyledDiv>
   );
 }
+
+ThumbnailList.propTypes = {
+  products: PropTypes.node,
+};
+
+ThumbnailList.defaultProps = {
+  products: [],
+};
 
 // import React from 'react';
 // // import PropTypes from 'prop-types';
