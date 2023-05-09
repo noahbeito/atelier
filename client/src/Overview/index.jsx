@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ProductDisplay from './components/ProductDisplay/ProductDisplay';
 import ProductInfo from './components/ProductInfo/ProductInfo';
@@ -14,14 +16,27 @@ const Section = styled.section`
 `;
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
-  const onClickHandler = () => {
-    console.log('I have been clicked!');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: '@styles/FETCH_DATA' });
+    axios.get('/products/40349/styles')
+      .then((result) => {
+        console.log('This is result', result);
+        dispatch({ type: '@styles/SET_DATA', payload: result.data });
+      })
+      .catch((error) => {
+        dispatch({ type: '@styles/FETCH_FAILED', payload: error.message });
+      });
+  }, [dispatch]);
+  const onClick = useCallback(() => {
     setRenderCheckout(!renderCheckout);
-  };
+  });
   return (
     <Section>
-      { renderCheckout ? <ProductDisplay onClickHandler={onClickHandler} />
-        : <ImageGalleryExpand />}
+      {/* <p>{product}</p> */}
+      { renderCheckout ? <ProductDisplay onClickHandler={onClick} />
+        : <ImageGalleryExpand onClickHandler={onClick} />}
       {/* <ProductDisplay /> */}
       <ProductInfo />
     </Section>
