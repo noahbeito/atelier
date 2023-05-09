@@ -18,11 +18,10 @@ export default function RelatedItems() {
   useEffect(() => {
     axios.get(`/products/${productId}/related`)
       .then((relatedIds) => {
-        console.log(relatedIds.data);
         setRelatedProducts(relatedIds.data);
       })
       .catch((err) => {
-        console.log('THIS ERROR?', err);
+        console.log(err);
       });
   }, []);
 

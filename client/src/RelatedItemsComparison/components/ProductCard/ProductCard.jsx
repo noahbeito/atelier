@@ -70,7 +70,6 @@ export default function ProductCard({ id }) {
         setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
         setPrice(photosAndPrices.data.results[0].original_price);
         setSalePrice(photosAndPrices.data.results[0].sale_price);
-        console.log('PHOTO:', photosAndPrices.data.results[0]);
         // setAvgRating(calculateAvgRating(ratings.ratings));
       },
     )))
