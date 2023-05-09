@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -21,7 +22,8 @@ const StyledImg = styled.img`
   object-fit: cover;
 `;
 export default function ProductCard({ id }) {
-  // create states for all relevant pieces of data;
+  const dispatch = useDispatch();
+
   const [photoURL, setPhotoURL] = useState('');
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
@@ -57,6 +59,18 @@ export default function ProductCard({ id }) {
   //   })
   // );
 
+  const handleClick = () => {
+    dispatch({ type: '@product/FETCH_DATA' });
+    axios.get(`/products/${id}`)
+      .then((result) => {
+        console.log('datadata: ', result.data);
+        dispatch({ type: '@product/SET_DATA', payload: result.data });
+      })
+      .catch((err) => {
+        dispatch({ type: '@product/FETCH_FAILED', payload: err.message });
+      });
+  };
+
   // will likely have to wrap this in a useEffect
   axios.all([
     getNameAndCategory(),
@@ -76,12 +90,9 @@ export default function ProductCard({ id }) {
     .catch((err) => {
       console.log(err);
     });
-  // once have all the data, set the states for each piece of data.
-
-  // use the state below.
 
   return (
-    <Card>
+    <Card onClick={() => handleClick()}>
       <StyledImg src={photoURL} />
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>
