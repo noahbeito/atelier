@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card } from '../../styles';
@@ -8,7 +9,8 @@ const StyledText = styled.div`
 `;
 export default function AddItemToOutfit({ clickHandler }) {
   // useSelector to retrieve current productId from redux store
-  const productId = 40344; // for testing purposes
+  const productId = useSelector((state) => state.product.data.id);
+
   return (
     <Card onClick={() => clickHandler(productId)}>
       <StyledText>+</StyledText>
