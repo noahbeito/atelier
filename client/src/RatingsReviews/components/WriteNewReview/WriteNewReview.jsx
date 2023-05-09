@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import TextArea from '../../../components/ui/TextArea';
 import Input from '../../../components/ui/Input';
 import Form from '../../../components/ui/Form';
-import Button from '../../../components/ui/Form';
+// import Button from '../../../components/ui/Form';
 // import ImageUpload from '../../components/ui/ImageUpload';
 import Submit from '../../../components/ui/Submit';
 import Popup from '../../../components/Popup';
@@ -40,7 +41,6 @@ const StyledPopup = styled(Popup)`
 `;
 
 export default function WriteNewReview({ showModal }) {
-
   return (
     <div>
       {
@@ -74,10 +74,9 @@ export default function WriteNewReview({ showModal }) {
               label="Upload your photos"
               validation={(value) => value.length <= 5}
             /> */}
-            <div>
-              <Submit>Submit Question</Submit>
-              <Button variant="medium"> Close </Button>
-            </div>
+              <div>
+                <Submit>Submit Question</Submit>
+              </div>
             </Form>
           </StyledPopup>
         )
@@ -86,3 +85,7 @@ export default function WriteNewReview({ showModal }) {
     </div>
   );
 }
+
+WriteNewReview.propTypes = {
+  showModal: PropTypes.bool.isRequired,
+};
