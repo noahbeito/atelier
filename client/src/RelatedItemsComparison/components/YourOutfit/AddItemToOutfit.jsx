@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Card } from '../../styles';
+import { DefaultCard } from '../../styles';
 
 const StyledText = styled.div`
   // This is just a placeholder. will likely rename
@@ -12,9 +12,9 @@ export default function AddItemToOutfit({ clickHandler }) {
   const productId = useSelector((state) => state.product.data.id);
 
   return (
-    <Card onClick={() => clickHandler(productId)}>
+    <DefaultCard onClick={() => clickHandler(productId)}>
       <StyledText>+</StyledText>
-    </Card>
+    </DefaultCard>
   );
 }
 
