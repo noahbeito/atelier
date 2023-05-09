@@ -23,7 +23,7 @@ export default function Answer({ answer }) {
     <StyledAnswer>
       <p>{answer.body}</p>
       <PhotoList photos={answer.photos} />
-      <div style={{ marginTop: '10px', color: '#666' }}>
+      <div style={{ marginTop: '10px', color: '#666' }} data-testid="answer-bar">
         <Divider>
           <NameDate
             username={answer.answerer_name}

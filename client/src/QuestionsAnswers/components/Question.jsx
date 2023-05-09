@@ -32,7 +32,7 @@ const StyledQuestion = styled.div`
     &:hover .question {
       color: ${(props) => props.theme.secondaryColor};
     }
-    &.open::after, &.closed::after {
+    &.open:not(.empty-chevron)::after, &.closed:not(.empty-chevron)::after {
       content: '\uf077';
       position: absolute;
       top: 50%;
@@ -69,8 +69,6 @@ export default function Question({ question }) {
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
 
-  console.log('SHOW ANSWERS', showAnswers);
-
   const handleAccordionClick = () => {
     setShowAnswers(!showAnswers);
   };
@@ -88,7 +86,10 @@ export default function Question({ question }) {
   };
   return (
     <StyledQuestion>
-      <FlexBetween className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')}`} onClick={handleAccordionClick}>
+      <FlexBetween
+        className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')} ${answerCount.current === 0 ? 'empty-chevron' : ''}`}
+        onClick={handleAccordionClick}
+      >
         <span className="question">{question.question_body}</span>
         <span>
           <Divider>

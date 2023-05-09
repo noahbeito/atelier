@@ -69,7 +69,10 @@ module.exports.answers = {
       params: { product_id: req.query.product_id },
     })
       .then((data) => res.status(200).send(data.data))
-      .catch(() => res.sendStatus(500));
+      .catch((err) => {
+        console.error('BRUHH', err.stack);
+        res.sendStatus(500);
+      });
   },
   post: (req, res) => {
     axios({

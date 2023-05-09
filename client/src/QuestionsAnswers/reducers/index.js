@@ -5,7 +5,6 @@ const qaReducer = (state = { questions: {}, loading: true, error: null }, action
     case '@questions/FETCH_DATA':
       return { ...state, loading: true };
     case '@questions/SET_DATA':
-      console.log('action recieved');
       return { ...state, loading: false, questions: action.payload };
     case '@questions/FETCH_FAILED':
       return { ...state, loading: false, error: action.payload };

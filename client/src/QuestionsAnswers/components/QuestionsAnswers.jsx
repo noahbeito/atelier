@@ -37,7 +37,7 @@ export default function QuestionsAnswers() {
           dispatch({ type: '@questions/SET_DATA', payload: result.data });
         })
         .catch((error) => {
-          dispatch({ type: '@questions/FETCH_FAILED', payload: error });
+          dispatch({ type: '@questions/FETCH_FAILED', payload: error.message });
         });
     }
   }, [productId]);
