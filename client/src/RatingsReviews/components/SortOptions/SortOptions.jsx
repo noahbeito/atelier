@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import metaData from '../../testData/metaData.json';
+// import metaData from '../../testData/metaData.json';
 
 const StyledSortedOptions = styled.div`
   font-size: 150%;
@@ -28,7 +28,7 @@ const StyledDropdown = styled.div`
   }
 `;
 
-export default function SortOptions({}) {
+export default function SortOptions() {
   const ReviewsNum = 286;
   const sortOptions = ['Relevance', 'Helpful', 'Newest'];
 
