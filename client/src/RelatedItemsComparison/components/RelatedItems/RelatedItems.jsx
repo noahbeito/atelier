@@ -26,9 +26,6 @@ export default function RelatedItems() {
       });
   }, []);
 
-  // add click handler to pass down to each product card as prop
-  // add prop type
-  // in click handler, dispatch an update store action with the new productID
   const handleClick = (clickedProductId) => {
     dispatch({ type: '@product/FETCH_DATA' });
     axios.get(`/products/${clickedProductId}`)
