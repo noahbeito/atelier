@@ -11,6 +11,7 @@ import { GlobalStyle, Theme } from './globalStyles';
 
 export default function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch({ type: '@product/FETCH_DATA' });
     axios.get('/products/40349')
