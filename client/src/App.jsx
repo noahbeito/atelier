@@ -11,10 +11,10 @@ import { GlobalStyle, Theme } from './globalStyles';
 
 export default function App() {
   const dispatch = useDispatch();
-
+  // 40353
   useEffect(() => {
     dispatch({ type: '@product/FETCH_DATA' });
-    axios.get('/products/40353')
+    axios.get('/products/40349')
       .then((result) => {
         dispatch({ type: '@product/SET_DATA', payload: result.data });
       })
