@@ -14,6 +14,10 @@ const StyledDiv = styled.div`
 const StyledExpandButton = styled.div`
   width: 100%;
   height: 85%;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   /* display: flex;
   flex-direction: column; */
   /* border: solid 2px black; */
