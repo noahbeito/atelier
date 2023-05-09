@@ -14,6 +14,10 @@ const StyledDiv = styled.div`
 const StyledExpandButton = styled.div`
   width: 100%;
   height: 85%;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   /* display: flex;
   flex-direction: column; */
   /* border: solid 2px black; */
@@ -35,11 +39,11 @@ export default function ImageGallery() {
   return (
     <StyledDiv>
       <StyledExpandButton>
-        <Icons.ChevronLeft />
+        <Icons.Expand />
       </StyledExpandButton>
       <StyledLeftRightNavigation>
-        <Icons.ChevronLeft />
-        <Icons.ChevronRight />
+        <Icons.ArrowLeft />
+        <Icons.ArrowRight />
       </StyledLeftRightNavigation>
     </StyledDiv>
   );

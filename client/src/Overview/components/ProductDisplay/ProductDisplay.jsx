@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ImageGallery from '../ImageGallery/ImageGallery';
+import ImageGalleryDefault from '../ImageGallery/ImageGalleryDefault';
+// import ImageGalleryExpand from '../ImageGallery/ImageGalleryExpand';
 import CheckoutDisplay from '../CheckoutDisplay/CheckoutDisplay';
 
 const StyledDiv = styled.div`
@@ -9,11 +11,24 @@ const StyledDiv = styled.div`
   display: flex;
   border: solid 2px black;
 `;
-export default function ProductDisplay() {
+export default function ProductDisplay({ onClickHandler }) {
+  // const [renderCheckout, setRenderCheckout] = useState(true);
+  // const onClickHandler = function Clicker() {
+  //   console.log('I have been clicked!');
+  //   setRenderCheckout(!renderCheckout);
+  // };
   return (
     <StyledDiv>
-      <ImageGallery />
+      <ImageGalleryDefault onClickHandler={onClickHandler} />
       <CheckoutDisplay />
     </StyledDiv>
   );
 }
+
+ProductDisplay.propTypes = {
+  onClickHandler: PropTypes.func.isRequired,
+};
+
+ImageGalleryDefault.defaultProps = {
+  onClickHandler: PropTypes.func.isRequired,
+};
