@@ -14,7 +14,7 @@ export default function App() {
 
   useEffect(() => {
     dispatch({ type: '@product/FETCH_DATA' });
-    axios.get('/products/40349')
+    axios.get('/products/40353')
       .then((result) => {
         dispatch({ type: '@product/SET_DATA', payload: result.data });
       })
@@ -26,11 +26,13 @@ export default function App() {
   return (
     <div>
       <Theme>
-        <GlobalStyle />
-        <Overview />
-        <RelatedItemsComparisons />
-        <QuestionsAnswers />
-        <RatingsReviews />
+        <>
+          <GlobalStyle />
+          <Overview />
+          <RelatedItemsComparisons />
+          <QuestionsAnswers />
+          <RatingsReviews />
+        </>
       </Theme>
     </div>
   );

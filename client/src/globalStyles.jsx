@@ -19,7 +19,10 @@ function Theme({ children, ...props }) {
 }
 
 Theme.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.shape({
+    primaryColor: PropTypes.string,
+    secondaryColor: PropTypes.string,
+  }).isRequired,
 };
 
 export { GlobalStyle, Theme };

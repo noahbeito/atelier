@@ -16,7 +16,7 @@ const StyledDiv = styled.div`
 export default function AddToFavButton() {
   return (
     <StyledDiv>
-      <Button variant="large" style={{ color: 'orange', height: '50px', width: '50px' }}>
+      <Button variant="large-base" style={{ color: 'orange', height: '50px', width: '50px' }}>
         <Icons.Star />
       </Button>
     </StyledDiv>

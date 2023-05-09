@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import Answer from './Answer';
 import Button from '../../components/ui/Button';
@@ -17,7 +18,27 @@ const StyledAnswers = styled.div`
   bottom: 1.8rem;
 `;
 
-export default function AnswersList({ answers }) {
+export default function AnswersList({ questionId }) {
+  const [maxAnswers, setMaxAnswers] = useState(2);
+
+  const [answers, currentAnswersCount] = useSelector((state) => {
+    const arr = state.questionsAnswers.main.questions;
+    for (let i = 0; i < arr.length; i += 1) {
+      if (arr[i].question_id === questionId) {
+        const res = Object.values(arr[i].answers).sort((a, b) => b.helpfulness - a.helpfulness);
+        return [
+          res.slice(0, maxAnswers),
+          res.length,
+        ];
+      }
+    }
+    return [[], 0];
+  });
+
+  const handleLoadMoreAnswers = () => {
+    setMaxAnswers(Math.min(100, currentAnswersCount));
+  };
+
   return (
     <StyledAnswers>
       {
@@ -28,11 +49,11 @@ export default function AnswersList({ answers }) {
           </>
         ))
       }
-      <Button variant="medium">Load More Answers</Button>
+      {currentAnswersCount > answers.length && <Button variant="medium" onClick={handleLoadMoreAnswers}>Load More Answers</Button>}
     </StyledAnswers>
   );
 }
 
 AnswersList.propTypes = {
-  answers: PropTypes.objectOf(Answer.propTypes.answer).isRequired,
+  questionId: PropTypes.number.isRequired,
 };

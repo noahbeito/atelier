@@ -9,6 +9,10 @@ export default function NameDate({
   includeBy,
 }) {
   const dateString = new Date(date);
+  if (Number.isNaN(dateString.getTime())) {
+    console.error('Invalid date string');
+    return undefined;
+  }
   const fdate = dateString.toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
