@@ -10,6 +10,7 @@ const StyledDiv = styled.div`
   height: 98%;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   /* border: solid 2px black; */
   /* margin:2px;
   padding:5px; */

@@ -23,7 +23,7 @@ const StyledSurround = styled.div`
 export default function StyleSelector({ products }) {
   return (
     <StyledSurround>
-      <p>Selected Style</p>
+      <p><b>STYLE</b></p>
       <StyledThumbnailGrid>
         { products.map((product) => <StyleThumbnail product={product} key={product} />) }
       </StyledThumbnailGrid>
