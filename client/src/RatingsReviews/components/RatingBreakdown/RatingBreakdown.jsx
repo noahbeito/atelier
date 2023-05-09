@@ -9,15 +9,19 @@ import CharBreakdownBar from './CharBreakdownBar';
 const StyledRatingsOverview = styled.div`
   display: flex;
   flex-direction: row;
+  position: relative;
+  top: -1%;
 `;
 
-const StyledRating = styled.div`
+const StyledRating = styled(StyledRatingsOverview)`
   font-size: 500%;
   font-weight: 300%;
   padding-right: 2%;
 `;
 
 const StyledStarRating = styled(StarRating)`
+  position: relative;
+  top: 1em;
 `;
 
 const StyledRecomended = styled.div`
