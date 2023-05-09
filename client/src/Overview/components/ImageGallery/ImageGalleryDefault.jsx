@@ -46,7 +46,7 @@ export default function ImageGalleryDefault({ onClickHandler }) {
         <StyledthumbnailContainer>
           <ThumbnailList products={data} />
         </StyledthumbnailContainer>
-        <StyledButtonContainer onClick={onClickHandler}>
+        <StyledButtonContainer onClick={() => onClickHandler()}>
           <ButtonNav />
         </StyledButtonContainer>
       </StyledImageTop>
