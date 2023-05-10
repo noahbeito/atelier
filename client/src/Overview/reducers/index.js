@@ -10,12 +10,31 @@ const stylesReducer = (state = { styles: {}, loading: true, error: null }, actio
       return { ...state, loading: false, styles: action.payload };
     case '@styles/FETCH_FAILED':
       return { ...state, loading: false, error: action.payload };
+    case '@styles/CHANGE_DEFAULT': {
+      // console.log(action);
+      const temp = { ...state };
+      // console.log('This is temp: ', temp);
+      // const defaultVal = 'default?';
+      temp.styles.results.forEach((element, i) => {
+        // console.log('This is style in temp', element);
+        // console.log('This is sub [i]: ', temp.styles.results[i]['default?']);
+        if (element.style_id === action.style) {
+          temp.styles.results[i]['default?'] = true;
+        }
+        if (element.style_id !== action.style) {
+          temp.styles.results[i]['default?'] = false;
+        }
+      });
+      console.log('This is temp: ', temp);
+      return { ...state, styles: temp };
+      // return { ...state };
+    }
     default:
       return state;
   }
 };
 
-const defaultReducer = (state = { styleTypes: {}, loading: true, error: null }, action = {}) => {
+const selectDataReducer = (state = { selected: {}, loading: true, error: null }, action = {}) => {
   switch (action.type) {
     case '@styleTypes/FETCH_DATA':
       return { ...state, loading: true };
@@ -28,9 +47,23 @@ const defaultReducer = (state = { styleTypes: {}, loading: true, error: null }, 
       return state;
   }
 };
+const selectImgReducer = (state = { img: {}, loading: true, error: null }, action = {}) => {
+  switch (action.type) {
+    case '@image/FETCH_DATA':
+      return { ...state, loading: true };
+    case '@image/SET_DATA':
+      // console.log('action recieved');
+      return { ...state, loading: false, styles: action.payload };
+    case '@image/FETCH_FAILED':
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 const overviewReducer = combineReducers({
   productStyles: stylesReducer,
-  defaultStyle: defaultReducer,
+  selectDataStyle: selectDataReducer,
+  selectImg: selectImgReducer,
 });
 export default overviewReducer;

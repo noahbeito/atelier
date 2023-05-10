@@ -20,7 +20,7 @@ export default function Overview() {
 
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
-    axios.get('/products/40353/styles')
+    axios.get('/products/40348/styles')
       .then((result) => {
         console.log('This is result', result);
         dispatch({ type: '@styles/SET_DATA', payload: result.data });

@@ -43,7 +43,12 @@ export default function StyleSelector() {
             <p><b>STYLE</b></p>
             <StyledThumbnailGrid>
               { styles.map((styletype) => (
-                <StyleThumbnail name={styletype.name} key={styletype.style_id} />
+                <StyleThumbnail
+                  className={styletype['default?']}
+                  styletype={styletype}
+                  key={styletype.style_id}
+                  id={styletype.style_id}
+                />
               ))}
             </StyledThumbnailGrid>
           </>

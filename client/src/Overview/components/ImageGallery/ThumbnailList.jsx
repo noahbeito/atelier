@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 // import PropTypes from 'prop-types';
@@ -22,6 +22,8 @@ const StyledLoading = styled.div`
   color: gray;
 `;
 export default function ThumbnailList() {
+  const [renderList1, setRenderList1] = useState([]);
+  const [leftOverList, setLeftOverList] = useState([]);
   const isLoading = useSelector((state) => state.product.isLoading
                                         || state.overview.productStyles.loading);
 
@@ -30,7 +32,7 @@ export default function ThumbnailList() {
     return (state.overview.productStyles.styles.results)
       ? state.overview.productStyles.styles.results : [];
   });
-  console.log('This is styles in Thumbnail: ', styles);
+  // console.log('This is styles in Thumbnail: ', styles);
   const getPhotoList = (style) => {
     if (style.length === 0) {
       return [];
@@ -39,25 +41,58 @@ export default function ThumbnailList() {
     return defaultStyles[0].photos;
   };
   const photoList = getPhotoList(styles);
+  useEffect(() => {
+    if (photoList.length <= 7) {
+      setRenderList1(photoList);
+    } else {
+      const toRender = photoList.slice(0, 7);
+      const leftOver = photoList.slice(7);
+      console.log('This is renderList1: ', toRender);
+      console.log('This is leftOverList: ', leftOver);
+      setRenderList1(toRender);
+      setLeftOverList(leftOver);
+    }
+    // setRenderList(photoList);
+  }, [photoList]);
   console.log('PhotoList', photoList);
   // console.log('Default style: ', defaultStyles[0].photos);
   // const photoList = defaultStyles[0].photos;
+  const rotateUp = () => {
+    const main = [...renderList1];
+    const leftOvr = [...leftOverList];
+    const toAddToRender = leftOvr.shift();
+    const toAddToLeftOver = main.pop();
+    main.unshift(toAddToRender);
+    leftOvr.push(toAddToLeftOver);
+    setRenderList1(main);
+    setLeftOverList(leftOvr);
+  };
+  const rotateDown = () => {
+    const main = [...renderList1];
+    const leftOvr = [...leftOverList];
+    const toAddToRender = leftOvr.pop();
+    const toAddToLeftOver = main.shift();
+    main.push(toAddToRender);
+    leftOvr.unshift(toAddToLeftOver);
+    setRenderList1(main);
+    setLeftOverList(leftOvr);
+  };
   return (
     <StyledDiv>
+      <Icons.ChevronUp onClick={rotateUp} />
       {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
         : (
           <>
-            {photoList.map((img) => (
+            {renderList1.map((img) => (
               <ImageThumbnail
                 url={img.url}
                 imgUrl={img.thumbnail_url}
-                key={img}
+                key={img.url}
               />
-            ),
-            )}
+            ))}
           </>
         )}
-      <Icons.ChevronDown />
+      <Icons.ChevronDown onClick={rotateDown} />
     </StyledDiv>
   );
 }
