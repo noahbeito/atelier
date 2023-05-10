@@ -51,7 +51,7 @@ export default function RatingBreakdown({
       totalNumOfRatings += Number(ratings[ratingValue]);
     }
 
-    result.avgRating = Number((total / totalNumOfRatings).toFixed(1));
+    result.avgRating = Number((total / totalNumOfRatings)).toFixed(1);
 
     const ratingBreakdown = {};
     for (let i = 0; i < ratingValues.length; i += 1) {
