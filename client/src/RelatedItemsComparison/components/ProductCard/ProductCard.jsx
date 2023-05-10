@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -94,24 +94,26 @@ export default function ProductCard({
   };
 
   // will likely have to wrap this in a useEffect
-  axios.all([
-    getNameAndCategory(),
-    getPhotosAndPrices(),
-    // getRatings,
-  ])
-    .then((axios.spread(
-      (nameAndCategory, photosAndPrices /* ratings */) => {
-        setCategory(nameAndCategory.data.category);
-        setName(nameAndCategory.data.name);
-        setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
-        setPrice(photosAndPrices.data.results[0].original_price);
-        setSalePrice(photosAndPrices.data.results[0].sale_price);
-        // setAvgRating(calculateAvgRating(ratings.ratings));
-      },
-    )))
-    .catch((err) => {
-      console.log(err);
-    });
+  useEffect(() => {
+    axios.all([
+      getNameAndCategory(),
+      getPhotosAndPrices(),
+      // getRatings,
+    ])
+      .then((axios.spread(
+        (nameAndCategory, photosAndPrices /* ratings */) => {
+          setCategory(nameAndCategory.data.category);
+          setName(nameAndCategory.data.name);
+          setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
+          setPrice(photosAndPrices.data.results[0].original_price);
+          setSalePrice(photosAndPrices.data.results[0].sale_price);
+          // setAvgRating(calculateAvgRating(ratings.ratings));
+        },
+      )))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Card onClick={() => handleClick()}>
