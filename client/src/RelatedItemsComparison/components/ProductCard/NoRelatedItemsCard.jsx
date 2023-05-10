@@ -4,7 +4,7 @@ import { DefaultCard } from '../../styles';
 export default function NoRelatedItemsCard() {
   return (
     <DefaultCard>
-      <div>No Related Items...</div>
+      <div data-testid="default-card">No Related Items...</div>
     </DefaultCard>
   );
 }
