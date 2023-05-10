@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import StyleThumbnail from '../StyleThumbnail/StyleThumbnail';
+import { useSelector } from 'react-redux';
+// import PropTypes from 'prop-types';
+import ImageThumbnail from './ImageThumbnail';
 import Icons from '../../../components/Icons';
 
 const StyledDiv = styled.div`
   width: 110px;
-  height: 90%;
+  height: 700px;
   display: flex;
   flex-direction: column;
   border: solid 2px lightgrey;
@@ -15,23 +16,59 @@ const StyledDiv = styled.div`
   /* margin:2px;
   padding:5px; */
 `;
+const StyledLoading = styled.div`
+  margin: 50px auto;
+  text-align: center;
+  color: gray;
+`;
+export default function ThumbnailList() {
+  const isLoading = useSelector((state) => state.product.isLoading
+                                        || state.overview.productStyles.loading);
 
-export default function ThumbnailList({ products }) {
+  const styles = useSelector((state) => {
+    console.log(state);
+    return (state.overview.productStyles.styles.results)
+      ? state.overview.productStyles.styles.results : [];
+  });
+  console.log('This is styles in Thumbnail: ', styles);
+  const getPhotoList = (style) => {
+    if (style.length === 0) {
+      return [];
+    }
+    const defaultStyles = styles.filter((element) => element['default?']);
+    return defaultStyles[0].photos;
+  };
+  const photoList = getPhotoList(styles);
+  console.log('PhotoList', photoList);
+  // console.log('Default style: ', defaultStyles[0].photos);
+  // const photoList = defaultStyles[0].photos;
   return (
     <StyledDiv>
-      { products.map((product) => <StyleThumbnail product={product} key={product} />) }
+      {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
+        : (
+          <>
+            {photoList.map((img) => (
+              <ImageThumbnail
+                url={img.url}
+                imgUrl={img.thumbnail_url}
+                key={img}
+              />
+            ),
+            )}
+          </>
+        )}
       <Icons.ChevronDown />
     </StyledDiv>
   );
 }
 
-ThumbnailList.propTypes = {
-  products: PropTypes.node,
-};
+// ThumbnailList.propTypes = {
+//   products: PropTypes.node,
+// };
 
-ThumbnailList.defaultProps = {
-  products: [],
-};
+// ThumbnailList.defaultProps = {
+//   products: [],
+// };
 
 // import React from 'react';
 // // import PropTypes from 'prop-types';

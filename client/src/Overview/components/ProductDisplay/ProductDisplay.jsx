@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+// import { useSelector } from 'react-redux';
 import ImageGalleryDefault from '../ImageGallery/ImageGalleryDefault';
 // import ImageGalleryExpand from '../ImageGallery/ImageGalleryExpand';
 import CheckoutDisplay from '../CheckoutDisplay/CheckoutDisplay';
@@ -17,6 +18,10 @@ export default function ProductDisplay({ onClickHandler }) {
   //   console.log('I have been clicked!');
   //   setRenderCheckout(!renderCheckout);
   // };
+  // const styles = useSelector((state) => {
+  //   console.log('This is state in productDisplay: ', state);
+  //   return state.overview.productStyles.styles.results;
+  // });
   return (
     <StyledDiv>
       <ImageGalleryDefault onClickHandler={onClickHandler} />

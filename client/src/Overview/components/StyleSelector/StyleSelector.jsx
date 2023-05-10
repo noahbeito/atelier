@@ -30,8 +30,10 @@ export default function StyleSelector() {
   const isLoading = useSelector((state) => state.product.isLoading
                                         || state.overview.productStyles.loading);
 
-  const styles = useSelector((state) => state.overview.productStyles.styles.results);
-  console.log('This is styles in styleselector: ', styles);
+  const styles = useSelector((state) => {
+    console.log('This is state in styleselector: ', state);
+    return state.overview.productStyles.styles.results;
+  });
 
   return (
     <StyledSurround>

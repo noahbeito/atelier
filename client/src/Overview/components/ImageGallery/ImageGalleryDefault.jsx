@@ -22,13 +22,21 @@ const StyledImageTop = styled.div`
   display: flex;
 `;
 const StyledImageBottom = styled.div`
-  width: 100%;
-  height: 40%;
+  width: 80%;
+  height: 100%;
+
   /* border: solid 2px black; */
 `;
 const StyledthumbnailContainer = styled.div`
   width: 20%;
   height: 100%;
+  /* border: solid 2px black; */
+`;
+const Spacer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
   /* border: solid 2px black; */
 `;
 const StyledButtonContainer = styled.div`
@@ -50,7 +58,9 @@ export default function ImageGalleryDefault({ onClickHandler }) {
           <ButtonNav />
         </StyledButtonContainer>
       </StyledImageTop>
-      <StyledImageBottom onClick={onClickHandler}>Bottom</StyledImageBottom>
+      <Spacer className="spacer">
+        <StyledImageBottom onClick={onClickHandler}>Bottom</StyledImageBottom>
+      </Spacer>
     </StyledDiv>
   );
 }

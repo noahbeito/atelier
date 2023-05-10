@@ -15,7 +15,7 @@ const stylesReducer = (state = { styles: {}, loading: true, error: null }, actio
   }
 };
 
-const stylePropsReducer = (state = { styleTypes: {}, loading: true, error: null }, action = {}) => {
+const defaultReducer = (state = { styleTypes: {}, loading: true, error: null }, action = {}) => {
   switch (action.type) {
     case '@styleTypes/FETCH_DATA':
       return { ...state, loading: true };
@@ -31,6 +31,6 @@ const stylePropsReducer = (state = { styleTypes: {}, loading: true, error: null 
 
 const overviewReducer = combineReducers({
   productStyles: stylesReducer,
-  styleProps: stylePropsReducer,
+  defaultStyle: defaultReducer,
 });
 export default overviewReducer;
