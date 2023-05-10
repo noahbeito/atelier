@@ -3,17 +3,18 @@ import axios from 'axios';
 import _ from 'underscore';
 import { useSelector } from 'react-redux';
 import ProductCard from '../ProductCard/ProductCard';
+import NoRelatedItemsCard from '../ProductCard/NoRelatedItemsCard';
 import { Title, Carousel } from '../../styles';
 
 export default function RelatedItems() {
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [noRelatedItems, setNoRelatedItems] = useState(false);
   const productId = useSelector((state) => state.product.data.id);
 
   useEffect(() => {
     if (productId) {
       axios.get(`/products/${productId}/related`)
         .then((relatedIds) => {
-          console.log('PRODUCTID:', productId);
           let ids = relatedIds.data;
           ids.forEach((id, i) => {
             if (id === productId) {
@@ -22,6 +23,11 @@ export default function RelatedItems() {
             ids = _.uniq(ids);
           });
           setRelatedProducts(ids);
+          if (ids.length === 0) {
+            setNoRelatedItems(true);
+          } else {
+            setNoRelatedItems(false);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -39,6 +45,7 @@ export default function RelatedItems() {
     <div>
       <Title>Related Items</Title>
       <Carousel>
+        {noRelatedItems && <NoRelatedItemsCard />}
         {relatedProducts.map((id) => (
           <ProductCard id={id} action={action} symbol={symbol} key={id} />
         ))}
