@@ -59,25 +59,29 @@ jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
   useSelector: jest.fn(),
 }));
-
-useSelector.mockImplementation((selector) => selector(mockState));
+jest.mock('../components/AnswersList');
+jest.mock('axios');
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
-const store = mockStore();
-
-jest.mock('../components/AnswersList');
-const dispatchMock = jest.fn((actionOrThunk) => {
-  if (typeof actionOrThunk === 'function') {
-    return actionOrThunk(dispatchMock);
-  }
-  return null;
-});
-useDispatch.mockReturnValue(dispatchMock);
-
-jest.mock('axios');
 
 export default () => {
+  let store;
+  let dispatchMock;
+
+  beforeEach(() => {
+    useSelector.mockImplementation((selector) => selector(mockState));
+    store = mockStore();
+
+    dispatchMock = jest.fn((actionOrThunk) => {
+      if (typeof actionOrThunk === 'function') {
+        return actionOrThunk(dispatchMock);
+      }
+      return null;
+    });
+    useDispatch.mockReturnValue(dispatchMock);
+  });
+
   describe('QA component mocks', () => {
     it('should fetch qa data and dispatch it to the Redux store', async () => {
       axios.get.mockResolvedValueOnce({ data: mockData });

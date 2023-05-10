@@ -1,12 +1,14 @@
 /* eslint-env jest */
 
-import accordionTest from './accordion.test';
+import questionTest from './question.test';
 import qaTest from './qa.test';
+import answerTest from './answer.test';
 
 describe('Questions Answers Test', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  accordionTest();
+  questionTest();
+  answerTest();
   qaTest();
 });
