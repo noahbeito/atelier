@@ -26,7 +26,8 @@ const ratingsReviewsReducer = (
         },
       },
     },
-    loading: true,
+    rloading: true,
+    mloading: true,
     error: null,
   },
   action = {
@@ -36,18 +37,18 @@ const ratingsReviewsReducer = (
 ) => {
   switch (action.type) {
     case '@reviews/FETCH_DATA':
-      return { ...state, loading: true };
+      return { ...state, rloading: true };
     case '@reviews/SET_DATA':
-      return { ...state, loading: false, reviews: action.payload };
+      return { ...state, rloading: false, reviews: action.payload };
     case '@reviews/FAILED':
-      return { ...state, loading: false, reviews: action.payload };
+      return { ...state, rloading: false, reviews: action.payload };
 
     case '@reviews/meta/FETCH_DATA':
-      return { ...state, loading: true };
+      return { ...state, mloading: true };
     case '@reviews/meta/SET_DATA':
-      return { ...state, loading: false, meta: action.payload };
+      return { ...state, mloading: false, meta: action.payload };
     case '@reviews/meta/FAILED':
-      return { ...state, loading: false, meta: action.payload };
+      return { ...state, mloading: false, meta: action.payload };
 
     default:
       return state;
