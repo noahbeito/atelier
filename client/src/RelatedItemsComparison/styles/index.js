@@ -7,16 +7,19 @@ const Title = styled.h2`
   width: 60%;
 `;
 
-const Card = styled.div`
-  height: 300px;
-  border-radius: 5px;
-  background-color: ${(props) => props.theme.secondaryColor};
+const DefaultCard = styled.div`
+position: relative;
+height: 340px;
+background-color: #CDCDCD;
+border-radius: 5px;
+/* background-color: ${(props) => props.theme.secondaryColor}; */
+padding: 0.5rem;
+scroll-snap-align: start;
+cursor: pointer;
+`;
 
-  padding: 1rem;
-
-  scroll-snap-align: start;
-
-  cursor: pointer;
+const Card = styled(DefaultCard)`
+  border: none;
 `;
 
 const Carousel = styled.div`
@@ -32,4 +35,6 @@ const Carousel = styled.div`
   scroll-snap-type: inline mandatory; // this might change when implementing right/left buttons
 `;
 
-export { Title, Card, Carousel };
+export {
+  Title, DefaultCard, Card, Carousel,
+};

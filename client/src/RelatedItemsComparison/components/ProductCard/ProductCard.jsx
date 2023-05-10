@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
+import ActionButton from './ActionButton';
 import { Card } from '../../styles';
 
 const StyledCategory = styled.div`
@@ -21,9 +22,21 @@ const StyledImg = styled.img`
   aspect-ratio: .7;
   object-fit: cover;
 `;
-export default function ProductCard({ id }) {
+const StyledWrap = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.5);
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
+export default function ProductCard({
+  id, action, symbol,
+}) {
   const dispatch = useDispatch();
-
+  // create states for all relevant pieces of data;
   const [photoURL, setPhotoURL] = useState('');
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
@@ -93,6 +106,9 @@ export default function ProductCard({ id }) {
 
   return (
     <Card onClick={() => handleClick()}>
+      <StyledWrap>
+        <ActionButton action={action} symbol={symbol} />
+      </StyledWrap>
       <StyledImg src={photoURL} />
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>
@@ -104,4 +120,6 @@ export default function ProductCard({ id }) {
 
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
+  action: PropTypes.func.isRequired,
+  symbol: PropTypes.string.isRequired,
 };
