@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import Form from '../ui/Form';
 import Input from '../ui/Input';
 import Submit from '../ui/Submit';
@@ -17,7 +17,7 @@ export default () => {
           />
           <Input
             label="Input 2"
-            id="label2"
+            id="l abel2"
           />
         </Form>,
       );

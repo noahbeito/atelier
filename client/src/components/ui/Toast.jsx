@@ -9,13 +9,12 @@ const StyledToast = styled.div`
   box-sizing: border-box;
   background-color: #ffadad;
   position: relative;
-  overflow: hidden;
 
   color: #414141;
   font-size: 1rem;
 
   overflow: hidden;
-  transition: padding 0.3 ease, height 0.3s ease;
+
   border-radius: 5px;
 
   width: 60%;
@@ -23,8 +22,6 @@ const StyledToast = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* margin: 30px auto; */
 
   & .exit {
     &:hover {
@@ -35,15 +32,14 @@ const StyledToast = styled.div`
   }
 
   &.open {
-    height: 100px;
+    max-height: 200px;
     padding: 20px 50px;
-    overflow: auto;
-    transition: height 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
+    transition: padding 1s, max-height 1s;
   }
   &.closed {
-    height: 0;
+    max-height: 0;
     padding: 0 50px;
-    transition: height 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
+    transition: padding 1s, max-height 1s;
   }
 `;
 

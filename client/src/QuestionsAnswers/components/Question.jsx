@@ -72,6 +72,8 @@ const StyledQuestion = styled.div`
 export default function Question({ question }) {
   const productName = useSelector((state) => state.product.data.name);
 
+  const productId = useSelector((state) => state.product.data.id);
+
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
   const dispatch = useDispatch();
@@ -150,7 +152,11 @@ export default function Question({ question }) {
         </div>
       </StyledQuestion>
       <Popup ref={modalRef} titles={['Submit your Answer', `${productName}: ${question.question_body}`]}>
-        <AddAnswer handleCloseModal={handleCloseModal} />
+        <AddAnswer
+          productId={productId}
+          questionId={question.question_id}
+          handleCloseModal={handleCloseModal}
+        />
       </Popup>
     </>
   );

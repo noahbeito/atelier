@@ -74,12 +74,9 @@ const questionsReducer = (state = { questions: [], loading: true, error: null },
     }
 
     case '@answers/ADD_ANSWER': {
-      const temp = { ...state };
+      const temp = { ...state, loading: false };
       temp.questions.forEach((question, i) => {
-        const obj = question.answers;
-        if (action.answer_id in obj) {
-          temp.questions[i].answers[action.payload.answer_id] = action.payload;
-        }
+        temp.questions[i].answers[action.payload.answer_id] = action.payload;
       });
       return temp;
     }

@@ -15,10 +15,9 @@ const StyledForm = styled.div`
 
 export default function Form({ children, onSubmit, ...props }) {
   const [error, setError] = useState(null);
+  const [toastIsOpen, setToastIsOpen] = useState(false);
 
-  console.log('error', error, !!error);
-
-  const allowed = new Set(['Input', 'TextArea', 'ImageUpload']);
+  const allowed = new Set(['Input', 'TextArea']);
   const submitHandler = (e) => {
     e.preventDefault();
     const missing = [];
@@ -26,7 +25,6 @@ export default function Form({ children, onSubmit, ...props }) {
       const child = children[i];
 
       const { value, validation } = child.props;
-      console.log(child);
 
       if (value !== undefined && validation && allowed.has(child.type.name)) {
         if (value.length === 0 && child.props.required) {
@@ -44,10 +42,9 @@ export default function Form({ children, onSubmit, ...props }) {
         </>
       );
 
-      console.log(missing);
-
       onSubmit(e, missingError);
       setError(missingError);
+      setToastIsOpen(true);
       return;
     }
 
@@ -57,10 +54,18 @@ export default function Form({ children, onSubmit, ...props }) {
       const { value, validation } = child.props;
 
       if (value !== undefined && validation && allowed.has(child.type.name)) {
-        console.log('VALUE', value, validation(value));
         if (!validation(value)) {
           onSubmit(e, child.props.error);
           setError(child.props.error);
+          setToastIsOpen(true);
+          return;
+        }
+      } else if (validation && child.type.name === 'ImageUpload') {
+        const { images } = child.props;
+        if (!validation(images)) {
+          onSubmit(e, child.props.error);
+          setError(child.props.error);
+          setToastIsOpen(true);
           return;
         }
       }
@@ -68,10 +73,11 @@ export default function Form({ children, onSubmit, ...props }) {
     onSubmit(e, null);
   };
 
-  const handleExitToast = () => setError(null);
+  const handleExitToast = () => setToastIsOpen(false);
+
   return (
     <StyledForm>
-      <Toast onClick={handleExitToast} isOpen={!!error}>{error}</Toast>
+      <Toast onClick={handleExitToast} isOpen={toastIsOpen}>{error}</Toast>
       <form {...props} onSubmit={submitHandler}>{children}</form>
     </StyledForm>
   );

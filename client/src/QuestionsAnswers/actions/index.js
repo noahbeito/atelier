@@ -28,5 +28,34 @@ export const fetchMoreQuestions = (() => {
   };
 })();
 
+export const postQuestion = (productId, question) => (dispatch) => {
+  if (productId !== undefined) {
+    dispatch({ type: '@questions/FETCH_DATA' });
+    axios.post('/qa/questions', { ...question, product_id: productId })
+      .then(() => {
+        dispatch({ type: '@questions/ADD_QUESTIONS', payload: [question] });
+      })
+      .then(() => {
+        dispatch(fetchInitialQuestions(productId));
+      })
+      .catch(({ message }) => dispatch({ type: '@questions/FETCH_FAILED', payload: message }));
+  }
+};
+
+export const postAnswer = (productId, questionId, answer) => (dispatch) => {
+  if (questionId !== undefined) {
+    dispatch({ type: '@questions/FETCH_DATA' });
+    return axios.post(`/qa/questions/${questionId}/answers`, answer)
+      .then(() => {
+        dispatch({ type: '@answers/ADD_ANSWER', payload: answer });
+      })
+      .then(() => {
+        dispatch(fetchInitialQuestions(productId));
+      })
+      .catch(({ message }) => dispatch({ type: '@questions/FETCH_FAILED', payload: message }));
+  }
+  return null;
+};
+
 // Template thunk
 export const example = () => () => {};

@@ -21,7 +21,7 @@ export default function TextArea({
           ? (
             <label htmlFor={id}>
               {label}
-              <RequiredStyle>*</RequiredStyle>
+              {required && <RequiredStyle>*</RequiredStyle>}
               <textarea type="text" id={id} {...props} />
             </label>
           )

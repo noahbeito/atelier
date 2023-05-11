@@ -69,7 +69,7 @@ export default function QuestionsAnswers() {
               <Button variant="large-add" onClick={handleAddQuestion}>Add A Question</Button>
             </FlexLeft>
             <Popup ref={modalRef} titles={['Ask Your Question', `About the ${productName}`]}>
-              <AddQuestion handleCloseModal={handleCloseModal} />
+              <AddQuestion productId={productId} handleCloseModal={handleCloseModal} />
             </Popup>
           </>
         )}

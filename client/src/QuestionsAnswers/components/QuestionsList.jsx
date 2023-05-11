@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Question from './Question';
 
 const Scroll = styled.div`
-  max-height: 100vh;
+  max-height: calc(100vh - 300px);
   overflow: scroll;
 `;
 
