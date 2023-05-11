@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 import Divider from '../../components/Divider';
 import Helpful from '../../components/Helpful';
@@ -21,12 +22,19 @@ const StyledAnswer = styled.div`
 
 export default function Answer({ answer }) {
   const dispatch = useDispatch();
+
   const handleHelpful = () => {
-    dispatch({ type: '@answers/MARK_HELPFUL', answer_id: answer.id });
+    axios.put(`/qa/answers/${answer.id}/helpful`)
+      .then(() => {
+        dispatch({ type: '@answers/MARK_HELPFUL', answer_id: answer.id });
+      });
   };
 
   const handleReportAnswer = () => {
-    dispatch({ type: '@answers/REPORT', answer_id: answer.id });
+    axios.put(`/qa/answers/${answer.id}/report`)
+      .then(() => {
+        dispatch({ type: '@answers/REPORT', answer_id: answer.id });
+      });
   };
 
   return (
