@@ -3,12 +3,38 @@
 import questionTest from './question.test';
 import qaTest from './qa.test';
 import answerTest from './answer.test';
+import searchTest from './search.test';
 
 describe('Questions Answers Test', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
   });
-  questionTest();
-  answerTest();
-  qaTest();
+
+  describe('Search Tests', () => {
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+    searchTest();
+  });
+
+  describe('Question Tests', () => {
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+    questionTest();
+  });
+
+  describe('Answer Tests', () => {
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+    answerTest();
+  });
+
+  describe('QuestionAnswer Tests', () => {
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+    qaTest();
+  });
 });

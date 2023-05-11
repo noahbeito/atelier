@@ -101,7 +101,7 @@ export default function Question({ question }) {
         className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')} ${answerCount.current === 0 ? 'empty-chevron' : ''}`}
         onClick={handleAccordionClick}
       >
-        <span className="question">{question.question_body}</span>
+        <span data-testid="question" className="question">{question.question_body}</span>
         <span>
           <Divider>
             <Helpful helpfulness={question.question_helpfulness} onClick={handleHelpful} />
