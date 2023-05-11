@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import AnswersList from './AnswersList';
 import Button from '../../components/ui/Button';
@@ -77,7 +78,10 @@ export default function Question({ question }) {
 
   const handleHelpful = (e) => {
     e.stopPropagation();
-    dispatch({ type: '@questions/MARK_HELPFUL', question_id: question.question_id });
+    axios.put(`/qa/questions/${question.question_id}/helpful`)
+      .then(() => {
+        dispatch({ type: '@questions/MARK_HELPFUL', question_id: question.question_id });
+      });
   };
 
   const handleAddAnswer = (e) => {
@@ -86,7 +90,10 @@ export default function Question({ question }) {
 
   const handleReportQuestion = (e) => {
     e.stopPropagation();
-    dispatch({ type: '@questions/REPORT', question_id: question.question_id });
+    axios.put(`/qa/questions/${question.question_id}/report`)
+      .then(() => {
+        dispatch({ type: '@questions/REPORT', question_id: question.question_id });
+      });
   };
   return (
     <StyledQuestion>
