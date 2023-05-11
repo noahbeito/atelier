@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import Thumbnail from '../../../components/Thumbnail';
 
 // const StyledThumbnail = styled.img`
@@ -48,20 +48,44 @@ transition: 0.2s;
   transform: scale(1.05);
 }
 &.true {
-  border: green 3px solid;
-  transform: scale(1.05);
+  border: lime 3px solid;
+  box-shadow: lime 0px 5px 15px;
 }
 `;
-
-export default function StyleThumbnail({ styletype, id }) {
-  const dispatch = useDispatch();
-  const changeDefault = () => {
-    dispatch({ type: '@styles/CHANGE_DEFAULT', style: id });
+export default function StyleThumbnail({
+  styletype,
+  id,
+  defaultNumberHandler,
+}) {
+  let list = [];
+  const styles = useSelector((state) => {
+    if (state.overview.productStyles.styles.results) {
+      list = state.overview.productStyles.styles.results;
+      return state.overview.productStyles.styles.results;
+    }
+    return [];
+  });
+  // console.log('This is list in stylethumbnail', list);
+  // const dispatch = useDispatch();
+  const changeDefault = (event) => {
+    const checker = event.target.innerText;
+    list.forEach((element, i) => {
+      // console.log('This is sub [i]: ', temp.styles.results[i]['default?']);
+      if (element.name === checker) {
+        list[i]['default?'] = true;
+        defaultNumberHandler(list[i].style_id);
+      }
+      if (element.name !== checker) {
+        list[i]['default?'] = false;
+      }
+    });
   };
   return (
     <StyledThumbnail
       onClick={changeDefault}
       key={id}
+      id={id}
+      data-id={id}
       className={styletype['default?']}
     >
       <p>{styletype.name}</p>
@@ -72,6 +96,7 @@ export default function StyleThumbnail({ styletype, id }) {
 StyleThumbnail.propTypes = {
   styletype: PropTypes.node,
   id: PropTypes.node,
+  defaultNumberHandler: PropTypes.func.isRequired,
 };
 
 StyleThumbnail.defaultProps = {

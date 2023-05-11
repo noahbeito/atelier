@@ -11,6 +11,12 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  background: url(${(props) => props.bg});
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  /* background-repeat: no-repeat; */
+  /* background-size: contain;
   /* border: solid 2px black; */
   /* margin:2px;
   padding:5px; */
@@ -47,12 +53,21 @@ const StyledButtonContainer = styled.div`
 `;
 const data = ['one', 'two', 'three', 'four'];
 
-export default function ImageGalleryDefault({ onClickHandler }) {
+export default function ImageGalleryDefault({
+  onClickHandler,
+  bg,
+  bgHandler,
+  defaultNumber,
+}) {
   return (
-    <StyledDiv>
-      <StyledImageTop>
+    <StyledDiv className="checker" bg={bg}>
+      <StyledImageTop className="top">
         <StyledthumbnailContainer>
-          <ThumbnailList products={data} />
+          <ThumbnailList
+            defaultNumber={defaultNumber}
+            bgHandler={bgHandler}
+            products={data}
+          />
         </StyledthumbnailContainer>
         <StyledButtonContainer onClick={() => onClickHandler()}>
           <ButtonNav />
@@ -70,8 +85,11 @@ StyledImageBottom.propTypes = {
 };
 ImageGalleryDefault.propTypes = {
   onClickHandler: PropTypes.func.isRequired,
+  bg: PropTypes.string.isRequired,
+  defaultNumber: PropTypes.number.isRequired,
+  // bg.url: PropTypes.objectOf(PropTypes.string),
+  bgHandler: PropTypes.func.isRequired,
 };
-
-// ImageGalleryDefault.defaultProps = {
-//   onClickHandler: PropTypes.func.isRequired,
-// };
+ImageGalleryDefault.defaultProps = {
+  // bg: PropTypes.objectOf(PropTypes.string),
+};

@@ -13,10 +13,11 @@ const stylesReducer = (state = { styles: {}, loading: true, error: null }, actio
     case '@styles/CHANGE_DEFAULT': {
       // console.log(action);
       const temp = { ...state };
+      console.log('This is state: ', state);
       // console.log('This is temp: ', temp);
       // const defaultVal = 'default?';
       temp.styles.results.forEach((element, i) => {
-        // console.log('This is style in temp', element);
+        console.log('This is style in temp', element);
         // console.log('This is sub [i]: ', temp.styles.results[i]['default?']);
         if (element.style_id === action.style) {
           temp.styles.results[i]['default?'] = true;
@@ -25,8 +26,17 @@ const stylesReducer = (state = { styles: {}, loading: true, error: null }, actio
           temp.styles.results[i]['default?'] = false;
         }
       });
-      console.log('This is temp: ', temp);
-      return { ...state, styles: temp };
+      console.log('This is temp: ', temp.styles.results);
+      return {
+        ...state,
+        styles: {
+          product_id: state.styles.product_id,
+          results: {
+            ...state.styles.results,
+            ...temp,
+          },
+        },
+      };
       // return { ...state };
     }
     default:

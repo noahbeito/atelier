@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import ImageThumbnail from './ImageThumbnail';
 import Icons from '../../../components/Icons';
 
@@ -21,42 +21,54 @@ const StyledLoading = styled.div`
   text-align: center;
   color: gray;
 `;
-export default function ThumbnailList() {
+export default function ThumbnailList({ bgHandler, defaultNumber }) {
+  let list = [];
   const [renderList1, setRenderList1] = useState([]);
   const [leftOverList, setLeftOverList] = useState([]);
+  const [styleArray, setStyleArray] = useState([]);
   const isLoading = useSelector((state) => state.product.isLoading
                                         || state.overview.productStyles.loading);
 
   const styles = useSelector((state) => {
-    console.log(state);
-    return (state.overview.productStyles.styles.results)
-      ? state.overview.productStyles.styles.results : [];
+    if (state.overview.productStyles.styles.results) {
+      list = state.overview.productStyles.styles.results;
+      return state.overview.productStyles.styles.results;
+    }
+    return [];
   });
   // console.log('This is styles in Thumbnail: ', styles);
   const getPhotoList = (style) => {
     if (style.length === 0) {
       return [];
     }
-    const defaultStyles = styles.filter((element) => element['default?']);
+    // console.log('****  STYLESARRAY ****: 1', style);
+    const defaultStyles = style.filter((element) => element.style_id === defaultNumber);
     return defaultStyles[0].photos;
   };
   const photoList = getPhotoList(styles);
+  // console.log('This is photolist in thumbnailist:2', photoList);
+  const newList = photoList.slice();
   useEffect(() => {
-    if (photoList.length <= 7) {
-      setRenderList1(photoList);
+    setStyleArray(list);
+    newList.map((obj, i) => {
+      if (i === 0) {
+        newList[i].class = 'selected';
+        bgHandler(newList[0]);
+      } else {
+        newList[i].class = 'unselected';
+      }
+      return obj;
+    });
+    if (newList.length <= 7) {
+      setRenderList1(newList);
     } else {
-      const toRender = photoList.slice(0, 7);
-      const leftOver = photoList.slice(7);
-      console.log('This is renderList1: ', toRender);
-      console.log('This is leftOverList: ', leftOver);
+      const toRender = newList.slice(0, 7);
+      const leftOver = newList.slice(7);
       setRenderList1(toRender);
       setLeftOverList(leftOver);
     }
-    // setRenderList(photoList);
-  }, [photoList]);
-  console.log('PhotoList', photoList);
-  // console.log('Default style: ', defaultStyles[0].photos);
-  // const photoList = defaultStyles[0].photos;
+  }, [isLoading, defaultNumber]);
+
   const rotateUp = () => {
     const main = [...renderList1];
     const leftOvr = [...leftOverList];
@@ -77,17 +89,34 @@ export default function ThumbnailList() {
     setRenderList1(main);
     setLeftOverList(leftOvr);
   };
+  const changeSelected = (event) => {
+    const num = Number(event.target.id);
+    const change = [...renderList1];
+    change.map((obj, i) => {
+      if (i === num) {
+        bgHandler(change[i]);
+        change[i].class = 'selected';
+      } else {
+        change[i].class = 'unselected';
+      }
+      return obj;
+    });
+    setRenderList1(change);
+  };
   return (
     <StyledDiv>
       <Icons.ChevronUp onClick={rotateUp} />
       {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
         : (
           <>
-            {renderList1.map((img) => (
+            {renderList1.map((img, idx) => (
               <ImageThumbnail
                 url={img.url}
                 imgUrl={img.thumbnail_url}
                 key={img.url}
+                num={idx}
+                classname={img.class}
+                changeSelected={changeSelected}
               />
             ))}
           </>
@@ -97,38 +126,11 @@ export default function ThumbnailList() {
   );
 }
 
-// ThumbnailList.propTypes = {
-//   products: PropTypes.node,
-// };
+ThumbnailList.propTypes = {
+  bgHandler: PropTypes.func.isRequired,
+  defaultNumber: PropTypes.number.isRequired,
+};
 
 // ThumbnailList.defaultProps = {
-//   products: [],
+//   bgHandler: PropTypes.func.isRequired,
 // };
-
-// import React from 'react';
-// // import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-// import StyleThumbnail from '../StyleThumbnail/StyleThumbnail';
-
-// const StyledThumbnailGrid = styled.div`
-//   display: flex;
-//   /* justify-content: left; */
-//   flex-direction: column;
-
-// `;
-// const StyledSurround = styled.div`
-//   border: lightgrey 3px solid;
-//   border-radius: 5px;
-//   padding: 5px;
-// `;
-
-// export default function StyleSelector({ products }) {
-//   return (
-//     <StyledSurround>
-//       <h5>Selected Style</h5>
-//       <StyledThumbnailGrid>
-//         { products.map((product, i) => <StyleThumbnail product={product} key={i} />) }
-//       </StyledThumbnailGrid>
-//     </StyledSurround>
-//   );
-// }

@@ -12,7 +12,14 @@ const StyledDiv = styled.div`
   display: flex;
   border: solid 2px black;
 `;
-export default function ProductDisplay({ onClickHandler }) {
+export default function ProductDisplay({
+  onClickHandler,
+  bg,
+  bgHandler,
+  defaultHandler,
+  defaultNumber,
+  defaultNumberHandler,
+}) {
   // const [renderCheckout, setRenderCheckout] = useState(true);
   // const onClickHandler = function Clicker() {
   //   console.log('I have been clicked!');
@@ -24,16 +31,35 @@ export default function ProductDisplay({ onClickHandler }) {
   // });
   return (
     <StyledDiv>
-      <ImageGalleryDefault onClickHandler={onClickHandler} />
-      <CheckoutDisplay />
+      <ImageGalleryDefault
+        bg={bg}
+        // defaultHandler={defaultHandler}
+        bgHandler={bgHandler}
+        onClickHandler={onClickHandler}
+        defaultNumber={defaultNumber}
+      />
+      <CheckoutDisplay
+        defaultHandler={defaultHandler}
+        defaultNumber={defaultNumber}
+        defaultNumberHandler={defaultNumberHandler}
+      />
     </StyledDiv>
   );
 }
 
 ProductDisplay.propTypes = {
   onClickHandler: PropTypes.func.isRequired,
+  bg: PropTypes.string.isRequired,
+  bgHandler: PropTypes.func.isRequired,
+  // defaultList: PropTypes.array.isRequired,
+  defaultHandler: PropTypes.func.isRequired,
+  defaultNumberHandler: PropTypes.func.isRequired,
+  defaultNumber: PropTypes.number.isRequired,
 };
 
 ImageGalleryDefault.defaultProps = {
-  onClickHandler: PropTypes.func.isRequired,
+  // onClickHandler: PropTypes.func.isRequired,
+  bg: PropTypes.objectOf(PropTypes.string),
+  // defaultList: PropTypes.arrayof(PropTypes.strings),
+  // bgHandler: PropTypes.func.isRequired,
 };

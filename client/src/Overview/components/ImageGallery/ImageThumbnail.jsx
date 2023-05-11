@@ -18,15 +18,27 @@ transition: 0.2s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transform: scale(1.05);
 }
+&.selected {
+  border: lime 3px solid;
+  box-shadow: lime 0px 5px 15px;
+  /* transform: scale(1.05); */
+}
 `;
 
-export default function ImageThumbnail({ imgUrl, url }) {
+export default function ImageThumbnail(
+  {
+    imgUrl, url, classname, changeSelected, num,
+  },
+) {
   return (
-    <StyledImg src={imgUrl} url={url} />
+    <StyledImg id={num} onClick={changeSelected} className={classname} src={imgUrl} url={url} />
   );
 }
 
 ImageThumbnail.propTypes = {
+  num: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
   imgUrl: PropTypes.string.isRequired,
+  classname: PropTypes.string.isRequired,
+  changeSelected: PropTypes.func.isRequired,
 };

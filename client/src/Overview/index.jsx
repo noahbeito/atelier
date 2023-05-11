@@ -16,28 +16,46 @@ const Section = styled.section`
 `;
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
+  const [defaultList, setDefaultList] = useState([]);
+  const [defaultNumber, setDefaultNumber] = useState(1);
+  const [bgImg, setBgImg] = useState({});
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
     axios.get('/products/40348/styles')
       .then((result) => {
-        console.log('This is result', result);
+        setDefaultList(result.data.results);
+        setDefaultNumber(result.data.results[0].style_id);
         dispatch({ type: '@styles/SET_DATA', payload: result.data });
       })
       .catch((error) => {
         dispatch({ type: '@styles/FETCH_FAILED', payload: error.message });
       });
   }, [dispatch]);
-  const onClick = useCallback(() => {
+  const onClickHandler = useCallback(() => {
     setRenderCheckout(!renderCheckout);
   });
+  const bgHndle = (val) => {
+    setBgImg(val.thumbnail_url);
+  };
+  console.log('This is default NUMBER: ', defaultNumber);
+  console.log('This is default list', defaultList);
   return (
     <Section>
-      {/* <p>{product}</p> */}
-      { renderCheckout ? <ProductDisplay onClickHandler={onClick} />
-        : <ImageGalleryExpand onClickHandler={onClick} />}
-      {/* <ProductDisplay /> */}
+      { renderCheckout
+        ? (
+          <ProductDisplay
+            defaultList={defaultList}
+            defaultHandler={setDefaultList}
+            defaultNumber={defaultNumber}
+            defaultNumberHandler={setDefaultNumber}
+            bg={bgImg}
+            bgHandler={bgHndle}
+            onClickHandler={onClickHandler}
+          />
+        )
+        : <ImageGalleryExpand onClickHandler={onClickHandler} />}
       <ProductInfo />
     </Section>
   );

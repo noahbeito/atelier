@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import AddToCart from '../AddToCart/AddToCart';
 import StyleSelector from '../StyleSelector/StyleSelector';
 import DropdownContain from '../DropdownContain/DropdownContain';
@@ -40,8 +41,11 @@ const StyledSection = styled.section`
   padding:2px;
 `;
 
-const data = ['one', 'two', 'three', 'four', 'five', 'six'];
-export default function ProductDisplay() {
+export default function ProductDisplay({
+  defaultHandler,
+  defaultNumber,
+  defaultNumberHandler,
+}) {
   return (
     <StyledDiv>
       <StyledProductDetails>
@@ -51,7 +55,11 @@ export default function ProductDisplay() {
         <p>Category</p>
         <p>Social Media links</p>
       </StyledProductDetails>
-      <StyleSelector products={data} />
+      <StyleSelector
+        defaultHandler={defaultHandler}
+        defaultNumber={defaultNumber}
+        defaultNumberHandler={defaultNumberHandler}
+      />
       <StyledSection>
         <DropdownContain />
         <AddToCart />
@@ -59,3 +67,8 @@ export default function ProductDisplay() {
     </StyledDiv>
   );
 }
+ProductDisplay.propTypes = {
+  defaultHandler: PropTypes.func.isRequired,
+  defaultNumberHandler: PropTypes.func.isRequired,
+  defaultNumber: PropTypes.number.isRequired,
+};
