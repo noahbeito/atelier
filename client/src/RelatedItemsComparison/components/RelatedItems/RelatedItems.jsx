@@ -40,7 +40,7 @@ export default function RelatedItems() {
   return (
     <div>
       <Title>Related Items</Title>
-      <Carousel>
+      <Carousel data-testid="related-carousel">
         {noRelatedItems && <NoRelatedItemsCard />}
         {relatedProducts.map((id) => (
           <ProductCard id={id} symbol={symbol} key={id} />
