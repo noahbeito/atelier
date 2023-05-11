@@ -20,79 +20,78 @@ import RelatedItems from '../components/RelatedItems/RelatedItems';
 // const dispatchMock = jest.fn();
 // useDispatch.mockReturnValue(dispatchMock);
 
-export default () => {
-  describe('Related Items List Tests', () => {
-    // Mock axios
-    jest.mock('axios');
+// Mock axios
+jest.mock('axios');
 
-    axios.get.mockImplementation((url) => {
-      switch (url) {
-        case '/products/40353/related':
-          return Promise.resolve({
-            data: [
-              40500,
-              40996,
-              40617,
-              40718,
-              41039,
-              40757,
-            ],
-          });
-        case '/products/40353':
-          return Promise.resolve({
-            data: [
+axios.get.mockImplementation((url) => {
+  switch (url) {
+    case '/products/40353/related':
+      return Promise.resolve({
+        data: [
+          40500,
+          40996,
+          40617,
+          40718,
+          41039,
+          40757,
+        ],
+      });
+    case '/products/40353':
+      return Promise.resolve({
+        data: [
+          {
+            id: 40353,
+            campus: 'hr-rfp',
+            name: 'Infinity Stone',
+            slogan: 'Reality is often disappointing. That is, it was. Now, reality can be whatever I want.',
+            description: 'The Infinity Stones are six immensely powerful stone-like objects...',
+            category: 'Accessories',
+            default_price: '50000000.00',
+            created_at: '2021-08-13T14:38:44.509Z',
+            updated_at: '2021-08-13T14:38:44.509Z',
+            features: [],
+          },
+        ],
+      });
+    case '/products/40353/styles':
+      return Promise.resolve({
+        data: [
+          {
+            product_id: '40353',
+            results: [
               {
-                id: 40353,
-                campus: 'hr-rfp',
-                name: 'Infinity Stone',
-                slogan: 'Reality is often disappointing. That is, it was. Now, reality can be whatever I want.',
-                description: 'The Infinity Stones are six immensely powerful stone-like objects...',
-                category: 'Accessories',
-                default_price: '50000000.00',
-                created_at: '2021-08-13T14:38:44.509Z',
-                updated_at: '2021-08-13T14:38:44.509Z',
-                features: [],
-              },
-            ],
-          });
-        case '/products/40353/styles':
-          return Promise.resolve({
-            data: [
-              {
-                product_id: '40353',
-                results: [
+                style_id: 240546,
+                name: 'Reality',
+                original_price: '500000000.00',
+                sale_price: null,
+                'default?': true,
+                photos: [
                   {
-                    style_id: 240546,
-                    name: 'Reality',
-                    original_price: '500000000.00',
-                    sale_price: null,
-                    'default?': true,
-                    photos: [
-                      {
-                        thumbnail_url: 'https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/9/9b/Reality_Stone_VFX.png/revision/latest?cb=20190427012609',
-                        url: 'https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/9/9b/Reality_Stone_VFX.png/revision/latest?cb=20190427012609',
-                      },
-                    ],
-                    skus: {
-                      null: {
-                        quantity: null,
-                        size: null,
-                      },
-                    },
+                    thumbnail_url: 'https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/9/9b/Reality_Stone_VFX.png/revision/latest?cb=20190427012609',
+                    url: 'https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/9/9b/Reality_Stone_VFX.png/revision/latest?cb=20190427012609',
                   },
                 ],
+                skus: {
+                  null: {
+                    quantity: null,
+                    size: null,
+                  },
+                },
               },
             ],
-          });
-        default:
-          return Promise.resolve({ data: [] });
-      }
-    });
-    const mockStore = configureStore([]);
+          },
+        ],
+      });
+    default:
+      return Promise.resolve({ data: [] });
+  }
+});
+const mockStore = configureStore([]);
 
-    const useSelectorMock = jest.spyOn(reactRedux, 'useSelector');
-    const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
-
+const useSelectorMock = jest.spyOn(reactRedux, 'useSelector');
+const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+export default () => {
+  describe('Related Items List Tests', () => {
     beforeEach(() => {
       useSelectorMock.mockClear();
       useDispatchMock.mockClear();
