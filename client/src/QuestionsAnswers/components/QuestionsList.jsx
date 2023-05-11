@@ -7,7 +7,8 @@ export default function QuestionsList({ questions }) {
 
   return questions
     ? questions
-      .filter((question) => question.question_body.toLowerCase().includes(searchText.toLowerCase()))
+      .filter((question) => searchText.length < 3
+        || question.question_body.toLowerCase().includes(searchText.toLowerCase()))
       .map((question) => <Question key={question.question_id} question={question} />)
     : '';
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,9 +7,9 @@ import Icons from '../../components/Icons';
 import Search from './Search';
 import QuestionsList from './QuestionsList';
 import Button from '../../components/ui/Button';
-import AddAnswer from './AddAnswer';
 import AddQuestion from './AddQuestion';
-import PhotoModal from './PhotoModal';
+import Popup from '../../components/Popup';
+import { FlexLeft } from '../styles';
 
 import { fetchInitialQuestions, fetchMoreQuestions } from '../actions';
 
@@ -41,6 +41,11 @@ export default function QuestionsAnswers() {
   const productId = useSelector((state) => state.product.data.id);
   const dispatch = useDispatch();
 
+  // Attaches reference to open and close functions from within modal
+  const modalRef = useRef();
+  const handleAddQuestion = () => modalRef.current.openModal();
+  const handleCloseModal = () => modalRef.current.closeModal();
+
   useEffect(() => {
     dispatch(fetchInitialQuestions(productId));
   }, [productId]);
@@ -58,13 +63,13 @@ export default function QuestionsAnswers() {
         : (
           <>
             <QuestionsList questions={questions} />
-            <div className="button-row">
+            <FlexLeft>
               {currentQuestionCount > questions.length && <Button variant="large-base" onClick={moreQuestionsHandler}>More Answered Questions</Button>}
-              <Button variant="large-add">Add A Question</Button>
-            </div>
-            <AddAnswer />
-            <PhotoModal />
-            <AddQuestion />
+              <Button variant="large-add" onClick={handleAddQuestion}>Add A Question</Button>
+            </FlexLeft>
+            <Popup ref={modalRef}>
+              <AddQuestion handleCloseModal={handleCloseModal} />
+            </Popup>
           </>
         )}
     </Container>

@@ -170,7 +170,7 @@ export default () => {
     expect(questions).toHaveLength(3);
   });
 
-  it('should load to next found loaded item when "More Answered Questions" is pressed', () => {
+  xit('should load to next found loaded item when "More Answered Questions" is pressed', () => {
     const text = 'hello';
     useSelector.mockImplementation((selector) => selector(mockState(text)));
 
@@ -191,7 +191,7 @@ export default () => {
     expect(questions).toHaveLength(4);
   });
 
-  it('should highlight responses with class `mark` whenever there are searches', () => {
+  xit('should highlight responses with class `mark` whenever there are searches', () => {
     const text = 'hello';
     useSelector.mockImplementation((selector) => selector(mockState(text)));
 

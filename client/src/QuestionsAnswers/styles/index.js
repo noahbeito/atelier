@@ -13,10 +13,21 @@ const FlexBetween = styled.div`
   align-items: flex-end;
 `;
 
+const FlexLeft = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+`;
+
 const FlexWrap = styled.div`
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
 `;
 
-export { LargeLetter, FlexBetween, FlexWrap };
+export {
+  LargeLetter,
+  FlexBetween,
+  FlexWrap,
+  FlexLeft,
+};
