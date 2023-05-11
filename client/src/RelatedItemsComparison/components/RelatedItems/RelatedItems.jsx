@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import _ from 'underscore';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import ProductCard from '../ProductCard/ProductCard';
 import NoRelatedItemsCard from '../ProductCard/NoRelatedItemsCard';
-import { Title, Carousel } from '../../styles';
+import ChevronLeft from '../CarouselButtons/ChevronLeft';
+import ChevronRight from '../CarouselButtons/ChevronRight';
+import {
+  Title, Carousel, Container, List,
+} from '../../styles';
 
-export default function RelatedItems() {
+export default function RelatedItems({ chevronClickHandler }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [noRelatedItems, setNoRelatedItems] = useState(false);
   const productId = useSelector((state) => state.product.data.id);
@@ -38,14 +43,22 @@ export default function RelatedItems() {
   const symbol = 'EmptyStar';
 
   return (
-    <div>
+    <List>
       <Title>Related Items</Title>
-      <Carousel data-testid="related-carousel">
-        {noRelatedItems && <NoRelatedItemsCard />}
-        {relatedProducts.map((id) => (
-          <ProductCard id={id} symbol={symbol} key={id} />
-        ))}
-      </Carousel>
-    </div>
+      <Container>
+        <ChevronLeft clickHandler={chevronClickHandler} carouselId="related-carousel" />
+        <Carousel id="related-carousel" data-testid="related-carousel">
+          {noRelatedItems && <NoRelatedItemsCard />}
+          {relatedProducts.map((id) => (
+            <ProductCard id={id} symbol={symbol} key={id} />
+          ))}
+        </Carousel>
+        <ChevronRight clickHandler={chevronClickHandler} carouselId="related-carousel" />
+      </Container>
+    </List>
   );
 }
+
+RelatedItems.propTypes = {
+  chevronClickHandler: PropTypes.func.isRequired,
+};

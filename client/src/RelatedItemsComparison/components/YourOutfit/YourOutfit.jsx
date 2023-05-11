@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import AddItemToOutfit from './AddItemToOutfit';
 import ProductCard from '../ProductCard/ProductCard';
-import { Title, Carousel } from '../../styles';
+import ChevronLeft from '../CarouselButtons/ChevronLeft';
+import ChevronRight from '../CarouselButtons/ChevronRight';
+import {
+  Title, Carousel, Container, List,
+} from '../../styles';
 
-export default function YourOutfit() {
+export default function YourOutfit({ chevronClickHandler }) {
   const [outfit, setOutfit] = useState([]);
 
   useEffect(() => {
@@ -31,19 +36,27 @@ export default function YourOutfit() {
   const symbol = 'Exit';
 
   return (
-    <div>
+    <List>
       <Title>Your Outfit</Title>
-      <Carousel>
-        <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
-        {outfit.map((productId) => (
-          <ProductCard
-            id={productId}
-            handleRemoveItemClick={handleRemoveItemClick}
-            symbol={symbol}
-            key={productId}
-          />
-        ))}
-      </Carousel>
-    </div>
+      <Container>
+        <ChevronLeft clickHandler={chevronClickHandler} carouselId="outfit-carousel" />
+        <Carousel id="outfit-carousel">
+          <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
+          {outfit.map((productId) => (
+            <ProductCard
+              id={productId}
+              handleRemoveItemClick={handleRemoveItemClick}
+              symbol={symbol}
+              key={productId}
+            />
+          ))}
+        </Carousel>
+        <ChevronRight clickHandler={chevronClickHandler} carouselId="outfit-carousel" />
+      </Container>
+    </List>
   );
 }
+
+YourOutfit.propTypes = {
+  chevronClickHandler: PropTypes.func.isRequired,
+};
