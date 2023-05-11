@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -17,13 +17,14 @@ const Section = styled.section`
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
   const [defaultList, setDefaultList] = useState([]);
+  const [product, setProduct] = useState(40347);
   const [defaultNumber, setDefaultNumber] = useState(1);
   const [bgImg, setBgImg] = useState({});
   const dispatch = useDispatch();
-
+  // setProduct(40344);
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
-    axios.get('/products/40348/styles')
+    axios.get(`/products/${product}/styles`)
       .then((result) => {
         setDefaultList(result.data.results);
         setDefaultNumber(result.data.results[0].style_id);
@@ -46,6 +47,7 @@ export default function Overview() {
       { renderCheckout
         ? (
           <ProductDisplay
+            product={product}
             defaultList={defaultList}
             defaultHandler={setDefaultList}
             defaultNumber={defaultNumber}
@@ -60,10 +62,10 @@ export default function Overview() {
     </Section>
   );
 }
-ProductDisplay.propTypes = {
-  onClickHandler: PropTypes.func.isRequired,
-};
+// ProductDisplay.propTypes = {
+//   onClickHandler: PropTypes.func.isRequired,
+// };
 
-ProductDisplay.defaultProps = {
-  onClickHandler: PropTypes.func.isRequired,
-};
+// ProductDisplay.defaultProps = {
+//   onClickHandler: PropTypes.func.isRequired,
+// };

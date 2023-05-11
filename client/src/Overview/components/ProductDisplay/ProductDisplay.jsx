@@ -13,6 +13,7 @@ const StyledDiv = styled.div`
   border: solid 2px black;
 `;
 export default function ProductDisplay({
+  product,
   onClickHandler,
   bg,
   bgHandler,
@@ -39,6 +40,7 @@ export default function ProductDisplay({
         defaultNumber={defaultNumber}
       />
       <CheckoutDisplay
+        product={product}
         defaultHandler={defaultHandler}
         defaultNumber={defaultNumber}
         defaultNumberHandler={defaultNumberHandler}
@@ -55,6 +57,7 @@ ProductDisplay.propTypes = {
   defaultHandler: PropTypes.func.isRequired,
   defaultNumberHandler: PropTypes.func.isRequired,
   defaultNumber: PropTypes.number.isRequired,
+  product: PropTypes.number.isRequired,
 };
 
 ImageGalleryDefault.defaultProps = {

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import AddToCart from '../AddToCart/AddToCart';
@@ -42,17 +43,32 @@ const StyledSection = styled.section`
 `;
 
 export default function ProductDisplay({
+  product,
   defaultHandler,
   defaultNumber,
   defaultNumberHandler,
 }) {
+  const [currentItem, setCurrentItem] = useState({});
+  useEffect(() => {
+    axios.get(`/products/${product}`)
+      .then((result) => {
+        console.log('This is result in checout: ', result.data);
+        setCurrentItem(result.data);
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }, []);
   return (
     <StyledDiv>
       <StyledProductDetails>
         {/* <StarRating rating={3} className="StarRating" /> */}
-        <p>Title</p>
-        <p>Price</p>
-        <p>Category</p>
+        <p>{currentItem.category}</p>
+        <div>
+          <p>{currentItem.name}</p>
+          <p>{currentItem.default_price}</p>
+        </div>
+        <p>{currentItem.slogan}</p>
         <p>Social Media links</p>
       </StyledProductDetails>
       <StyleSelector
@@ -71,4 +87,5 @@ ProductDisplay.propTypes = {
   defaultHandler: PropTypes.func.isRequired,
   defaultNumberHandler: PropTypes.func.isRequired,
   defaultNumber: PropTypes.number.isRequired,
+  product: PropTypes.number.isRequired,
 };

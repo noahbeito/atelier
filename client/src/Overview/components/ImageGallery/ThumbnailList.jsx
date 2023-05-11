@@ -7,7 +7,7 @@ import Icons from '../../../components/Icons';
 
 const StyledDiv = styled.div`
   width: 110px;
-  height: 700px;
+  /* height: 700px; */
   display: flex;
   flex-direction: column;
   border: solid 2px lightgrey;
@@ -15,6 +15,10 @@ const StyledDiv = styled.div`
   border-radius: 5px;
   /* margin:2px;
   padding:5px; */
+`;
+const StyledButtonReplacement = styled.div`
+  width: 100%;
+  height: 20px;
 `;
 const StyledLoading = styled.div`
   margin: 50px auto;
@@ -103,9 +107,13 @@ export default function ThumbnailList({ bgHandler, defaultNumber }) {
     });
     setRenderList1(change);
   };
+  console.log('This is newlist testing:', newList);
   return (
     <StyledDiv>
-      <Icons.ChevronUp onClick={rotateUp} />
+      { newList.length > 7
+        ? <Icons.ChevronUp onClick={rotateUp} />
+        : <StyledButtonReplacement />}
+      {/* <Icons.ChevronUp onClick={rotateUp} /> */}
       {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
         : (
           <>
@@ -121,7 +129,9 @@ export default function ThumbnailList({ bgHandler, defaultNumber }) {
             ))}
           </>
         )}
-      <Icons.ChevronDown onClick={rotateDown} />
+      { newList.length > 7
+        ? <Icons.ChevronDown onClick={rotateDown} />
+        : <StyledButtonReplacement />}
     </StyledDiv>
   );
 }
