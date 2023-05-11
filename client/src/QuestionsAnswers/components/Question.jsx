@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -70,9 +70,15 @@ const StyledQuestion = styled.div`
 `;
 
 export default function Question({ question }) {
+  const productName = useSelector((state) => state.product.data.name);
+
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
   const dispatch = useDispatch();
+
+  // Handle `yes` and `report` click states
+  const [clickedYes, setClickedYes] = useState(false);
+  const [clickedReport, setClickedReport] = useState(false);
 
   const handleAccordionClick = () => {
     setShowAnswers(!showAnswers);
@@ -80,10 +86,16 @@ export default function Question({ question }) {
 
   const handleHelpful = (e) => {
     e.stopPropagation();
-    axios.put(`/qa/questions/${question.question_id}/helpful`)
-      .then(() => {
-        dispatch({ type: '@questions/MARK_HELPFUL', question_id: question.question_id });
-      });
+    const temp = clickedYes;
+    if (!clickedYes) {
+      setClickedYes(true);
+      axios.put(`/qa/questions/${question.question_id}/helpful`)
+        .then(() => {
+          dispatch({ type: '@questions/MARK_HELPFUL', question_id: question.question_id });
+          setClickedYes(true);
+        })
+        .catch(() => setClickedYes(temp));
+    }
   };
 
   const modalRef = useRef();
@@ -95,10 +107,16 @@ export default function Question({ question }) {
 
   const handleReportQuestion = (e) => {
     e.stopPropagation();
-    axios.put(`/qa/questions/${question.question_id}/report`)
-      .then(() => {
-        dispatch({ type: '@questions/REPORT', question_id: question.question_id });
-      });
+    const temp = clickedReport;
+    if (!clickedReport) {
+      setClickedReport(true);
+      axios.put(`/qa/questions/${question.question_id}/report`)
+        .then(() => {
+          dispatch({ type: '@questions/REPORT', question_id: question.question_id });
+          setClickedReport(true);
+        })
+        .catch(() => setClickedReport(temp));
+    }
   };
   return (
     <>
@@ -110,9 +128,13 @@ export default function Question({ question }) {
           <span data-testid="question" className="question">{question.question_body}</span>
           <span>
             <Divider>
-              <Helpful helpfulness={question.question_helpfulness || 0} onClick={handleHelpful} />
+              <Helpful
+                helpfulness={question.question_helpfulness || 0}
+                onClick={handleHelpful}
+                clickedYes={clickedYes}
+              />
               <Button variant="small" onClick={handleAddAnswer}>Add Answer</Button>
-              <Report onClick={handleReportQuestion} />
+              <Report clickedReport={clickedReport} onClick={handleReportQuestion} />
             </Divider>
           </span>
         </FlexBetween>
@@ -127,7 +149,7 @@ export default function Question({ question }) {
             : ''}
         </div>
       </StyledQuestion>
-      <Popup ref={modalRef}>
+      <Popup ref={modalRef} titles={['Submit your Answer', `${productName}: ${question.question_body}`]}>
         <AddAnswer handleCloseModal={handleCloseModal} />
       </Popup>
     </>

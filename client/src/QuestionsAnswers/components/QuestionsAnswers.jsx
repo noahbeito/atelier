@@ -39,6 +39,7 @@ export default function QuestionsAnswers() {
   const isLoading = useSelector(getIsLoading);
 
   const productId = useSelector((state) => state.product.data.id);
+  const productName = useSelector((state) => state.product.data.name);
   const dispatch = useDispatch();
 
   // Attaches reference to open and close functions from within modal
@@ -67,7 +68,7 @@ export default function QuestionsAnswers() {
               {currentQuestionCount > questions.length && <Button variant="large-base" onClick={moreQuestionsHandler}>More Answered Questions</Button>}
               <Button variant="large-add" onClick={handleAddQuestion}>Add A Question</Button>
             </FlexLeft>
-            <Popup ref={modalRef}>
+            <Popup ref={modalRef} titles={['Ask Your Question', `About the ${productName}`]}>
               <AddQuestion handleCloseModal={handleCloseModal} />
             </Popup>
           </>

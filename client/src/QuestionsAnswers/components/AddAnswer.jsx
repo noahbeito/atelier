@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import TextArea from '../../components/ui/TextArea';
@@ -8,20 +8,33 @@ import Form from '../../components/ui/Form';
 import Submit from '../../components/ui/Submit';
 
 export default function AddAnswer({ handleCloseModal }) {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleCloseModal();
+  const [answer, setAnswer] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e, error) => {
+    // handleCloseModal();
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('GOOD')
+    }
   };
   return (
     <Form onSubmit={handleSubmit}>
       <TextArea
-        // required
+        required
+        value={answer}
+        onChange={(e) => setAnswer(e.target.value)}
         label="Your answer"
-        validation={(value) => value.length <= 1000}
+        validation={(value) => value.length <= 5}
+        error="You wrote too many characters in the form! The limit is 1000."
         id="answer"
       />
       <Input
-        // required
+        required
+        value={name}
+        onChange={(e) => setName(e.target.value)}
         label="Your nickname"
         validation={(value) => value.length <= 60}
         placeholder="Example: jack543!"
@@ -29,7 +42,9 @@ export default function AddAnswer({ handleCloseModal }) {
         id="answer-nickname"
       />
       <Input
-        // required
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         label="Your email"
         validation={(value) => value.length <= 60}
         placeholder="Example: jack@email.com!"

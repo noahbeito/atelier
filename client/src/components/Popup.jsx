@@ -59,13 +59,13 @@ const StyledPopup = styled.div`
     }
 
     & .wrapper {
-      border: 2px solid red;
+      width: 80%;
       margin: 0 auto;
     }
   }
 `;
 
-const Modal = forwardRef(({ children, ...props }, ref) => {
+const Modal = forwardRef(({ titles, children, ...props }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useImperativeHandle(ref, () => ({
@@ -109,6 +109,9 @@ const Modal = forwardRef(({ children, ...props }, ref) => {
         <div className="container">
           <Button className="exit" data-testid="exit" variant="medium" onClick={handleExit}><Icons.Exit size="2x" /></Button>
           <div className="wrapper">
+            <h1>{titles[0] || ''}</h1>
+            <h2>{titles[1] || ''}</h2>
+            <h2>{titles[2] || ''}</h2>
             {children}
           </div>
         </div>
@@ -119,6 +122,7 @@ const Modal = forwardRef(({ children, ...props }, ref) => {
 });
 
 Modal.propTypes = {
+  titles: PropTypes.arrayOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
 };
 

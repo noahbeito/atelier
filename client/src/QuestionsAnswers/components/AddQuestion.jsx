@@ -15,32 +15,28 @@ export default function AddAnswer({ handleCloseModal }) {
   return (
     <Form onSubmit={handleSubmit}>
       <TextArea
-        // required
-        label="Your question"
+        required
+        label="Your Questions"
         validation={(value) => value.length <= 1000}
         id="question"
       />
       <Input
-        // required
-        label="Your nickname"
+        required
+        label="What is your nickname"
         validation={(value) => value.length <= 60}
         placeholder="Example: jackson11!"
         warning="For privacy reasons, do not use your full name or email address"
         id="question-nickname"
       />
       <Input
-        // required
+        required
         label="Your email"
         validation={(value) => value.length <= 60}
         placeholder="Example: jack@email.com!"
         warning="For authentication reasons, you will not be emailed"
         id="question-email"
       />
-      {/* <ImageUpload
-        label="Upload your photos"
-        validation={(value) => value.length <= 5}
-      /> */}
-      <Submit>Submit Question</Submit>
+      <Submit>Submit question</Submit>
     </Form>
   );
 }
