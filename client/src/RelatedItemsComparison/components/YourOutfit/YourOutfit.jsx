@@ -23,8 +23,9 @@ export default function YourOutfit() {
     }
   };
 
-  const handleRemoveItemClick = () => {
-    // remove item from list
+  const handleRemoveItemClick = (id) => {
+    outfit.splice(outfit.indexOf(id), 1);
+    setOutfit([...outfit]);
   };
 
   const symbol = 'Exit';

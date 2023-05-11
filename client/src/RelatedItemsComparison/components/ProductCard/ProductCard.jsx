@@ -120,6 +120,7 @@ export default function ProductCard({
       {showModal && <ComparisonModal />}
       <StyledWrap>
         <ActionButton
+          id={id}
           handleRemoveItemClick={handleRemoveItemClick}
           symbol={symbol}
           handleStarClick={handleStarClick}
