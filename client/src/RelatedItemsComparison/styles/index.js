@@ -8,12 +8,12 @@ const Title = styled.h2`
 `;
 
 const DefaultCard = styled.li`
-  /* position: relative; */
   height: 340px;
   background-color: #CDCDCD;
   border-radius: 5px;
 
   padding: 0.5rem;
+  z-index: 9;
   // scroll-snap-align: start;
   cursor: pointer;
 `;

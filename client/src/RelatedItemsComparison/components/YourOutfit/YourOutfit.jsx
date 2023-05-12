@@ -59,10 +59,10 @@ export default function YourOutfit({ chevronClickHandler }) {
   };
 
   useEffect(() => {
-    if (viewIndex + 3 < outfit.length) {
-      setShowRightChevron(true);
-    } else {
+    if (viewIndex + 4 >= outfit.length) {
       setShowRightChevron(false);
+    } else {
+      setShowRightChevron(true);
     }
     if (viewIndex > 0) {
       setShowLeftChevron(true);
@@ -76,8 +76,8 @@ export default function YourOutfit({ chevronClickHandler }) {
       <Title>Your Outfit</Title>
       <Container>
         {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
+        <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
         <Carousel id={carouselId}>
-          <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
           {outfit.map((productId) => (
             <ProductCard
               id={productId}
