@@ -8,7 +8,6 @@ const StyledText = styled.div`
   width: 100%;
 `;
 export default function AddItemToOutfit({ clickHandler }) {
-  // useSelector to retrieve current productId from redux store
   const productId = useSelector((state) => state.product.data.id);
 
   return (
