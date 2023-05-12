@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { DefaultCard } from '../../styles';
 
 const StyledText = styled.div`
-  // This is just a placeholder. will likely rename
+  width: 100%;
 `;
 export default function AddItemToOutfit({ clickHandler }) {
   // useSelector to retrieve current productId from redux store
