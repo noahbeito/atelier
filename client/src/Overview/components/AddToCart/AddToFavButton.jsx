@@ -15,7 +15,6 @@ const StyledDiv = styled.div`
 `;
 export default function AddToFavButton() {
   const [faveCount, setFavCount] = useState(0);
-  console.log(faveCount);
   const addOne = () => {
     setFavCount((prev) => prev + 1);
   };

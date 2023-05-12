@@ -40,8 +40,8 @@ export default function Overview() {
   const bgHndle = (val) => {
     setBgImg(val.thumbnail_url);
   };
-  console.log('This is default NUMBER: ', defaultNumber);
-  console.log('This is default list', defaultList);
+  // console.log('This is default NUMBER: ', defaultNumber);
+  // console.log('This is default list', defaultList);
   return (
     <Section>
       { renderCheckout

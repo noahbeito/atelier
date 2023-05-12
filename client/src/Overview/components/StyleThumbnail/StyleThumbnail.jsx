@@ -32,13 +32,13 @@ margin: 10px 0 0 2%;
 flex-grow: 1; */
 /* height: 100px;
 width: calc(100% * (1/4) - 10px - 1px); */
-width: 75px;
-height: 75px;
+width: 90px;
+height: 90px;
 display: flex;
 justify-content: space-around;
 align-items: center;
 border: 1px solid black;
-margin: 10px 10px 10px 10px;
+margin: 5px 5px 5px 5px;
 cursor: pointer;
 border-radius: 50px;
 box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
@@ -57,8 +57,8 @@ export default function StyleThumbnail({
   id,
   defaultNumberHandler,
 }) {
-  let list = [];
-  const styles = useSelector((state) => {
+  // let list = [];
+  let list = useSelector((state) => {
     if (state.overview.productStyles.styles.results) {
       list = state.overview.productStyles.styles.results;
       return state.overview.productStyles.styles.results;

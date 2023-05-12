@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -22,26 +22,106 @@ const StyledLoading = styled.div`
   text-align: center;
   color: gray;
 `;
+const StyledButtonContainer = styled.div`
+  width:100%;
+  height: 20px;
+  display: flex;
+  justify-content: space-around;
+`;
 const StyledHeader = styled.div`
   font-family: sans-serif;
+`;
+const StyledButtonReplacement = styled.div`
+  width: 100%;
+  height: 10px;
 `;
 export default function StyleSelector({
   defaultHandler,
   // defaultNumber,
   defaultNumberHandler,
 }) {
+  const [renderList1, setRenderList1] = useState([]);
+  const [leftOverList, setLeftOverList] = useState([]);
+  const [listToMap, setListToMap] = useState([]);
   const isLoading = useSelector((state) => state.product.isLoading
-                                        || state.overview.productStyles.loading);
-
+    || state.overview.productStyles.loading);
+  // let list = [];
   const styles = useSelector((state) => {
-    console.log('This is state in styleselector: ', state);
-    return (state.overview.productStyles.styles.results)
-      ? state.overview.productStyles.styles.results : [];
+    if (state.overview.productStyles.styles.results) {
+      // setRenderList(list);
+      return state.overview.productStyles.styles.results;
+    }
+    return [];
   });
-
+  // console.log(renderList);
+  const getPhotoList = (style) => {
+    if (style.length === 0) {
+      return [];
+    }
+    return style;
+  };
+  const photoList = getPhotoList(styles);
+  const newList = photoList.slice();
+  const photoList1 = getPhotoList(styles);
+  const newList1 = photoList1.slice();
+  console.log('This is newList1;', newList1);
+  useEffect(() => {
+    // console.log(newList);
+    const doSome = (val) => {
+      const groups = [];
+      for (let i = 0; i < val.length; i += 4) {
+        groups.push(val.slice(i, i + 4));
+      }
+      return groups;
+    };
+    const vals = doSome(newList);
+    // console.log('this is vals:', vals);
+    // const first = [vals[0], vals[1]];
+    // const second = [...vals].slice(2);
+    if (newList1.length < 8) {
+      setRenderList1(vals);
+      // setLeftOverList(second);
+    } else {
+      setRenderList1([vals[0], vals[1]]);
+      setLeftOverList(vals.slice(2));
+      setListToMap(newList.slice(0, 8));
+      console.log('This is list to max', listToMap);
+    }
+  }, [isLoading]);
   // useEffect(() => {
 
-  // }, [isLoading]);
+  // }, []);
+  // const calcArray = () => {
+
+  // };
+  console.log('renderlist1 ***:', renderList1);
+  console.log('leftOver****:', leftOverList);
+  // console.log('first ***:', first);
+  // console.log('second****:', second);
+  const rotateUp = () => {
+    const main = [...renderList1];
+    console.log('this is main:', main);
+    const leftOvr = [...leftOverList];
+    const toAddToRender = leftOvr.shift();
+    const toAddToLeftOver = main.pop();
+    main.unshift(toAddToRender);
+    leftOvr.push(toAddToLeftOver);
+    setRenderList1(main);
+    setListToMap([...main[0], ...main[1]]);
+    setLeftOverList(leftOvr);
+  };
+  const rotateDown = () => {
+    const main = [...renderList1];
+    console.log('this is main:', main);
+    const leftOvr = [...leftOverList];
+    const toAddToRender = leftOvr.pop();
+    const toAddToLeftOver = main.shift();
+    main.push(toAddToRender);
+    leftOvr.unshift(toAddToLeftOver);
+    setRenderList1(main);
+    setListToMap([...main[0], ...main[1]]);
+    setLeftOverList(leftOvr);
+  };
   return (
     <StyledSurround>
       {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
@@ -49,7 +129,7 @@ export default function StyleSelector({
           <>
             <StyledHeader>STYLE SELECTED</StyledHeader>
             <StyledThumbnailGrid>
-              { styles.map((styletype) => (
+              {listToMap.map((styletype) => (
                 <StyleThumbnail
                   className={styletype['default?']}
                   styletype={styletype}
@@ -60,6 +140,14 @@ export default function StyleSelector({
                 />
               ))}
             </StyledThumbnailGrid>
+            { newList.length > 8
+              ? (
+                <StyledButtonContainer>
+                  <Icons.ChevronDown onClick={rotateDown} />
+                  <Icons.ChevronUp onClick={rotateUp} />
+                </StyledButtonContainer>
+              )
+              : <StyledButtonReplacement />}
           </>
         )}
     </StyledSurround>
@@ -70,3 +158,14 @@ StyleSelector.propTypes = {
   defaultNumberHandler: PropTypes.func.isRequired,
   // defaultNumber: PropTypes.number.isRequired,
 };
+
+// {newList.map((styletype) => (
+//   <StyleThumbnail
+//     className={styletype['default?']}
+//     styletype={styletype}
+//     key={styletype.style_id}
+//     id={styletype.style_id}
+//     defaultHandler={defaultHandler}
+//     defaultNumberHandler={defaultNumberHandler}
+//   />
+// ))}

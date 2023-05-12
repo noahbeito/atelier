@@ -10,32 +10,37 @@ const StyledDiv = styled.div`
   /* height: 700px; */
   display: flex;
   flex-direction: column;
-  border: solid 2px lightgrey;
-  margin 2px;
+  border: solid 3px lightgrey;
+  margin 4px;
   border-radius: 5px;
+  box-shadow: white 0px 5px 15px;
+  background: rgba(122, 111, 107, 0.512);
+  /* opacity:1; */
   /* margin:2px;
   padding:5px; */
 `;
 const StyledButtonReplacement = styled.div`
   width: 100%;
   height: 20px;
+  opacity:1;
 `;
 const StyledLoading = styled.div`
   margin: 50px auto;
   text-align: center;
   color: gray;
+  box-shadow: gray 0px 5px 15px;
 `;
 export default function ThumbnailList({ bgHandler, defaultNumber }) {
-  let list = [];
+  // let list = [];
   const [renderList1, setRenderList1] = useState([]);
   const [leftOverList, setLeftOverList] = useState([]);
-  const [styleArray, setStyleArray] = useState([]);
+  // const [styleArray, setStyleArray] = useState([]);
   const isLoading = useSelector((state) => state.product.isLoading
                                         || state.overview.productStyles.loading);
 
   const styles = useSelector((state) => {
     if (state.overview.productStyles.styles.results) {
-      list = state.overview.productStyles.styles.results;
+      // list = state.overview.productStyles.styles.results;
       return state.overview.productStyles.styles.results;
     }
     return [];
@@ -53,7 +58,7 @@ export default function ThumbnailList({ bgHandler, defaultNumber }) {
   // console.log('This is photolist in thumbnailist:2', photoList);
   const newList = photoList.slice();
   useEffect(() => {
-    setStyleArray(list);
+    // setStyleArray(list);
     newList.map((obj, i) => {
       if (i === 0) {
         newList[i].class = 'selected';
@@ -107,7 +112,7 @@ export default function ThumbnailList({ bgHandler, defaultNumber }) {
     });
     setRenderList1(change);
   };
-  console.log('This is newlist testing:', newList);
+  // console.log('This is newlist testing:', newList);
   return (
     <StyledDiv>
       { newList.length > 7
