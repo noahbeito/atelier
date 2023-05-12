@@ -9,12 +9,26 @@ const RequiredStyle = styled.span`
 const StyledArea = styled.div`
   margin: 20px 0;
   & textarea {
+    box-sizing: border-box;
     display: block;
     font-size: 0.7rem;
     padding: 5px;
     font-family: verdana;
     resize: none;
     height: 4rem;
+    background-color: #eee;
+    border: none;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border: 1px solid #eee;
+    transition: 0.3s;
+
+    &:focus {
+      box-sizing: border-box;
+      outline: none;
+      background-color: white;
+      border: 1px solid teal;
+    }
   }
 `;
 

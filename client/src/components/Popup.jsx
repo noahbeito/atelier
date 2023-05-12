@@ -56,6 +56,11 @@ const StyledPopup = styled.div`
       &:hover {
         transform: scale(1.1);
       }
+      &:focus {
+        color: ${(props) => props.theme.secondaryColor};
+        transform: scale(1.1);
+        outline: none;
+      }
     }
 
     & .wrapper {

@@ -14,8 +14,9 @@ const buttonBuilder = ({ variant, width }) => {
     color: #333;
     transition: 0.2s;
     width: ${width || 'auto'};
-    &:hover {
+    &:hover, &:focus {
       color: ${(props) => props.theme.secondaryColor};
+      outline: none;
     }
   `;
   const large = css`
@@ -31,9 +32,10 @@ const buttonBuilder = ({ variant, width }) => {
     justify-content: space-around;
     transition: 0.2s;
     height: 80px;
-    &:hover {
+    &:hover, &:focus {
       background: #eee;
       border-color: ${(props) => props.theme.secondaryColor};
+      outline: none;
     }
   `;
   switch (variant) {
@@ -79,9 +81,10 @@ const buttonBuilder = ({ variant, width }) => {
         font-size: 1.1rem;
         color: white;
         border: 2px solid ${(props) => props.theme.secondaryColor};
-        &:hover {
+        &:hover, &:focus {
           color: ${(props) => props.theme.secondaryColor};
           background-color: white;
+          outline: none;
         }
       `;
     case 'large-base':

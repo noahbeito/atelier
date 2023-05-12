@@ -30,8 +30,15 @@ const StyledInput = styled.div`
   & input {
     display: block;
     font-size: 0.9rem;
-    padding: 5px;
-    min-width:
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid teal;
+    background-color: #eee;
+    transition: 0.3s;
+    &:focus {
+      outline: none;
+      background-color: white;
+    }
   }
 `;
 
@@ -56,7 +63,7 @@ export default function Input({
           )
           : <input type="text" id={id} {...props} />
       }
-      <div className="warning">{warning}</div>
+      {!!warning && <div className="warning">{warning}</div>}
     </StyledInput>
   );
 }
