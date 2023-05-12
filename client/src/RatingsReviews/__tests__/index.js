@@ -1,10 +1,12 @@
 /* eslint-env jest */
 
-import ratingsBreakdown from './ratingsBreakdown.test';
+import reviews from './reviews.test';
+import metadata from './metadata.test';
 
-describe('Questions Answers Test', () => {
+describe('Ratings Review Test', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  ratingsBreakdown();
+  reviews();
+  metadata();
 });

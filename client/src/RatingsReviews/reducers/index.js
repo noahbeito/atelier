@@ -41,14 +41,13 @@ const ratingsReviewsReducer = (
     case '@reviews/SET_DATA':
       return { ...state, rloading: false, reviews: action.payload };
     case '@reviews/FAILED':
-      return { ...state, rloading: false, reviews: action.payload };
-
+      return { ...state, rloading: false, error: action.payload };
     case '@reviews/meta/FETCH_DATA':
       return { ...state, mloading: true };
     case '@reviews/meta/SET_DATA':
       return { ...state, mloading: false, meta: action.payload };
     case '@reviews/meta/FAILED':
-      return { ...state, mloading: false, meta: action.payload };
+      return { ...state, mloading: false, error: action.payload };
 
     default:
       return state;
