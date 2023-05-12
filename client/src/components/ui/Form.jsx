@@ -6,11 +6,10 @@ import Toast from './Toast';
 
 const StyledForm = styled.div`
   width: 80%;
-  margin: 0 auto;
+  margin: 10px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 `;
 
 export default function Form({ children, onSubmit, ...props }) {
@@ -21,6 +20,8 @@ export default function Form({ children, onSubmit, ...props }) {
   const submitHandler = (e) => {
     e.preventDefault();
     const missing = [];
+
+    // Generate error for any missing components that are required
     for (let i = 0; i < children.length; i += 1) {
       const child = children[i];
 
@@ -47,7 +48,7 @@ export default function Form({ children, onSubmit, ...props }) {
       setToastIsOpen(true);
       return;
     }
-
+    // Generate any other types of errors
     for (let i = 0; i < children.length; i += 1) {
       const child = children[i];
 

@@ -77,7 +77,6 @@ const buttonBuilder = ({ variant, width }) => {
         background-color: ${(props) => props.theme.secondaryColor};
         padding: 10px 15px;
         font-size: 1.1rem;
-        margin: 10px;
         color: white;
         border: 2px solid ${(props) => props.theme.secondaryColor};
         &:hover {

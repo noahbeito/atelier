@@ -29,7 +29,7 @@ const StyledPopup = styled.div`
 
   & .container {
     margin: 0;
-    padding: 50px 0;
+    padding: 10px 0;
     box-sizing: border-box;
     background-color: white;
     box-shadow: 0 0 5px black;
@@ -62,6 +62,22 @@ const StyledPopup = styled.div`
       width: 80%;
       margin: 0 auto;
     }
+  }
+
+  h1, h2, h3 {
+    text-align: center;
+    font-family: verdana;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  h3 {
+    font-size: 0.9rem;
+    margin: 0;
   }
 `;
 

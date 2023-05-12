@@ -27,13 +27,13 @@ const StyledToast = styled.div`
     &:hover {
       color: #cb4646;
     }
-    top: 5px;
+    top: 0;
     right: 5px;
   }
 
   &.open {
     max-height: 200px;
-    padding: 20px 50px;
+    padding: 10px 50px;
     transition: padding 1s, max-height 1s;
   }
   &.closed {

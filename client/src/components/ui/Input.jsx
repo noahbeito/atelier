@@ -5,6 +5,35 @@ import styled from 'styled-components';
 const RequiredStyle = styled.span`
   color: #bb3838;
 `;
+const StyledInput = styled.div`
+  margin: 20px 0;
+  & .warning {
+    margin: 5px 0;
+    background-color: #ffffc1;
+    padding: 20px;
+    padding-left: 40px;
+    border-radius: 5px;
+    border: 1px solid #bebe48;
+    position: relative;
+
+    &::before {
+      content: '!';
+      font-family: verdana;
+      color: #bebe48;
+      font-size: 2rem;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%) rotate(10deg);
+    }
+  }
+  & input {
+    display: block;
+    font-size: 0.9rem;
+    padding: 5px;
+    min-width:
+  }
+`;
 
 export default function Input({
   validation,
@@ -15,7 +44,7 @@ export default function Input({
   ...props
 }) {
   return (
-    <>
+    <StyledInput>
       {
         label
           ? (
@@ -27,8 +56,8 @@ export default function Input({
           )
           : <input type="text" id={id} {...props} />
       }
-      <div>{warning}</div>
-    </>
+      <div className="warning">{warning}</div>
+    </StyledInput>
   );
 }
 

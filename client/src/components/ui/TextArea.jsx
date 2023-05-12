@@ -6,16 +6,27 @@ const RequiredStyle = styled.span`
   color: #bb3838;
 `;
 
+const StyledArea = styled.div`
+  margin: 20px 0;
+  & textarea {
+    display: block;
+    font-size: 0.7rem;
+    padding: 5px;
+    font-family: verdana;
+    resize: none;
+    height: 4rem;
+  }
+`;
+
 export default function TextArea({
   validation,
   label,
   id,
-  warning,
   required,
   ...props
 }) {
   return (
-    <>
+    <StyledArea>
       {
         label
           ? (
@@ -27,8 +38,7 @@ export default function TextArea({
           )
           : <textarea type="text" id={id} {...props} />
       }
-      <div>{warning}</div>
-    </>
+    </StyledArea>
   );
 }
 
@@ -36,13 +46,11 @@ TextArea.propTypes = {
   validation: PropTypes.func,
   label: PropTypes.string,
   id: PropTypes.string.isRequired,
-  warning: PropTypes.string,
   required: PropTypes.bool,
 };
 
 TextArea.defaultProps = {
   validation: null,
   label: undefined,
-  warning: undefined,
   required: false,
 };

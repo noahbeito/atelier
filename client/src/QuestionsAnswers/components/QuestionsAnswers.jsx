@@ -52,15 +52,17 @@ export default function QuestionsAnswers() {
   }, [productId]);
 
   const moreQuestionsHandler = () => {
-    dispatch(fetchMoreQuestions(productId));
-    setMaxQuestions(Math.min(maxQuestions + 2, currentQuestionCount));
+    dispatch(fetchMoreQuestions(productId))
+      .then(() => {
+        setMaxQuestions(Math.min(maxQuestions + 2, currentQuestionCount));
+      });
   };
 
   return (
     <Container>
       <h2>Questions & Answers</h2>
       <Search />
-      {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
+      {isLoading ? <StyledLoading data-testid="loading"><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
         : (
           <>
             <QuestionsList questions={questions} />

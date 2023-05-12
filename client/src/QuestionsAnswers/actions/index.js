@@ -4,12 +4,15 @@ import axios from 'axios';
 export const fetchInitialQuestions = (productId) => (dispatch) => {
   if (productId !== undefined) {
     dispatch({ type: '@questions/FETCH_DATA' });
-    axios.get('/qa/questions/', { params: { product_id: productId, page: 1, count: 6 } })
+    return axios.get('/qa/questions/', { params: { product_id: productId, page: 1, count: 6 } })
       .then(({ data }) => {
         dispatch({ type: '@questions/SET_DATA', payload: data.results });
       })
       .catch(({ message }) => dispatch({ type: '@questions/FETCH_FAILED', payload: message }));
   }
+  return new Promise((resolve, reject) => {
+    reject(new Error('This id does not exist!'));
+  });
 };
 
 // A thunk with a closure to keep track of the current page
@@ -18,13 +21,16 @@ export const fetchMoreQuestions = (() => {
   return (productId) => (dispatch) => {
     if (productId !== undefined) {
       dispatch({ type: '@questions/FETCH_DATA' });
-      axios.get('/qa/questions/', { params: { product_id: productId, page: currentPage, count: 6 } })
+      return axios.get('/qa/questions/', { params: { product_id: productId, page: currentPage, count: 6 } })
         .then(({ data }) => {
           dispatch({ type: '@questions/ADD_QUESTIONS', payload: data.results });
           currentPage += 1;
         })
         .catch(({ message }) => dispatch({ type: '@questions/FETCH_FAILED', payload: message }));
     }
+    return new Promise((resolve, reject) => {
+      reject(new Error('This id does not exist!'));
+    });
   };
 })();
 

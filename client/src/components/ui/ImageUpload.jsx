@@ -3,6 +3,20 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Icons from '../Icons';
 
+const FlexWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+`;
+
+const StyledUpload = styled.div`
+  display: block;
+  margin: 10px;
+`;
+
 const StyledImage = styled.span`
   position: relative;
   display: inline-block;
@@ -41,19 +55,23 @@ function UploadThumbnail({ src, onDelete }) {
 export default function ImageUpload({ images, onDelete, ...props }) {
   return (
     <>
-      <input
-        type="file"
-        accept="image/jpeg, image/png, image/jpg"
-        {...props}
-      />
-      {
-        images.map((image, i) => (
-          <UploadThumbnail
-            src={image}
-            onDelete={(e) => onDelete(e, i)}
-          />
-        ))
-      }
+      <StyledUpload>
+        <input
+          type="file"
+          accept="image/jpeg, image/png, image/jpg"
+          {...props}
+        />
+      </StyledUpload>
+      <FlexWrap>
+        {
+          images.map((image, i) => (
+            <UploadThumbnail
+              src={image}
+              onDelete={(e) => onDelete(e, i)}
+            />
+          ))
+        }
+      </FlexWrap>
     </>
   );
 }

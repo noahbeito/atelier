@@ -30,6 +30,8 @@ export default function AddQuestion({ productId, handleCloseModal }) {
     <Form onSubmit={handleSubmit}>
       <TextArea
         required
+        cols="100"
+        rows="5"
         value={body}
         onChange={(e) => setBody(e.target.value)}
         label="Your Questions"
@@ -39,6 +41,7 @@ export default function AddQuestion({ productId, handleCloseModal }) {
       />
       <Input
         required
+        size="60"
         value={name}
         onChange={(e) => setName(e.target.value)}
         label="What is your nickname"
@@ -50,6 +53,7 @@ export default function AddQuestion({ productId, handleCloseModal }) {
       />
       <Input
         required
+        size="60"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         label="Your email"

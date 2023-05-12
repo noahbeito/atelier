@@ -12,19 +12,21 @@ const Scroll = styled.div`
 
 export default function QuestionsList({ questions }) {
   const searchText = useSelector((state) => state.questionsAnswers.search.text);
+  let questionText;
+  if (questions.length > 0) {
+    questionText = questions
+      .filter((question) => searchText.length < 3
+      || question.question_body.toLowerCase().includes(searchText.toLowerCase()))
+      .map((question) => <Question key={question.question_id} question={question} />);
+  } else if (searchText.length === 0) {
+    questionText = 'No Questions Available';
+  }
 
-  return (
-    <Scroll>
-      {
-        questions
-          ? questions
-            .filter((question) => searchText.length < 3
-            || question.question_body.toLowerCase().includes(searchText.toLowerCase()))
-            .map((question) => <Question key={question.question_id} question={question} />)
-          : ''
-      }
-    </Scroll>
-  );
+  if (questionText.length === 0) {
+    questionText = `There are no questions to match query "${searchText}"`;
+  }
+
+  return <Scroll>{questionText}</Scroll>;
 }
 
 QuestionsList.propTypes = {
