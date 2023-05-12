@@ -19,25 +19,34 @@ const StyledFlex = styled.div`
 const StyledRatingBreakdown = styled(RatingBreakdown)`
   flex-grow: 1;
   padding-right: 5%;
-  position: relative;
+  position: sticky;
+  top: 4%;
+  height: min-content;
 `;
 
 const StyledReviewList = styled.div`
   flex-grow: 3;
+  max-width: 66%;
 `;
 
 const StyledRatingsReviews = styled.div`
   padding-bottom: 1%;
+  position: sticky;
+  top: 1%;
 `;
 
 const StyledMoreReviewButton = styled(Button)`
   margin-left: 0%;
+  position: sticky;
+  bottom: 2%;
 `;
 
 const StyledAddAReviewButton = styled(Button)`
+  margin-left: 0%;
+  position: sticky;
+  bottom: 2%;
   $::after {
-    content:
-    font
+    content: font
   }
 `;
 
@@ -53,12 +62,19 @@ export default function RatingsReviews() {
   const productId = useSelector((state) => state.product.data.id);
   const rloading = useSelector((state) => state.ratingsReviews.rloading);
   const mloading = useSelector((state) => state.ratingsReviews.mloading);
+  const totalReviews = useSelector((state) => state.ratingsReviews.meta.totalReviews);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchMetadata(productId));
     dispatch(fetchReviews(productId));
   }, [productId]);
+
+  const fetchAllReviews = () => {
+    dispatch(fetchReviews(productId, undefined, undefined, totalReviews));
+  };
+
+  const allReviewsDisplayed = () => false;
 
   return (
     <div>
@@ -80,8 +96,11 @@ export default function RatingsReviews() {
                 <SortOptions />
                 <ReviewList />
                 <StyledFlex>
-                  <StyledMoreReviewButton variant="large"> MORE REVIEWS </StyledMoreReviewButton>
-                  <WriteNewReview showModal={showModal} setShowModal={setShowModal} />
+                  {
+                    allReviewsDisplayed()
+                      ? ''
+                      : <StyledMoreReviewButton variant="large" onClick={fetchAllReviews}> MORE REVIEWS </StyledMoreReviewButton>
+                  }
                   <StyledAddAReviewButton variant="large-add" onClick={() => setShowModal(!showModal)}> ADD A REVIEW </StyledAddAReviewButton>
                 </StyledFlex>
               </StyledReviewList>

@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import NameDate from '../../../components/NameDate';
 import StarRating from '../../../components/StarRating';
 import Divider from '../../../components/Divider';
 import Report from '../../../components/Report';
 import Helpful from '../../../components/Helpful';
 import Response from './Response';
+
+import Thumbnail from '../../../components/Thumbnail';
+import Popup from '../../../components/Popup';
 
 // Example Review Object
 // {
@@ -26,6 +30,21 @@ import Response from './Response';
 //       }
 //   ]
 // }
+
+const StyledFlex = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const StyledThumbnail = styled(Thumbnail)`
+  object-fit: cover;
+`;
+
+const StyledImg = styled.img`
+  min-height: 40%;
+  max-width: 100%;
+  object-fit: contain;
+`;
 
 const StyledUserInfo = styled.div`
   display: flex;
@@ -52,6 +71,8 @@ const StyledSummary = styled.div`
 `;
 
 const StyledBody = styled.div`
+  overflow: hidden;
+  overflow-wrap: break-word;
   padding-bottom: 2%;
 `;
 
@@ -79,10 +100,27 @@ export default function ReviewTile({
   date,
   reviewerName,
   helpfulness,
-  // photos,
+  photos,
   className,
 }) {
   const hasResponse = () => response !== null;
+  const hasPhotos = () => photos.length > 0;
+
+  // const photoMap = photos.map((photo) => (<StyledThumbnail src={photo.url} key={photo.id} />));
+
+  const photoMap = photos.map((photo) => {
+    const modalRef = React.useRef();
+    const handleCloseModal = () => modalRef.current.closeModal();
+    const handleOpenModal = () => modalRef.current.openModal();
+    return (
+      <div>
+        <StyledThumbnail src={photo.url} key={photo.id} onClick={handleOpenModal} />
+        <Popup ref={modalRef}>
+          <StyledImg src={photo.url} handleCloseModal={handleCloseModal} />
+        </Popup>
+      </div>
+    );
+  });
 
   return (
     <StyledReviewTile className={`${className} ReviewTile`}>
@@ -99,14 +137,10 @@ export default function ReviewTile({
         </StyledNameDate>
       </StyledUserInfo>
       <StyledSummary className="Summary">
-        {' '}
         {summary}
-        {' '}
       </StyledSummary>
       <StyledBody className="Body">
-        {' '}
         {body}
-        {' '}
       </StyledBody>
       {
         recommend
@@ -118,13 +152,19 @@ export default function ReviewTile({
           ? <StyledResponse className="Response" response={response} />
           : ''
       }
+      {
+        hasPhotos
+          ? (
+            <StyledFlex>
+              { photoMap }
+            </StyledFlex>
+          )
+          : ''
+      }
       <Divider>
         <Helpful className="Helpful" helpfulness={helpfulness} />
         <Report className="Report" />
       </Divider>
-      {/* <div>
-        {photos}
-      </div> */}
     </StyledReviewTile>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 // import metaData from '../../testData/metaData.json';
 
 const StyledSortedOptions = styled.div`
@@ -29,7 +30,7 @@ const StyledDropdown = styled.div`
 `;
 
 export default function SortOptions() {
-  const ReviewsNum = 286;
+  const ReviewsNum = useSelector((state) => state.ratingsReviews.reviews.results.length);
   const sortOptions = ['Relevance', 'Helpful', 'Newest'];
 
   return (
