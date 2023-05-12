@@ -5,11 +5,12 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 
+import { mockData, mockState } from './__mocks__/mockData';
+
 import Search from '../components/Search';
 import QuestionsAnswers from '../components/QuestionsAnswers';
 
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
+const mockStore = configureStore([thunk]);
 
 // Mock functions
 jest.mock('react-redux', () => ({
@@ -20,68 +21,6 @@ jest.mock('react-redux', () => ({
 
 jest.mock('axios');
 
-// Mock data
-
-const mockData = {
-  product_id: '1234',
-  results: [
-    {
-      question_id: 200,
-      question_body: 'Hello World?',
-      answers: {},
-    },
-    {
-      question_id: 201,
-      question_body: 'Hello?',
-      answers: {},
-    },
-    {
-      question_id: 202,
-      question_body: 'What is hello?',
-      answers: {},
-    },
-    {
-      question_id: 203,
-      question_body: 'Is this hXllo okay?',
-      answers: {},
-    },
-    {
-      question_id: 204,
-      question_body: 'This is not a question?',
-      answers: {},
-    },
-    {
-      question_id: 205,
-      question_body: 'Who is a question then?',
-      answers: {},
-    },
-    {
-      question_id: 206,
-      question_body: 'Hello??',
-      answers: {},
-    },
-  ],
-};
-
-const mockState = (text) => ({
-  product: {
-    loading: false,
-    data: {
-      id: 123,
-    },
-    error: null,
-  },
-  questionsAnswers: {
-    main: {
-      loading: false,
-      questions: mockData.results,
-    },
-    search: {
-      text,
-    },
-  },
-});
-
 export default () => {
   let store;
   let dispatchMock;
@@ -91,14 +30,14 @@ export default () => {
     dispatchMock = jest.fn();
     useDispatch.mockReturnValue(dispatchMock);
 
-    axios.get.mockResolvedValueOnce({ data: { ...mockData } });
+    axios.get.mockResolvedValueOnce({ data: { ...mockData[1] } });
 
     store = mockStore();
   });
 
   it('should dispatch the correct actions on search', async () => {
     const text = 'h';
-    useSelector.mockImplementation((selector) => selector(mockState('')));
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, '')));
 
     render(
       <Provider store={store}>
@@ -114,7 +53,7 @@ export default () => {
 
   it('should not dispatch if nothing about the text has changed', async () => {
     const text = 'hello';
-    useSelector.mockImplementation((selector) => selector(mockState(text)));
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, text)));
 
     render(
       <Provider store={store}>
@@ -130,11 +69,11 @@ export default () => {
 
   it('should display all available items when nothing has been entered', () => {
     const text = '';
-    useSelector.mockImplementation((selector) => selector(mockState(text)));
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, text)));
 
     render(
       <Provider store={store}>
-        <QuestionsAnswers questions={mockData.results} />
+        <QuestionsAnswers questions={mockData[1].results} />
       </Provider>,
     );
 
@@ -144,11 +83,11 @@ export default () => {
 
   it('should not change if fewer than three characters have been entered', () => {
     const text = 'he';
-    useSelector.mockImplementation((selector) => selector(mockState(text)));
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, text)));
 
     render(
       <Provider store={store}>
-        <QuestionsAnswers questions={mockData.results} />
+        <QuestionsAnswers questions={mockData[1].results} />
       </Provider>,
     );
 
@@ -158,11 +97,11 @@ export default () => {
 
   it('should filter when text has been entered', () => {
     const text = 'hello';
-    useSelector.mockImplementation((selector) => selector(mockState(text)));
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, text)));
 
     render(
       <Provider store={store}>
-        <QuestionsAnswers questions={mockData.results} />
+        <QuestionsAnswers questions={mockData[1].results} />
       </Provider>,
     );
 
@@ -170,13 +109,27 @@ export default () => {
     expect(questions).toHaveLength(3);
   });
 
-  xit('should load to next found loaded item when "More Answered Questions" is pressed', () => {
-    const text = 'hello';
-    useSelector.mockImplementation((selector) => selector(mockState(text)));
+  it('should not find any questions when search result finds none', () => {
+    const text = 'something that cannot be found';
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, text)));
 
     render(
       <Provider store={store}>
-        <QuestionsAnswers questions={mockData.results} />
+        <QuestionsAnswers questions={mockData[1].results} />
+      </Provider>,
+    );
+    expect(screen.queryByText(`There are no questions to match query "${text}"`)).toBeInTheDocument();
+    const questions = screen.queryAllByTestId('question');
+    expect(questions).toHaveLength(0);
+  });
+
+  xit('should load to next found loaded item when "More Answered Questions" is pressed', () => {
+    const text = 'hello';
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, text)));
+
+    render(
+      <Provider store={store}>
+        <QuestionsAnswers questions={mockData[1].results} />
       </Provider>,
     );
 
@@ -193,11 +146,11 @@ export default () => {
 
   xit('should highlight responses with class `mark` whenever there are searches', () => {
     const text = 'hello';
-    useSelector.mockImplementation((selector) => selector(mockState(text)));
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, text)));
 
     render(
       <Provider store={store}>
-        <QuestionsAnswers questions={mockData.results} />
+        <QuestionsAnswers questions={mockData[1].results} />
       </Provider>,
     );
 

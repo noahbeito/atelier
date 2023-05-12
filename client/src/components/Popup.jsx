@@ -29,7 +29,7 @@ const StyledPopup = styled.div`
 
   & .container {
     margin: 0;
-    padding: 50px 0;
+    padding: 10px 0;
     box-sizing: border-box;
     background-color: white;
     box-shadow: 0 0 5px black;
@@ -56,16 +56,37 @@ const StyledPopup = styled.div`
       &:hover {
         transform: scale(1.1);
       }
+      &:focus {
+        color: ${(props) => props.theme.secondaryColor};
+        transform: scale(1.1);
+        outline: none;
+      }
     }
 
     & .wrapper {
-      border: 2px solid red;
+      width: 80%;
       margin: 0 auto;
     }
   }
+
+  h1, h2, h3 {
+    text-align: center;
+    font-family: verdana;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  h3 {
+    font-size: 0.9rem;
+    margin: 0;
+  }
 `;
 
-const Modal = forwardRef(({ children, ...props }, ref) => {
+const Modal = forwardRef(({ titles, children, ...props }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useImperativeHandle(ref, () => ({
@@ -109,6 +130,9 @@ const Modal = forwardRef(({ children, ...props }, ref) => {
         <div className="container">
           <Button className="exit" data-testid="exit" variant="medium" onClick={handleExit}><Icons.Exit size="2x" /></Button>
           <div className="wrapper">
+            <h1>{titles[0] || ''}</h1>
+            <h2>{titles[1] || ''}</h2>
+            <h2>{titles[2] || ''}</h2>
             {children}
           </div>
         </div>
@@ -119,6 +143,7 @@ const Modal = forwardRef(({ children, ...props }, ref) => {
 });
 
 Modal.propTypes = {
+  titles: PropTypes.arrayOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
 };
 

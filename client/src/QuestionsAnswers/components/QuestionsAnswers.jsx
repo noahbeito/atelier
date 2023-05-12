@@ -39,6 +39,7 @@ export default function QuestionsAnswers() {
   const isLoading = useSelector(getIsLoading);
 
   const productId = useSelector((state) => state.product.data.id);
+  const productName = useSelector((state) => state.product.data.name);
   const dispatch = useDispatch();
 
   // Attaches reference to open and close functions from within modal
@@ -51,15 +52,17 @@ export default function QuestionsAnswers() {
   }, [productId]);
 
   const moreQuestionsHandler = () => {
-    dispatch(fetchMoreQuestions(productId));
-    setMaxQuestions(Math.min(maxQuestions + 2, currentQuestionCount));
+    dispatch(fetchMoreQuestions(productId))
+      .then(() => {
+        setMaxQuestions(Math.min(maxQuestions + 2, currentQuestionCount));
+      });
   };
 
   return (
     <Container>
       <h2>Questions & Answers</h2>
       <Search />
-      {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
+      {isLoading ? <StyledLoading data-testid="loading"><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
         : (
           <>
             <QuestionsList questions={questions} />
@@ -67,8 +70,8 @@ export default function QuestionsAnswers() {
               {currentQuestionCount > questions.length && <Button variant="large-base" onClick={moreQuestionsHandler}>More Answered Questions</Button>}
               <Button variant="large-add" onClick={handleAddQuestion}>Add A Question</Button>
             </FlexLeft>
-            <Popup ref={modalRef}>
-              <AddQuestion handleCloseModal={handleCloseModal} />
+            <Popup ref={modalRef} titles={['Ask Your Question', `About the ${productName}`]}>
+              <AddQuestion productId={productId} handleCloseModal={handleCloseModal} />
             </Popup>
           </>
         )}
