@@ -12,6 +12,8 @@ const List = styled.div`
 const Container = styled.div`
   grid-area: 2 / 2 / span 1 / span 5;
   position: relative;
+  align-self: center;
+  height: 100%;
   overflow-x: hidden;
 `;
 
@@ -20,7 +22,7 @@ const OutfitContainer = styled(Container)`
 `;
 
 const Title = styled.h2`
-  grid-area: 1 / 1 / span 1 / span 1;
+  grid-area: 1 / 2 / span 1 / span 1;
   margin-inline: auto;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
@@ -35,6 +37,7 @@ const Carousel = styled.div`
   list-style-type: none;
   transform: translateX(calc(var(--slider-index) * 25%));
   transition: transform 250ms ease-in-out;
+  margin-top: 1rem;
 `;
 
 const OutfitCarousel = styled(Carousel)`
@@ -44,6 +47,7 @@ const OutfitCarousel = styled(Carousel)`
 
 const DefaultCard = styled.li`
   position: relative;
+  align-self: center;
   height: 400px;
   width: 95%;
   background-color: #CDCDCD;
@@ -65,6 +69,38 @@ const Card = styled(DefaultCard)`
   border: none;
 `;
 
+const ChevronButton = styled.button`
+  align-self: center;
+  height: 80%;
+  width: 20%;
+  z-index: 10;
+  opacity: 60%;
+`;
+
+const StyledRightButton = styled(ChevronButton)`
+  grid-area: 2 / 5 / span 1 / span 1;
+  justify-self: end;
+`;
+
+const StyledLeftButton = styled(ChevronButton)`
+  grid-area: 2 / 2 / span 1 / span 1;
+`;
+
+const StyledLeftOutfitButton = styled(StyledLeftButton)`
+    grid-area: 2 / 3 / span 1 / span 1;
+`;
+
 export {
-  Title, DefaultCard, Card, AddCard, Carousel, OutfitCarousel, Container, OutfitContainer, List,
+  Title,
+  DefaultCard,
+  Card,
+  AddCard,
+  Carousel,
+  OutfitCarousel,
+  Container,
+  OutfitContainer,
+  List,
+  StyledRightButton,
+  StyledLeftButton,
+  StyledLeftOutfitButton,
 };

@@ -75,7 +75,7 @@ export default function YourOutfit({ chevronClickHandler }) {
     <List>
       <Title>Your Outfit</Title>
       <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
-      {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
+      {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} carouselId={carouselId} />}
       <OutfitContainer>
         <OutfitCarousel id={carouselId}>
           {outfit.map((productId) => (

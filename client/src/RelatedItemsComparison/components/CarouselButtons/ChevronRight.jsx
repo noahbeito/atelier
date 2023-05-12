@@ -1,21 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Icons from '../../../components/Icons';
-
-const StyledButton = styled.button`
-  position: absolute;
-  vertical-align: middle;
-  right: 5px;
-  height: 100%;
-  z-index: 10;
-`;
+import { StyledRightButton } from '../../styles';
 
 export default function ChevronRight({ clickHandler }) {
   return (
-    <StyledButton type="button" onClick={() => clickHandler()}>
+    <StyledRightButton type="button" onClick={() => clickHandler()}>
       <Icons.ChevronRight />
-    </StyledButton>
+    </StyledRightButton>
   );
 }
 

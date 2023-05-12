@@ -1,23 +1,24 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Icons from '../../../components/Icons';
+import { StyledLeftButton, StyledLeftOutfitButton } from '../../styles';
 
-const StyledButton = styled.button`
-  position: absolute;
-  left: 5px
-  height: 100%;
-  z-index: 10;
-`;
-
-export default function ChevronLeft({ clickHandler }) {
+export default function ChevronLeft({ clickHandler, carouselId }) {
+  if (carouselId === 'outfit-carousel') {
+    return (
+      <StyledLeftOutfitButton type="button" onClick={() => clickHandler()}>
+        <Icons.ChevronLeft />
+      </StyledLeftOutfitButton>
+    );
+  }
   return (
-    <StyledButton type="button" onClick={() => clickHandler()}>
+    <StyledLeftButton type="button" onClick={() => clickHandler()}>
       <Icons.ChevronLeft />
-    </StyledButton>
+    </StyledLeftButton>
   );
 }
 
 ChevronLeft.propTypes = {
   clickHandler: PropTypes.func.isRequired,
+  carouselId: PropTypes.func.isRequired,
 };
