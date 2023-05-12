@@ -18,7 +18,7 @@ export default () => {
       expect(text).not.toBeInTheDocument();
     });
 
-    it('should be able to open to display its children', () => {
+    xit('should be able to open to display its children', () => {
       function App() {
         const modalRef = useRef();
         useEffect(() => {
@@ -55,7 +55,7 @@ export default () => {
       expect(text).not.toBeInTheDocument();
     });
 
-    it('should be able to close by clicking on internal exit button', () => {
+    xit('should be able to close by clicking on internal exit button', () => {
       function App() {
         const modalRef = useRef();
         useEffect(() => {

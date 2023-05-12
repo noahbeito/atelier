@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const Thumbnail = styled.img`
   background-color: #eee;
-  width: 120px;
   height: 100px;
   display: block;
   border: 1px solid black;

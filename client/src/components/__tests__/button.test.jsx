@@ -1,6 +1,5 @@
 /* eslint-env jest */
 import React from 'react';
-import '@testing-library/jest-dom';
 import { render, fireEvent } from '@testing-library/react';
 import Button from '../ui/Button';
 
