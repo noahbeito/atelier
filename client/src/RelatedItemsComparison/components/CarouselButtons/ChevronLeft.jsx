@@ -10,9 +10,9 @@ const StyledButton = styled.button`
   z-index: 10;
 `;
 
-export default function ChevronLeft({ clickHandler, carouselId }) {
+export default function ChevronLeft({ clickHandler }) {
   return (
-    <StyledButton type="button" onClick={() => clickHandler(carouselId, 'left')}>
+    <StyledButton type="button" onClick={() => clickHandler()}>
       <Icons.ChevronLeft />
     </StyledButton>
   );
@@ -20,5 +20,4 @@ export default function ChevronLeft({ clickHandler, carouselId }) {
 
 ChevronLeft.propTypes = {
   clickHandler: PropTypes.func.isRequired,
-  carouselId: PropTypes.string.isRequired,
 };

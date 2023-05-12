@@ -10,16 +10,31 @@ import {
 
 export default function YourOutfit({ chevronClickHandler }) {
   const [outfit, setOutfit] = useState([]);
+  const [viewIndex, setViewIndex] = useState(0);
+  const [showLeftChevron, setShowLeftChevron] = useState(false);
+  const [showRightChevron, setShowRightChevron] = useState(false);
+  const symbol = 'Exit';
+  const carouselId = 'outfit-carousel';
 
   useEffect(() => {
     const savedOutfit = JSON.parse(localStorage.getItem('outfit'));
     if (savedOutfit) {
       setOutfit(savedOutfit);
+      if (savedOutfit.length > 3) {
+        setShowRightChevron(true);
+      } else {
+        setShowRightChevron(false);
+      }
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem('outfit', JSON.stringify(outfit));
+    if (outfit.length > 3) {
+      setShowRightChevron(true);
+    } else {
+      setShowRightChevron(false);
+    }
   }, [outfit]);
 
   const handleAddToOutfitClick = (productId) => {
@@ -33,14 +48,35 @@ export default function YourOutfit({ chevronClickHandler }) {
     setOutfit([...outfit]);
   };
 
-  const symbol = 'Exit';
+  const rightClickHandler = () => {
+    chevronClickHandler(carouselId, 'right');
+    setViewIndex(viewIndex + 1);
+  };
+
+  const leftClickHandler = () => {
+    chevronClickHandler(carouselId, 'left');
+    setViewIndex(viewIndex - 1);
+  };
+
+  useEffect(() => {
+    if (viewIndex + 3 < outfit.length) {
+      setShowRightChevron(true);
+    } else {
+      setShowRightChevron(false);
+    }
+    if (viewIndex > 0) {
+      setShowLeftChevron(true);
+    } else {
+      setShowLeftChevron(false);
+    }
+  }, [viewIndex]);
 
   return (
     <List>
       <Title>Your Outfit</Title>
       <Container>
-        <ChevronLeft clickHandler={chevronClickHandler} carouselId="outfit-carousel" />
-        <Carousel id="outfit-carousel">
+        {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
+        <Carousel id={carouselId}>
           <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
           {outfit.map((productId) => (
             <ProductCard
@@ -51,7 +87,7 @@ export default function YourOutfit({ chevronClickHandler }) {
             />
           ))}
         </Carousel>
-        <ChevronRight clickHandler={chevronClickHandler} carouselId="outfit-carousel" />
+        {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
       </Container>
     </List>
   );
