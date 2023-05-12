@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import '@testing-library/jest-dom';
-import { render /* , screen */ } from '@testing-library/react';
+// import { render /* , screen */ } from '@testing-library/react';
 
 import ratingsReviewsReducer from '../reducers/index';
-import { fetchReviews, fetchMetadata } from '../actions/index';
-import RatingBreakdown from '../components/RatingBreakdown/RatingBreakdown';
+import { fetchReviews } from '../actions/index';
+// import RatingBreakdown from '../components/RatingBreakdown/RatingBreakdown';
 
 import testdata from '../testData/reviews.json';
 

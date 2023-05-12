@@ -6,8 +6,8 @@ import '@testing-library/jest-dom';
 import { render /* , screen */ } from '@testing-library/react';
 
 import ratingsReviewsReducer from '../reducers/index';
-import { fetchReviews, fetchMetadata } from '../actions/index';
-import RatingBreakdown from '../components/RatingBreakdown/RatingBreakdown';
+import { fetchMetadata } from '../actions/index';
+// import RatingBreakdown from '../components/RatingBreakdown/RatingBreakdown';
 import App from '../../App';
 
 import testdata from '../testData/metaData.json';
