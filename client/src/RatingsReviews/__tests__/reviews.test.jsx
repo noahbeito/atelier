@@ -71,12 +71,9 @@ export default () => {
 
       store = createStore(ratingsReviewsReducer, applyMiddleware(thunkMiddleware));
       await store.dispatch(fetchReviews(40344));
-      // const currentState = store.getState();
-      // TODO: Ask Thomas/Help desk why currentState wouldn't work here
+      currentState = store.getState();
 
-      await store.getState();
-
-      await expect(store.getState().error).toBe('error');
+      expect(currentState.error).toBe('error');
     });
   });
 };
