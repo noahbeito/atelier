@@ -88,8 +88,18 @@ const questionsReducer = (state = { questions: [], loading: true, error: null },
   }
 };
 
+const searchReducer = (state = { text: '' }, action = {}) => {
+  switch (action.type) {
+    case '@qa/search/SET_SEARCH':
+      return { ...state, text: action.payload };
+    default:
+      return state;
+  }
+};
+
 const questionsAnswersReducer = combineReducers({
   main: questionsReducer,
+  search: searchReducer,
 });
 
 export default questionsAnswersReducer;

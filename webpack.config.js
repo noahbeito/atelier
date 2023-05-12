@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -17,7 +18,13 @@ module.exports = {
       title: 'Atelier',
       inject: 'body',
       template: 'index.html',
-    })],
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        STARTING_PRODUCT: JSON.stringify(process.env.STARTING_PRODUCT),
+      },
+    }),
+  ],
   module: {
     rules: [
       {

@@ -1,8 +1,13 @@
 /* eslint-env jest */
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, fireEvent } from '@testing-library/react';
-import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import { useDispatch, Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+
+import thunk from 'redux-thunk';
+
 import Question from '../components/Question';
 
 // Data mocks:
@@ -36,6 +41,9 @@ const mockQuestionWithoutAnswers = {
 };
 
 // Function Mocks
+
+jest.mock('axios');
+
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useDispatch: jest.fn(),
@@ -43,10 +51,13 @@ jest.mock('react-redux', () => ({
 }));
 
 jest.mock('../components/AnswersList');
-const dispatchMock = jest.fn();
-useDispatch.mockReturnValue(dispatchMock);
 
 export default () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    useDispatch.mockReturnValue(jest.fn());
+  });
+
   describe('Question Accordion Component', () => {
     it('should not affect anything when clicked if there are no answers', () => {
       // Grab accordion title and body
@@ -101,6 +112,74 @@ export default () => {
       fireEvent.click(accordionTitle[0]);
 
       // Ensure component is re-rendered with zero height
+      accordionBody = container.getElementsByClassName('accordion-body');
+      style = window.getComputedStyle(accordionBody[0]);
+
+      expect(accordionBody).toHaveLength(1);
+      expect(Number.parseInt(style['max-height'], 10)).toBe(0);
+    });
+  });
+
+  describe('Question Widget Functionality', () => {
+    it('should make an axios request and dispatch an action when widgets are clicked', async () => {
+      const middlewares = [thunk];
+      const mockStore = configureStore(middlewares);
+      const store = mockStore();
+
+      const dispatchMock = jest.fn();
+      useDispatch.mockReturnValue(dispatchMock);
+
+      axios.put.mockResolvedValueOnce();
+
+      const { getByText } = render(
+        <Provider store={store}>
+          <Question question={mockQuestion} />
+        </Provider>,
+      );
+
+      const reportButton = getByText('Report');
+      const yesButton = getByText('Yes');
+
+      // Click report button and assert
+
+      fireEvent.click(reportButton);
+
+      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/questions/${mockQuestion.question_id}/report`));
+      expect(dispatchMock).toHaveBeenCalled();
+
+      // Clear the mock history of axios.put and dispatch
+      axios.put.mockClear();
+      axios.put.mockResolvedValueOnce();
+      dispatchMock.mockClear();
+
+      // Now click yes button and test
+      fireEvent.click(yesButton);
+
+      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/questions/${mockQuestion.question_id}/helpful`));
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+
+    it('should not open accordion when widgets are clicked', () => {
+      // Mock axios resolve
+
+      axios.put.mockResolvedValueOnce();
+
+      const { getByText, container } = render(<Question question={mockQuestion} />);
+
+      // Check that accordion is initially closed
+
+      let accordionBody = container.getElementsByClassName('accordion-body');
+      let style = window.getComputedStyle(accordionBody[0]);
+
+      expect(accordionBody).toHaveLength(1);
+      expect(Number.parseInt(style['max-height'], 10)).toBe(0);
+
+      // Click `Report`
+
+      const reportButton = getByText('Report');
+      fireEvent.click(reportButton);
+
+      // Ensure component nothing happened
       accordionBody = container.getElementsByClassName('accordion-body');
       style = window.getComputedStyle(accordionBody[0]);
 
