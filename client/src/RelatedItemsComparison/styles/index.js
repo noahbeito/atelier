@@ -9,7 +9,7 @@ const List = styled.div`
 const Container = styled.div`
   position: relative;
   display: flex;
-  margin: 10px 0px;
+  //margin: 10px 0px;
   overflow-x: hidden;
   /* scroll-snap-type: inline mandatory; */
   `;
@@ -36,7 +36,7 @@ const Carousel = styled.div`
 `;
 
 const OutfitCarousel = styled(Carousel)`
-grid-auto-columns: 28%;
+  grid-auto-columns: 28%;
 `;
 
 const DefaultCard = styled.li`
@@ -52,11 +52,18 @@ const DefaultCard = styled.li`
   cursor: pointer;
 `;
 
+const AddCard = styled(DefaultCard)`
+  position: relative;
+  width: 300px;
+  margin-right: 0.5rem;
+  z-index: 9;
+`;
+
 const Card = styled(DefaultCard)`
   border: none;
   // margin: 0.5rem;
 `;
 
 export {
-  Title, DefaultCard, Card, Carousel, OutfitCarousel, Container, List,
+  Title, DefaultCard, Card, AddCard, Carousel, OutfitCarousel, Container, List,
 };
