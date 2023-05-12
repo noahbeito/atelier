@@ -4,11 +4,12 @@ const Title = styled.h2`
   margin-inline: auto;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
-  width: 60%;
 `;
 
 const DefaultCard = styled.li`
-  height: 340px;
+  position: relative;
+  height: 400px;
+  max-width: 300px;
   background-color: #CDCDCD;
   border-radius: 5px;
 
@@ -39,6 +40,7 @@ const Carousel = styled.div`
 `;
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   margin: 10px 0px;
   overflow-x: hidden;
@@ -47,6 +49,7 @@ const Container = styled.div`
 
 const List = styled.div`
  position: relative;
+ margin-left: 20%;
 `;
 
 export {

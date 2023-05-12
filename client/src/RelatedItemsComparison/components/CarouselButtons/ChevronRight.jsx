@@ -5,6 +5,7 @@ import Icons from '../../../components/Icons';
 
 const StyledButton = styled.button`
   position: absolute;
+  vertical-align: middle;
   right: 5px;
   height: 100%;
   z-index: 10;

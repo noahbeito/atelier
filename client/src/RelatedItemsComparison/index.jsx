@@ -4,7 +4,6 @@ import YourOutfit from './components/YourOutfit/YourOutfit';
 
 export default function RelatedItemsComparison() {
   const chevronClickHandler = (carouselId, direction) => {
-    console.log('CHEVY CLICK: ', carouselId, direction);
     const carousel = document.getElementById(carouselId);
     const sliderIndex = parseInt(getComputedStyle(carousel).getPropertyValue('--slider-index'), 10);
     if (direction === 'right') {
