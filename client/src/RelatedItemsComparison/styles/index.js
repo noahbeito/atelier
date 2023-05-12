@@ -51,7 +51,7 @@ const DefaultCard = styled.li`
   height: 400px;
   width: 95%;
   background-color: #CDCDCD;
-  border-radius: 5px;
+  border-radius: 3px;
 
   padding: 0.5rem;
   z-index: 9;
@@ -71,10 +71,23 @@ const Card = styled(DefaultCard)`
 
 const ChevronButton = styled.button`
   align-self: center;
-  height: 80%;
+  height: 84%;
   width: 20%;
+  color: white;
+  font-size: 1.5em;
   z-index: 10;
-  opacity: 60%;
+  background-color: rgba(0, 128, 128, 0);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  .chevron {
+    font-weight: 900;
+  }
+  &:hover {
+    transform: scale(1.1);
+    background-color: rgba(0, 128, 128, 0.8);
+    transition: background-color 500ms, transform 500ms ease-in-out;
+  }
 `;
 
 const StyledRightButton = styled(ChevronButton)`
