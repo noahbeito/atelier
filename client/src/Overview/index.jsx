@@ -22,6 +22,7 @@ export default function Overview() {
   const [bgImg, setBgImg] = useState({});
   const dispatch = useDispatch();
   // setProduct(40344);
+  console.log(setProduct);
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
     axios.get(`/products/${product}/styles`)
