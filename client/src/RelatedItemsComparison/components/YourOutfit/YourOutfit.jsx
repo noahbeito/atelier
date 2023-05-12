@@ -5,7 +5,7 @@ import ProductCard from '../ProductCard/ProductCard';
 import ChevronLeft from '../CarouselButtons/ChevronLeft';
 import ChevronRight from '../CarouselButtons/ChevronRight';
 import {
-  Title, OutfitCarousel, Container, List,
+  Title, OutfitCarousel, OutfitContainer, List,
 } from '../../styles';
 
 export default function YourOutfit({ chevronClickHandler }) {
@@ -74,9 +74,9 @@ export default function YourOutfit({ chevronClickHandler }) {
   return (
     <List>
       <Title>Your Outfit</Title>
-      <Container>
-        {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
-        <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
+      <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
+      {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
+      <OutfitContainer>
         <OutfitCarousel id={carouselId}>
           {outfit.map((productId) => (
             <ProductCard
@@ -87,8 +87,8 @@ export default function YourOutfit({ chevronClickHandler }) {
             />
           ))}
         </OutfitCarousel>
-        {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
-      </Container>
+      </OutfitContainer>
+      {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
     </List>
   );
 }

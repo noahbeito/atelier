@@ -78,16 +78,16 @@ export default function RelatedItems({ chevronClickHandler }) {
   return (
     <List>
       <Title>Related Items</Title>
+      {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
       <Container>
-        {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
         <Carousel id={carouselId} data-testid={carouselId}>
           {noRelatedItems && <NoRelatedItemsCard />}
           {relatedProducts.map((id) => (
             <ProductCard id={id} symbol={symbol} key={id} />
           ))}
         </Carousel>
-        {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
       </Container>
+      {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
     </List>
   );
 }

@@ -1,20 +1,26 @@
 import styled from 'styled-components';
 
 const List = styled.div`
+ display: grid;
+ grid-template-rows: 10% 90%;
+ grid-template-columns: 20% 20% 20% 20% 20%;
  position: relative;
- margin-left: 20%;
  list-style-type: none;
+ overflow-x: hidden;
 `;
 
 const Container = styled.div`
+  grid-area: 2 / 2 / span 1 / span 5;
   position: relative;
-  display: flex;
-  //margin: 10px 0px;
   overflow-x: hidden;
-  /* scroll-snap-type: inline mandatory; */
-  `;
+`;
+
+const OutfitContainer = styled(Container)`
+  grid-area: 2 / 3 / span 1 / span 5;
+`;
 
 const Title = styled.h2`
+  grid-area: 1 / 1 / span 1 / span 1;
   margin-inline: auto;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
@@ -23,47 +29,42 @@ const Title = styled.h2`
 const Carousel = styled.div`
   --slider-index: 0;
   display: grid;
-  gap: 1.5rem;
+  gap: 1%;
   grid-auto-flow: column;
-  grid-auto-columns: 23%;
+  grid-auto-columns: 24%;
   list-style-type: none;
   transform: translateX(calc(var(--slider-index) * 25%));
   transition: transform 250ms ease-in-out;
-  /* overflow-x: auto;
-  overscroll-behavior-inline: contain; */
-
-  //scroll-snap-type: inline mandatory; // this might change when implementing right/left buttons
 `;
 
 const OutfitCarousel = styled(Carousel)`
-  grid-auto-columns: 28%;
+  grid-auto-columns: 32.3%;
+  transform: translateX(calc(var(--slider-index) * (33.3%)));
 `;
 
 const DefaultCard = styled.li`
   position: relative;
   height: 400px;
-  width: 100%;
+  width: 95%;
   background-color: #CDCDCD;
   border-radius: 5px;
 
   padding: 0.5rem;
   z-index: 9;
-  // scroll-snap-align: start;
   cursor: pointer;
 `;
 
 const AddCard = styled(DefaultCard)`
+  grid-area: 2 / 2 / span 1 / span 1;
   position: relative;
-  width: 300px;
-  margin-right: 0.5rem;
+  width: 92%;
   z-index: 9;
 `;
 
 const Card = styled(DefaultCard)`
   border: none;
-  // margin: 0.5rem;
 `;
 
 export {
-  Title, DefaultCard, Card, AddCard, Carousel, OutfitCarousel, Container, List,
+  Title, DefaultCard, Card, AddCard, Carousel, OutfitCarousel, Container, OutfitContainer, List,
 };
