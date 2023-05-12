@@ -36,6 +36,7 @@ export default function TextArea({
   validation,
   label,
   id,
+  warning,
   required,
   ...props
 }) {
@@ -52,6 +53,7 @@ export default function TextArea({
           )
           : <textarea type="text" id={id} {...props} />
       }
+      {!!warning && <div className="warning">{warning}</div>}
     </StyledArea>
   );
 }
@@ -60,11 +62,13 @@ TextArea.propTypes = {
   validation: PropTypes.func,
   label: PropTypes.string,
   id: PropTypes.string.isRequired,
+  warning: PropTypes.string,
   required: PropTypes.bool,
 };
 
 TextArea.defaultProps = {
   validation: null,
   label: undefined,
+  warning: undefined,
   required: false,
 };
