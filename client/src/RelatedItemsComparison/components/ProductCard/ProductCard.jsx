@@ -6,22 +6,29 @@ import styled from 'styled-components';
 import ActionButton from './ActionButton';
 import ComparisonModal from '../RelatedItems/ComparisonModal';
 import StarRating from '../../../components/StarRating';
+import SalePrice from './SalePrice';
 import { Card } from '../../styles';
 
 const StyledCategory = styled.div`
+  font-style: italic;
 `;
 const StyledName = styled.div`
+  font-weight: bold;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
 `;
-const StyledPrice = styled.div`
-`;
-// const StyledSalePrice ...
 
 const StyledImg = styled.img`
   max-width: 100%;
   aspect-ratio: .9;
   object-fit: cover;
 `;
-const StyledWrap = styled.div`
+
+const StyledStarWrap = styled.div`
+  margin-top: 0.25rem;
+`;
+
+const StyledActionWrap = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
@@ -31,6 +38,7 @@ const StyledWrap = styled.div`
     transform: scale(1.2);
   }
 `;
+
 export default function ProductCard({
   id, handleRemoveItemClick, symbol,
 }) {
@@ -116,7 +124,7 @@ export default function ProductCard({
   return (
     <Card onClick={() => handleClick()}>
       {showModal && <ComparisonModal />}
-      <StyledWrap>
+      <StyledActionWrap>
         <ActionButton
           id={id}
           handleRemoveItemClick={handleRemoveItemClick}
@@ -125,12 +133,14 @@ export default function ProductCard({
           handleMouseEnter={handleMouseEnter}
           handleMouseLeave={handleMouseLeave}
         />
-      </StyledWrap>
+      </StyledActionWrap>
       <StyledImg src={photoURL} />
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>
-      <StyledPrice>{salePrice || price}</StyledPrice>
-      <StarRating rating={avgRating} />
+      { salePrice ? <SalePrice salePrice={salePrice} price={price} /> : price }
+      <StyledStarWrap>
+        <StarRating rating={avgRating} />
+      </StyledStarWrap>
     </Card>
   );
 }

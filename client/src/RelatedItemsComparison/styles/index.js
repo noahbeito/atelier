@@ -42,6 +42,7 @@ const Carousel = styled.div`
 
 const OutfitCarousel = styled(Carousel)`
   grid-auto-columns: 32.3%;
+  gap: 1.1%;
   transform: translateX(calc(var(--slider-index) * (33.3%)));
 `;
 
@@ -61,7 +62,7 @@ const DefaultCard = styled.li`
 const AddCard = styled(DefaultCard)`
   grid-area: 2 / 2 / span 1 / span 1;
   position: relative;
-  width: 92%;
+  width: 91.5%;
   z-index: 9;
 `;
 
