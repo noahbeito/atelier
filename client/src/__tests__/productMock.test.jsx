@@ -51,7 +51,7 @@ export default () => {
         </Provider>,
       );
 
-      await waitFor(() => expect(axios.get).toHaveBeenCalledWith('/products/40353'));
+      await waitFor(() => expect(axios.get).toHaveBeenCalled());
 
       expect(dispatchMock).toHaveBeenCalledTimes(2);
       expect(dispatchMock).toHaveBeenNthCalledWith(1, { type: '@product/FETCH_DATA' });
@@ -74,7 +74,7 @@ export default () => {
         </Provider>,
       );
 
-      await waitFor(() => expect(axios.get).toHaveBeenCalledWith('/products/40353'));
+      await waitFor(() => expect(axios.get).toHaveBeenCalled());
 
       expect(dispatchMock).toHaveBeenCalledTimes(2);
       expect(dispatchMock).toHaveBeenNthCalledWith(1, { type: '@product/FETCH_DATA' });

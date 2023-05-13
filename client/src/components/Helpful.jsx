@@ -1,13 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
 import Button from './ui/Button';
 
-export default function Helpful({ helpfulness, ...props }) {
+const StyledText = styled.strong`
+  color: ${(props) => props.theme.secondaryColor};
+`;
+
+export default function Helpful({ helpfulness, clickedYes, ...props }) {
   return (
     <>
       <span>Helpful?</span>
       <span>
-        <Button variant="small" {...props}>Yes</Button>
+        <Button variant="small" {...props}>
+          {
+            clickedYes
+              ? <StyledText>Yes</StyledText>
+              : 'Yes'
+          }
+        </Button>
         (
         {helpfulness}
         )
@@ -18,4 +30,5 @@ export default function Helpful({ helpfulness, ...props }) {
 
 Helpful.propTypes = {
   helpfulness: PropTypes.number.isRequired,
+  clickedYes: PropTypes.bool.isRequired,
 };
