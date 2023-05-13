@@ -2,13 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledModal = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   display: grid;
   grid-template-rows: 10% 10% 80%;
   grid-template-columns: 20% 20% 20% 20% 20%;
   height: 200px;
   width: fit-content;
-  position: absolute;
-  background-color: #CDCDCD;
   z-index: 20;
 `;
 
@@ -35,10 +39,19 @@ const StyledRelated = styled.div`
 export default function ComparisonModal() {
   return (
     <StyledModal>
-      <StyledTitle>Comparing</StyledTitle>
-      <StyledCurrent>Current Product</StyledCurrent>
-      <StyledCompare>Comparison Column</StyledCompare>
-      <StyledRelated>Related Product</StyledRelated>
+      <div>
+        <div className="modal-header">
+          <StyledTitle>Comparing</StyledTitle>
+        </div>
+        <div className="modal-body">
+          <StyledCurrent>Current Product</StyledCurrent>
+          <StyledCompare>Comparison Column</StyledCompare>
+          <StyledRelated>Related Product</StyledRelated>
+        </div>
+        <div className="modal-footer">
+          <div>footer</div>
+        </div>
+      </div>
     </StyledModal>
   );
 }

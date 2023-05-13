@@ -11,7 +11,7 @@ import {
   Title, Carousel, Container, List,
 } from '../../styles';
 
-export default function RelatedItems({ chevronClickHandler }) {
+export default function RelatedItems({ chevronClickHandler, modalClickHandler }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [noRelatedItems, setNoRelatedItems] = useState(false);
   const [showLeftChevron, setShowLeftChevron] = useState(false);
@@ -81,7 +81,7 @@ export default function RelatedItems({ chevronClickHandler }) {
         <Carousel id={carouselId} data-testid={carouselId}>
           {noRelatedItems && <NoRelatedItemsCard />}
           {relatedProducts.map((id) => (
-            <ProductCard id={id} symbol={symbol} key={id} />
+            <ProductCard modalClickHandler={modalClickHandler} id={id} symbol={symbol} key={id} />
           ))}
         </Carousel>
       </Container>
@@ -92,4 +92,5 @@ export default function RelatedItems({ chevronClickHandler }) {
 
 RelatedItems.propTypes = {
   chevronClickHandler: PropTypes.func.isRequired,
+  modalClickHandler: PropTypes.func.isRequired,
 };

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
 import ActionButton from './ActionButton';
-import ComparisonModal from '../RelatedItems/ComparisonModal';
 import StarRating from '../../../components/StarRating';
 import SalePrice from './SalePrice';
 import { Card } from '../../styles';
@@ -40,7 +39,7 @@ const StyledActionWrap = styled.div`
 `;
 
 export default function ProductCard({
-  id, handleRemoveItemClick, symbol,
+  id, handleRemoveItemClick, symbol, modalClickHandler,
 }) {
   const dispatch = useDispatch();
   const [photoURL, setPhotoURL] = useState('');
@@ -49,7 +48,6 @@ export default function ProductCard({
   const [price, setPrice] = useState(null);
   const [salePrice, setSalePrice] = useState('');
   const [avgRating, setAvgRating] = useState('');
-  const [showModal, setShowModal] = useState(false);
   const [cardClick, setCardClick] = useState(true);
 
   const calculateAvgRating = (ratings) => {
@@ -88,10 +86,6 @@ export default function ProductCard({
     }
   };
 
-  const handleStarClick = () => {
-    setShowModal(!showModal);
-  };
-
   const handleMouseEnter = () => {
     setCardClick(false);
   };
@@ -123,13 +117,12 @@ export default function ProductCard({
 
   return (
     <Card onClick={() => handleClick()}>
-      {showModal && <ComparisonModal />}
       <StyledActionWrap>
         <ActionButton
           id={id}
           handleRemoveItemClick={handleRemoveItemClick}
           symbol={symbol}
-          handleStarClick={handleStarClick}
+          handleStarClick={modalClickHandler}
           handleMouseEnter={handleMouseEnter}
           handleMouseLeave={handleMouseLeave}
         />
@@ -149,4 +142,5 @@ ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   handleRemoveItemClick: PropTypes.func.isRequired,
   symbol: PropTypes.string.isRequired,
+  modalClickHandler: PropTypes.func.isRequired,
 };
