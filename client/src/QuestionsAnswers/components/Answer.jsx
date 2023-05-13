@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -21,20 +21,35 @@ const StyledAnswer = styled.div`
 `;
 
 export default function Answer({ answer }) {
+  const [clickedYes, setClickedYes] = useState(false);
+  const [clickedReport, setClickedReport] = useState(false);
+
   const dispatch = useDispatch();
 
   const handleHelpful = () => {
-    axios.put(`/qa/answers/${answer.id}/helpful`)
-      .then(() => {
-        dispatch({ type: '@answers/MARK_HELPFUL', answer_id: answer.id });
-      });
+    const temp = clickedYes;
+    if (!clickedYes) {
+      setClickedYes(true);
+      axios.put(`/qa/answers/${answer.id}/helpful`)
+        .then(() => {
+          dispatch({ type: '@answers/MARK_HELPFUL', answer_id: answer.id });
+          setClickedYes(true);
+        })
+        .catch(() => setClickedYes(temp));
+    }
   };
 
   const handleReportAnswer = () => {
-    axios.put(`/qa/answers/${answer.id}/report`)
-      .then(() => {
-        dispatch({ type: '@answers/REPORT', answer_id: answer.id });
-      });
+    const temp = clickedReport;
+    if (!clickedReport) {
+      setClickedReport(true);
+      axios.put(`/qa/answers/${answer.id}/report`)
+        .then(() => {
+          dispatch({ type: '@answers/REPORT', answer_id: answer.id });
+          setClickedReport(true);
+        })
+        .catch(() => setClickedReport(temp));
+    }
   };
 
   return (
@@ -48,8 +63,12 @@ export default function Answer({ answer }) {
             date={answer.date}
             includeBy
           />
-          <Helpful helpfulness={answer.helpfulness} onClick={handleHelpful} />
-          <Report onClick={handleReportAnswer} />
+          <Helpful
+            helpfulness={answer.helpfulness}
+            clickedYes={clickedYes}
+            onClick={handleHelpful}
+          />
+          <Report clickedReport={clickedReport} onClick={handleReportAnswer} />
         </Divider>
       </div>
     </StyledAnswer>

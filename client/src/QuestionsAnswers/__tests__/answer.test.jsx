@@ -2,23 +2,18 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import axios from 'axios';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  waitFor,
+  screen,
+} from '@testing-library/react';
 import { useDispatch, Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-
 import thunk from 'redux-thunk';
 
+import { answerMock } from './__mocks__/mockData';
 import Answer from '../components/Answer';
-
-// Data mocks:
-const mockAnswer = {
-  id: 1,
-  body: 'idk',
-  date: '2023-03-23T00:00:00.000Z',
-  answerer_name: 'professor',
-  helpfulness: 5,
-  photos: [],
-};
 
 // Function Mocks
 
@@ -31,27 +26,26 @@ jest.mock('react-redux', () => ({
 }));
 
 jest.mock('../components/AnswersList');
+const mockStore = configureStore([thunk]);
 
 export default () => {
+  let store;
+  let dispatchMock;
   beforeEach(() => {
     jest.clearAllMocks();
-    useDispatch.mockReturnValue(jest.fn());
+
+    dispatchMock = jest.fn();
+    useDispatch.mockReturnValue(dispatchMock);
+    store = mockStore();
   });
 
   describe('Answer Widget Functionality', () => {
     it('should make an axios request and dispatch an action when widgets are clicked', async () => {
-      const middlewares = [thunk];
-      const mockStore = configureStore(middlewares);
-      const store = mockStore();
-
-      const dispatchMock = jest.fn();
-      useDispatch.mockReturnValue(dispatchMock);
-
       axios.put.mockResolvedValueOnce();
 
       const { getByText } = render(
         <Provider store={store}>
-          <Answer answer={mockAnswer} />
+          <Answer answer={answerMock[0]} />
         </Provider>,
       );
 
@@ -62,7 +56,7 @@ export default () => {
 
       fireEvent.click(reportButton);
 
-      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/answers/${mockAnswer.id}/report`));
+      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/answers/${answerMock[0].id}/report`));
       expect(dispatchMock).toHaveBeenCalled();
 
       // Clear the mock history of axios.put and dispatch
@@ -73,8 +67,18 @@ export default () => {
       // Now click yes button and test
       fireEvent.click(yesButton);
 
-      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/answers/${mockAnswer.id}/helpful`));
+      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/answers/${answerMock[0].id}/helpful`));
       expect(dispatchMock).toHaveBeenCalled();
+    });
+
+    it('should display photos that were within answer', () => {
+      render(
+        <Provider store={store}>
+          <Answer answer={answerMock[1]} />
+        </Provider>,
+      );
+      const photos = screen.queryAllByTestId('photo');
+      expect(photos).toHaveLength(answerMock[1].photos.length);
     });
   });
 };

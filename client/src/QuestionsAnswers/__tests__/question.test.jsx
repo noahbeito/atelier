@@ -2,43 +2,18 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import axios from 'axios';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  waitFor,
+  screen,
+} from '@testing-library/react';
 import { useDispatch, Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-
 import thunk from 'redux-thunk';
 
+import { mockData } from './__mocks__/mockData';
 import Question from '../components/Question';
-
-// Data mocks:
-const mockQuestion = {
-  question_id: 123,
-  question_body: 'Is this a test?',
-  question_date: '2018-02-28T00:00:00.000Z',
-  asker_name: 'tester',
-  question_helpfulness: 18,
-  reported: false,
-  answers: {
-    345: {
-      id: 1,
-      body: 'idk',
-      date: '2023-03-23T00:00:00.000Z',
-      answerer_name: 'professor',
-      helpfulness: 5,
-      photos: [],
-    },
-  },
-};
-
-const mockQuestionWithoutAnswers = {
-  question_id: 321,
-  question_body: 'Does this have answers?',
-  question_date: '2018-02-28T00:00:00.000Z',
-  asker_name: 'tester',
-  question_helpfulness: 12,
-  reported: false,
-  answers: {},
-};
 
 // Function Mocks
 
@@ -53,15 +28,28 @@ jest.mock('react-redux', () => ({
 jest.mock('../components/AnswersList');
 
 export default () => {
+  const mockStore = configureStore([thunk]);
+  let dispatchMock;
+  let store;
+
   beforeEach(() => {
     jest.clearAllMocks();
-    useDispatch.mockReturnValue(jest.fn());
+
+    dispatchMock = jest.fn((actionOrThunk) => {
+      if (typeof actionOrThunk === 'function') {
+        return actionOrThunk(dispatchMock);
+      }
+      return null;
+    });
+
+    useDispatch.mockReturnValue(dispatchMock);
+    store = mockStore();
   });
 
   describe('Question Accordion Component', () => {
     it('should not affect anything when clicked if there are no answers', () => {
       // Grab accordion title and body
-      const { container } = render(<Question question={mockQuestionWithoutAnswers} />);
+      const { container } = render(<Question question={mockData[3].results[0]} />);
       const accordionTitle = container.getElementsByClassName('accordion-title');
       let accordionBody = container.getElementsByClassName('accordion-body');
 
@@ -86,7 +74,7 @@ export default () => {
 
     it('should toggle the accordion state on', () => {
       // Grab accordion title and body
-      const { container } = render(<Question question={mockQuestion} />);
+      const { container } = render(<Question question={mockData[0].results[0]} />);
       const accordionTitle = container.getElementsByClassName('accordion-title');
       let accordionBody = container.getElementsByClassName('accordion-body');
 
@@ -122,18 +110,11 @@ export default () => {
 
   describe('Question Widget Functionality', () => {
     it('should make an axios request and dispatch an action when widgets are clicked', async () => {
-      const middlewares = [thunk];
-      const mockStore = configureStore(middlewares);
-      const store = mockStore();
-
-      const dispatchMock = jest.fn();
-      useDispatch.mockReturnValue(dispatchMock);
-
       axios.put.mockResolvedValueOnce();
 
       const { getByText } = render(
         <Provider store={store}>
-          <Question question={mockQuestion} />
+          <Question question={mockData[3].results[0]} />
         </Provider>,
       );
 
@@ -144,7 +125,7 @@ export default () => {
 
       fireEvent.click(reportButton);
 
-      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/questions/${mockQuestion.question_id}/report`));
+      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/questions/${mockData[3].results[0].question_id}/report`));
       expect(dispatchMock).toHaveBeenCalled();
 
       // Clear the mock history of axios.put and dispatch
@@ -155,16 +136,41 @@ export default () => {
       // Now click yes button and test
       fireEvent.click(yesButton);
 
-      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/questions/${mockQuestion.question_id}/helpful`));
+      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/questions/${mockData[3].results[0].question_id}/helpful`));
       expect(dispatchMock).toHaveBeenCalled();
+    });
+
+    it('should not send multiple requests when widgets are clicked multiple times', async () => {
+      axios.put.mockResolvedValueOnce();
+
+      render(
+        <Provider store={store}>
+          <Question question={mockData[3].results[0]} />
+        </Provider>,
+      );
+
+      const reportButton = screen.getByText('Report');
+      const yesButton = screen.getByText('Yes');
+
+      fireEvent.click(reportButton);
+      fireEvent.click(reportButton);
+      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/questions/${mockData[3].results[0].question_id}/report`));
+      expect(axios.put).toHaveBeenCalledTimes(1);
+
+      axios.put.mockClear();
+      axios.put.mockResolvedValueOnce();
+
+      fireEvent.click(yesButton);
+      fireEvent.click(yesButton);
+      await waitFor(() => expect(axios.put).toHaveBeenCalledWith(`/qa/questions/${mockData[3].results[0].question_id}/helpful`));
+      expect(axios.put).toHaveBeenCalledTimes(1);
     });
 
     it('should not open accordion when widgets are clicked', () => {
       // Mock axios resolve
-
       axios.put.mockResolvedValueOnce();
 
-      const { getByText, container } = render(<Question question={mockQuestion} />);
+      const { getByText, container } = render(<Question question={mockData[3].results[0]} />);
 
       // Check that accordion is initially closed
 
