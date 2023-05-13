@@ -51,13 +51,11 @@ export default function RelatedItems({ chevronClickHandler }) {
   }, [productId]);
 
   const rightClickHandler = () => {
-    console.log('rightClick', 'viewIndex:', viewIndex);
     setViewIndex(viewIndex + 1);
     chevronClickHandler(carouselId, 'right');
   };
 
   const leftClickHandler = () => {
-    console.log('leftClick', 'viewIndex:', viewIndex);
     setViewIndex(viewIndex - 1);
     chevronClickHandler(carouselId, 'left');
   };

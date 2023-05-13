@@ -5,6 +5,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import ActionButton from './ActionButton';
 import ComparisonModal from '../RelatedItems/ComparisonModal';
+import StarRating from '../../../components/StarRating';
 import { Card } from '../../styles';
 
 const StyledCategory = styled.div`
@@ -15,9 +16,6 @@ const StyledPrice = styled.div`
 `;
 // const StyledSalePrice ...
 
-const Rating = styled.div`
-  // will likely delete this when the Rating component is eventually imported and used
-`;
 const StyledImg = styled.img`
   max-width: 100%;
   aspect-ratio: .9;
@@ -42,13 +40,16 @@ export default function ProductCard({
   const [name, setName] = useState('');
   const [price, setPrice] = useState(null);
   const [salePrice, setSalePrice] = useState('');
-  // const [avgRating, setAvgRating] = useState('');
+  const [avgRating, setAvgRating] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [cardClick, setCardClick] = useState(true);
 
-  // const calculateAvgRating = (ratings) => {
-  //   // calculate and return avg of all ratings in ratings obj
-  // };
+  const calculateAvgRating = (ratings) => {
+    const totalRatings = Object.values(ratings)
+      .reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
+    const avg = ((ratings['1'] * 1) + (ratings['2'] * 2) + (ratings['3'] * 3) + (ratings['4'] * 4) + (ratings['5'] * 5)) / totalRatings;
+    return avg;
+  };
 
   const getNameAndCategory = () => (
     axios.get(`/products/${id}`)
@@ -58,13 +59,13 @@ export default function ProductCard({
     axios.get(`/products/${id}/styles`)
   );
 
-  // const getRatings = () => (
-  //   axios({
-  //     url: '/reviews/meta',
-  //     method: 'GET',
-  //     params: { product_id: id },
-  //   })
-  // );
+  const getRatings = () => (
+    axios({
+      url: '/reviews/meta',
+      method: 'GET',
+      params: { product_id: id },
+    })
+  );
 
   const handleClick = () => {
     if (cardClick) {
@@ -95,16 +96,16 @@ export default function ProductCard({
     axios.all([
       getNameAndCategory(),
       getPhotosAndPrices(),
-      // getRatings,
+      getRatings(),
     ])
       .then((axios.spread(
-        (nameAndCategory, photosAndPrices /* ratings */) => {
+        (nameAndCategory, photosAndPrices, ratings) => {
           setCategory(nameAndCategory.data.category);
           setName(nameAndCategory.data.name);
           setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
           setPrice(photosAndPrices.data.results[0].original_price);
           setSalePrice(photosAndPrices.data.results[0].sale_price);
-          // setAvgRating(calculateAvgRating(ratings.ratings));
+          setAvgRating(calculateAvgRating(ratings.data.ratings));
         },
       )))
       .catch((err) => {
@@ -129,7 +130,7 @@ export default function ProductCard({
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>
       <StyledPrice>{salePrice || price}</StyledPrice>
-      <Rating />
+      <StarRating rating={avgRating} />
     </Card>
   );
 }
