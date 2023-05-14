@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import _ from 'underscore';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import StarRating from '../../../components/StarRating';
+import Icons from '../../../components/Icons';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -20,7 +22,9 @@ const StyledModal = styled.div`
 const StyledContent = styled.div`
   position: relative;
   display: grid;
-  background-color: #CDCDCD;
+  padding: 0 1rem 1rem 1rem;
+  border-radius: 3px;
+  background-color: white;
   grid-template-rows: 10% 10% 80%;
   grid-template-columns: 20% 20% 20% 20% 20%;
   height: 400px;
@@ -30,12 +34,16 @@ const StyledContent = styled.div`
 
 const StyledTitle = styled.div`
   grid-area: 1 / 0 / span 1 / span 1;
+  margin-top: 1rem;
 `;
 
 const StyledCurrent = styled.div`
-  grid-area: 2 / 1 / span 1 / span 1;
-  justify-self: start;
+  grid-area: 2 / 1 / span 1 / span 2;
+  justify-self: center;
+  text-align: center;
+  font-weight: bold;
   position: sticky;
+  margin-top: 1rem;
 `;
 
 const StyledCompare = styled.div`
@@ -45,20 +53,60 @@ const StyledCompare = styled.div`
 `;
 
 const StyledRelated = styled.div`
-  grid-area: 2 / 5 / span 1 / span 1;
-  justify-self: end;
-  text-align: right;
+  grid-area: 2 / 4 / span 1 / span 2;
+  justify-self: center;
+  text-align: center;
+  font-weight: bold;
   position: sticky;
+  margin-top: 1rem;
 `;
 
+const StyledCharacteristic = styled.div`
+  margin-top: 1rem;
+`;
+
+const StyledCurrentAttributes = styled.div`
+  grid-area: 3 / 1 / span 1 / span 2;
+  justify-self: center;
+  text-align: center;
+`;
+
+const StyledCompareAttributes = styled.div`
+  grid-area: 3 / 4 / span 1 / span 2;
+  justify-self: center;
+  align-self: start;
+  text-align: center;
+`;
+
+const StyledStarWrap = styled.div`
+  margin-top: 1rem;
+`;
+
+const StyledXButton = styled.button`
+  grid-area: 1 / 5 / span 1 / span 1;
+  justify-self: end;
+  text-align: end;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding-top: 0.5rem;
+  transition: transform 250ms ease-in-out;
+  &:hover {
+    transform: scale(1.5)
+  }
+`;
 export default function ComparisonModal({
   modalOnClose, characteristics, compare, compareName,
 }) {
   const [allCharacteristics, setAllCharacteristics] = useState([]);
+  const [currentAttributes, setCurrentAttributes] = useState([]);
+  const [compareAttributes, setCompareAttributes] = useState([]);
   const currentProduct = useSelector((state) => state.product.data.name);
 
   useEffect(() => {
     setAllCharacteristics(_.uniq(Object.keys(characteristics).concat(Object.keys(compare))));
+    setCurrentAttributes(Object.values(characteristics));
+    setCompareAttributes(Object.values(compare));
   }, []);
 
   return (
@@ -69,9 +117,26 @@ export default function ComparisonModal({
         <StyledRelated>{compareName}</StyledRelated>
         <StyledCompare>
           {allCharacteristics.map((characteristic) => (
-            <div key={characteristic}>{characteristic}</div>
+            <StyledCharacteristic key={characteristic}>{characteristic}</StyledCharacteristic>
           ))}
         </StyledCompare>
+        <StyledCurrentAttributes>
+          {currentAttributes.map((attribute) => (
+            <StyledStarWrap>
+              <StarRating key={attribute.id} rating={attribute.value} />
+            </StyledStarWrap>
+          ))}
+        </StyledCurrentAttributes>
+        <StyledCompareAttributes>
+          {compareAttributes.map((attribute) => (
+            <StyledStarWrap>
+              <StarRating key={attribute.id} rating={attribute.value} />
+            </StyledStarWrap>
+          ))}
+        </StyledCompareAttributes>
+        <StyledXButton>
+          <Icons.X onClick={() => modalOnClose()} />
+        </StyledXButton>
       </StyledContent>
     </StyledModal>
   );
