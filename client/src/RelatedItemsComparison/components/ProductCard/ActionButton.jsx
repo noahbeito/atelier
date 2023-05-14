@@ -4,6 +4,7 @@ import Icons from '../../../components/Icons';
 
 export default function ActionButton({
   id,
+  name,
   handleRemoveItemClick,
   symbol,
   handleStarClick,
@@ -13,7 +14,7 @@ export default function ActionButton({
   if (symbol === 'EmptyStar') {
     return (
       <Icons.EmptyStar
-        onClick={() => handleStarClick()}
+        onClick={() => handleStarClick(id, name)}
         onMouseEnter={() => handleMouseEnter()}
         onMouseLeave={() => handleMouseLeave()}
       />
@@ -33,6 +34,7 @@ export default function ActionButton({
 
 ActionButton.propTypes = {
   id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
   handleRemoveItemClick: PropTypes.func.isRequired,
   symbol: PropTypes.string.isRequired,
   handleStarClick: PropTypes.func.isRequired,

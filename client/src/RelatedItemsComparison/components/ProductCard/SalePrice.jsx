@@ -23,6 +23,6 @@ export default function SalePrice({ salePrice, price }) {
 }
 
 SalePrice.propTypes = {
-  salePrice: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
+  salePrice: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
 };

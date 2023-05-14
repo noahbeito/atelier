@@ -39,7 +39,7 @@ const StyledActionWrap = styled.div`
 `;
 
 export default function ProductCard({
-  id, handleRemoveItemClick, symbol, modalClickHandler,
+  id, handleRemoveItemClick, symbol, handleStarClick,
 }) {
   const dispatch = useDispatch();
   const [photoURL, setPhotoURL] = useState('');
@@ -120,9 +120,10 @@ export default function ProductCard({
       <StyledActionWrap>
         <ActionButton
           id={id}
+          name={name}
           handleRemoveItemClick={handleRemoveItemClick}
           symbol={symbol}
-          handleStarClick={modalClickHandler}
+          handleStarClick={handleStarClick}
           handleMouseEnter={handleMouseEnter}
           handleMouseLeave={handleMouseLeave}
         />
@@ -142,5 +143,5 @@ ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   handleRemoveItemClick: PropTypes.func.isRequired,
   symbol: PropTypes.string.isRequired,
-  modalClickHandler: PropTypes.func.isRequired,
+  handleStarClick: PropTypes.func.isRequired,
 };
