@@ -17,12 +17,13 @@ const Section = styled.section`
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
   const [defaultList, setDefaultList] = useState([]);
-  const [product, setProduct] = useState(40347);
+  const [product, setProduct] = useState(40344);
   const [defaultNumber, setDefaultNumber] = useState(1);
   const [bgImg, setBgImg] = useState({});
   const dispatch = useDispatch();
   // setProduct(40344);
-  console.log(setProduct);
+  // 40344,40345, 40346, 40347, 40348
+  // console.log(setProduct);
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
     axios.get(`/products/${product}/styles`)
@@ -39,7 +40,7 @@ export default function Overview() {
     setRenderCheckout(!renderCheckout);
   });
   const bgHndle = (val) => {
-    setBgImg(val.thumbnail_url);
+    setBgImg(val.url);
   };
   // console.log('This is default NUMBER: ', defaultNumber);
   // console.log('This is default list', defaultList);
@@ -58,7 +59,7 @@ export default function Overview() {
             onClickHandler={onClickHandler}
           />
         )
-        : <ImageGalleryExpand onClickHandler={onClickHandler} />}
+        : <ImageGalleryExpand bg={bgImg} onClickHandler={onClickHandler} />}
       <ProductInfo />
     </Section>
   );

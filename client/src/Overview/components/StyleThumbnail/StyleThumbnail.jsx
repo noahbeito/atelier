@@ -65,7 +65,8 @@ export default function StyleThumbnail({
     }
     return [];
   });
-  // console.log('This is list in stylethumbnail', list);
+  // console.log('This is ID in stylethumbnail', id);
+  // console.log('This is STYLETYPE in stylethumbnail', styletype);
   // const dispatch = useDispatch();
   const changeDefault = (event) => {
     const checker = event.target.innerText;
@@ -95,11 +96,11 @@ export default function StyleThumbnail({
 
 StyleThumbnail.propTypes = {
   styletype: PropTypes.node,
-  id: PropTypes.node,
+  id: PropTypes.number,
   defaultNumberHandler: PropTypes.func.isRequired,
 };
 
 StyleThumbnail.defaultProps = {
   styletype: PropTypes.node,
-  id: PropTypes.node,
+  id: PropTypes.number,
 };

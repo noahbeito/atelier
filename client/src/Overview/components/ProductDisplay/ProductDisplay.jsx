@@ -62,7 +62,7 @@ ProductDisplay.propTypes = {
 
 ImageGalleryDefault.defaultProps = {
   // onClickHandler: PropTypes.func.isRequired,
-  bg: PropTypes.objectOf(PropTypes.string),
+  // bg: PropTypes.objectOf(PropTypes.string),
   // defaultList: PropTypes.arrayof(PropTypes.strings),
   // bgHandler: PropTypes.func.isRequired,
 };

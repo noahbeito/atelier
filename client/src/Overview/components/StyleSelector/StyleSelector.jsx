@@ -53,7 +53,7 @@ export default function StyleSelector({
     }
     return [];
   });
-  // console.log(renderList);
+  console.log(renderList1);
   const getPhotoList = (style) => {
     if (style.length === 0) {
       return [];
@@ -61,12 +61,30 @@ export default function StyleSelector({
     return style;
   };
   const photoList = getPhotoList(styles);
-  const newList = photoList.slice();
+  let newList = photoList.slice();
   const photoList1 = getPhotoList(styles);
   const newList1 = photoList1.slice();
-  console.log('This is newList1;', newList1);
+  // console.log(value);
+  // console.log(tempList.unshift(...value));
+  // console.log(tempList);
+  const moveDefaultOnLoad = () => {
+    const index = newList1.map((e) => e['default?']).indexOf(true);
+    console.log('this is newList1:', index);
+    const tempList = newList1.slice();
+    const value = tempList.splice(index, 1);
+    tempList.unshift(...value);
+    newList = tempList;
+  };
   useEffect(() => {
+    console.log('This is newList 75 : ', newList);
     // console.log(newList);
+    // let sortedList = [];
+    if (newList.length > 0) {
+      if (newList[0]['default?'] !== true) {
+        // sortedList = newList;
+        moveDefaultOnLoad();
+      }
+    }
     const doSome = (val) => {
       const groups = [];
       for (let i = 0; i < val.length; i += 4) {
@@ -75,32 +93,24 @@ export default function StyleSelector({
       return groups;
     };
     const vals = doSome(newList);
-    // console.log('this is vals:', vals);
+    console.log('This is vals 84 : ', vals);
     // const first = [vals[0], vals[1]];
     // const second = [...vals].slice(2);
     if (newList1.length < 8) {
-      setRenderList1(vals);
+      console.log('This is vals:', vals);
+      setRenderList1([vals[0], vals[1]]);
+      setListToMap(newList.slice(0, 8));
       // setLeftOverList(second);
     } else {
       setRenderList1([vals[0], vals[1]]);
       setLeftOverList(vals.slice(2));
       setListToMap(newList.slice(0, 8));
-      console.log('This is list to max', listToMap);
     }
   }, [isLoading]);
-  // useEffect(() => {
-
-  // }, []);
-  // const calcArray = () => {
-
-  // };
-  console.log('renderlist1 ***:', renderList1);
-  console.log('leftOver****:', leftOverList);
   // console.log('first ***:', first);
   // console.log('second****:', second);
   const rotateUp = () => {
     const main = [...renderList1];
-    console.log('this is main:', main);
     const leftOvr = [...leftOverList];
     const toAddToRender = leftOvr.shift();
     const toAddToLeftOver = main.pop();
@@ -112,7 +122,6 @@ export default function StyleSelector({
   };
   const rotateDown = () => {
     const main = [...renderList1];
-    console.log('this is main:', main);
     const leftOvr = [...leftOverList];
     const toAddToRender = leftOvr.pop();
     const toAddToLeftOver = main.shift();

@@ -52,7 +52,6 @@ export default function ProductDisplay({
   useEffect(() => {
     axios.get(`/products/${product}`)
       .then((result) => {
-        console.log('This is result in checout: ', result.data);
         setCurrentItem(result.data);
       })
       .catch((error) => {
@@ -77,7 +76,7 @@ export default function ProductDisplay({
         defaultNumberHandler={defaultNumberHandler}
       />
       <StyledSection>
-        <DropdownContain />
+        <DropdownContain defaultNumber={defaultNumber} />
         <AddToCart />
       </StyledSection>
     </StyledDiv>

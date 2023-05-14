@@ -55,13 +55,14 @@ export default function ThumbnailList({ bgHandler, defaultNumber }) {
     return defaultStyles[0].photos;
   };
   const photoList = getPhotoList(styles);
-  // console.log('This is photolist in thumbnailist:2', photoList);
   const newList = photoList.slice();
+  console.log('This is newList in thumbnailist:2', newList);
   useEffect(() => {
     // setStyleArray(list);
     newList.map((obj, i) => {
       if (i === 0) {
         newList[i].class = 'selected';
+        console.log('This is newList in thumbnailist:2', newList[0]);
         bgHandler(newList[0]);
       } else {
         newList[i].class = 'unselected';
