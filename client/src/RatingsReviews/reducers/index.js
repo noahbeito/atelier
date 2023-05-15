@@ -62,7 +62,6 @@ const ratingsReviewsReducer = (
     case '@reviews/meta/FAILED':
       return { ...state, mloading: false, error: action.payload };
     case '@reviews/sort/UPDATE':
-      console.log( { ...state, filter: nFilter(action), sort: action.payload });
       return { ...state, filter: nFilter(action), sort: action.payload };
 
     default:

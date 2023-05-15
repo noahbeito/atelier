@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import ReviewTile from './ReviewTile';
 
 export default function ReviewList() {
-  const reviews = useSelector((state) => state.ratingsReviews.reviews);
+  const reviews = useSelector((state) => state.ratingsReviews.reviews.results);
+  const filter = useSelector((state) => state.ratingsReviews.filter);
+  const sort = useSelector((state) => state.ratingsReviews.sort);
 
-  const reviewTileMap = reviews.results.map((review) => (
+  const [reviewListView, setReviewListView] = useState(reviews);
+
+  const filterReviews = () => {
+    const results = [];
+    reviews.forEach((review) => {
+      const roundedRating = Math.round(review.rating);
+      if (sort[roundedRating]) {
+        results.push(review);
+      }
+    });
+    return results;
+  };
+
+  useEffect(() => {
+    if (filter) {
+      setReviewListView(filterReviews());
+    } else {
+      setReviewListView(reviews);
+    }
+  }, [filter, sort, reviews]);
+
+  const reviewTileMap = reviewListView.map((review) => (
     <ReviewTile
       key={review.review_id}
       id={review.review_id}

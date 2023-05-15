@@ -51,7 +51,6 @@ export default function RatingBar({
   const sort = useSelector((state) => state.ratingsReviews.sort);
 
   const updateSort = () => {
-    console.log({ ...sort, [rating]: !sort[rating] });
     dispatch({ type: '@reviews/sort/UPDATE', payload: { ...sort, [rating]: !sort[rating] } });
   };
   return (
