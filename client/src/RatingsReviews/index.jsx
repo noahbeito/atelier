@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -57,24 +57,27 @@ const StyledLoading = styled.div`
 `;
 
 export default function RatingsReviews() {
-  const [showModal, setShowModal] = React.useState(false);
+  const [showMoreReviews, setShowMoreReviews] = useState(true);
 
   const productId = useSelector((state) => state.product.data.id);
+  const sortOption = useSelector((state) => state.sortOption);
   const rloading = useSelector((state) => state.ratingsReviews.rloading);
   const mloading = useSelector((state) => state.ratingsReviews.mloading);
-  const totalReviews = useSelector((state) => state.ratingsReviews.meta.totalReviews);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchMetadata(productId));
-    dispatch(fetchReviews(productId));
+    dispatch(fetchReviews(productId, undefined, undefined, 2))
+      .then(dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 2 }));
+    setShowMoreReviews(true);
   }, [productId]);
 
   const fetchAllReviews = () => {
-    dispatch(fetchReviews(productId, undefined, undefined, totalReviews));
+    dispatch(fetchReviews(productId, sortOption, undefined, 100000))
+      .then(dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 100000 }));
+    setShowMoreReviews(false);
   };
-
-  const allReviewsDisplayed = () => false;
 
   return (
     <div>
@@ -97,11 +100,11 @@ export default function RatingsReviews() {
                 <ReviewList />
                 <StyledFlex>
                   {
-                    allReviewsDisplayed()
-                      ? ''
-                      : <StyledMoreReviewButton variant="large" onClick={fetchAllReviews}> MORE REVIEWS </StyledMoreReviewButton>
+                    showMoreReviews
+                      ? <StyledMoreReviewButton variant="large" onClick={fetchAllReviews}> MORE REVIEWS </StyledMoreReviewButton>
+                      : ''
                   }
-                  <StyledAddAReviewButton variant="large-add" onClick={() => setShowModal(!showModal)}> ADD A REVIEW </StyledAddAReviewButton>
+                  <StyledAddAReviewButton variant="large-add"> ADD A REVIEW </StyledAddAReviewButton>
                 </StyledFlex>
               </StyledReviewList>
             )

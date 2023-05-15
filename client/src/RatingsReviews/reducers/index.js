@@ -5,6 +5,7 @@ const nFilter = (action) => (
 
 const ratingsReviewsReducer = (
   state = {
+    reviewViewLength: 2,
     reviews: {
       product: 0,
       page: 0,
@@ -66,6 +67,8 @@ const ratingsReviewsReducer = (
       return { ...state, filter: nFilter(action), sort: action.payload };
     case '@reviews/SET_SORT_OPTION':
       return { ...state, sortOption: action.payload };
+    case '@reviews/SET_REVIEWS_VIEWS_LENGTH':
+      return { ...state, reviewViewLength: action.payload };
 
     default:
       return state;

@@ -38,10 +38,6 @@ const StyledFlex = styled.div`
   flex-direction: row;
 `;
 
-const StyledThumbnail = styled(Thumbnail)`
-  object-fit: cover;
-`;
-
 const StyledImg = styled.img`
   min-height: 40%;
   max-width: 100%;
@@ -114,19 +110,28 @@ export default function ReviewTile({
 
   const dispatch = useDispatch();
 
-  const photoMap = photos.map((photo) => {
-    const modalRef = React.useRef();
-    const handleCloseModal = () => modalRef.current.closeModal();
-    const handleOpenModal = () => modalRef.current.openModal();
-    return (
-      <div>
-        <StyledThumbnail src={photo.url} key={photo.id} onClick={handleOpenModal} />
-        <Popup ref={modalRef}>
-          <StyledImg src={photo.url} handleCloseModal={handleCloseModal} />
-        </Popup>
-      </div>
-    );
-  });
+  const modalRef = React.useRef();
+  const handleCloseModal = () => modalRef.current.closeModal();
+  const handleOpenModal = () => modalRef.current.openModal();
+
+  const photoMap = photos.map((photo) => (
+    <div>
+      <Thumbnail
+        src={photo.url}
+        key={photo.id}
+        onClick={handleOpenModal}
+      />
+      <Popup
+        ref={modalRef}
+        title={[summary]}
+      >
+        <StyledImg
+          src={photo.url}
+          handleCloseModal={handleCloseModal}
+        />
+      </Popup>
+    </div>
+  ));
 
   const handleClickYes = () => {
     if (!clickedYes) {
@@ -213,6 +218,7 @@ export default function ReviewTile({
 }
 
 ReviewTile.propTypes = {
+  id: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   summary: PropTypes.string.isRequired,
   recommend: PropTypes.bool,
@@ -221,7 +227,10 @@ ReviewTile.propTypes = {
   date: PropTypes.string.isRequired,
   reviewerName: PropTypes.string.isRequired,
   helpfulness: PropTypes.number.isRequired,
-  photos: PropTypes.array,
+  photos: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    url: PropTypes.string,
+  })),
   className: PropTypes.string,
 };
 
@@ -230,4 +239,5 @@ ReviewTile.defaultProps = {
   response: null,
   body: '',
   className: '',
+  photos: [],
 };

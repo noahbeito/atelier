@@ -49,6 +49,7 @@ const StyledCurrentOptions = styled.div`
 export default function SortOptions() {
   const ReviewsNum = useSelector((state) => state.ratingsReviews.reviews.results.length);
   const productId = useSelector((state) => state.product.data.id);
+  const reviewViewLength = useSelector((state) => state.ratingsReviews.reviewViewLength);
 
   const dispatch = useDispatch();
 
@@ -75,7 +76,7 @@ export default function SortOptions() {
 
   useEffect(() => {
     dispatch({ type: '@reviews/SET_SORT_OPTION', payload: parsedOption() });
-    dispatch(fetchReviews(productId, parsedOption()));
+    dispatch(fetchReviews(productId, parsedOption(), undefined, reviewViewLength));
   }, [currentOption]);
 
   return (
