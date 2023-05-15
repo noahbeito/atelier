@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import ReviewTile from './ReviewTile';
 
-export default function ReviewList() {
+export default function ReviewList({
+  className,
+}) {
   const reviews = useSelector((state) => state.ratingsReviews.reviews.results);
   const filter = useSelector((state) => state.ratingsReviews.filter);
   const sort = useSelector((state) => state.ratingsReviews.sort);
@@ -46,8 +49,16 @@ export default function ReviewList() {
   ));
 
   return (
-    <div>
+    <div className={className}>
       { reviewTileMap }
     </div>
   );
 }
+
+ReviewList.propTypes = {
+  className: PropTypes.string,
+};
+
+ReviewList.defaultProps = {
+  className: '',
+};

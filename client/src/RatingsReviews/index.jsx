@@ -44,7 +44,7 @@ const StyledMoreReviewButton = styled(Button)`
 const StyledAddAReviewButton = styled(Button)`
   margin-left: 0%;
   position: sticky;
-  bottom: 2%;
+  top: 95%;
   $::after {
     content: font
   }
@@ -54,6 +54,11 @@ const StyledLoading = styled.div`
   margin: 50px auto;
   text-align: center;
   color: gray;
+`;
+
+const StyledReviews = styled(ReviewList)`
+  max-height: calc(100vh - 100px);
+  overflow-y: scroll;
 `;
 
 export default function RatingsReviews() {
@@ -97,7 +102,7 @@ export default function RatingsReviews() {
             : (
               <StyledReviewList>
                 <SortOptions />
-                <ReviewList />
+                <StyledReviews />
                 <StyledFlex>
                   {
                     showMoreReviews
