@@ -1,34 +1,5 @@
 import axios from 'axios';
 
-// const testReview = new Promise((reject, resolve) => {
-//   const reviews = new Set();
-//   // const priorNumOfReviews = reviews.length;
-//   // const currentNumOfReviews = reviews.length;
-
-//   const getReviews = (page) => axios({
-//     method: 'GET',
-//     url: '/reviews',
-//     params: {
-//       product_id: productId, sort, page, count,
-//     },
-//   })
-//     .then(({ data }) => {
-//       reviews.add(data.results);
-//     });
-
-//   const getAllReviews = (pageInput) => {
-//     const priorNumOfReviews = reviews.length;
-//     getReviews(pageInput);
-//     const currentNumOfReviews = reviews.length;
-//     if (priorNumOfReviews === currentNumOfReviews || count > currentNumOfReviews) {
-//       return reviews;
-//     }
-//     getAllReviews(pageInput + 1);
-
-//     resolve(getAllReviews(1));
-//   };
-// });
-
 export const fetchReviews = (
   productId,
   sort = 'relevant',
@@ -77,3 +48,11 @@ export const fetchMetadata = (
     reject(new Error('There is no product ID.'));
   });
 };
+
+export const putHelpfulReport = (
+  reviewId,
+  type, // helpful, report
+) => () => axios({
+  method: 'PUT',
+  url: `/reviews/${reviewId}/${type}`,
+});
