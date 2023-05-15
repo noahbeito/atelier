@@ -11,7 +11,7 @@ import {
   Title, Carousel, Container, List,
 } from '../../styles';
 
-export default function RelatedItems({ chevronClickHandler }) {
+export default function RelatedItems({ chevronClickHandler, handleStarClick }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [noRelatedItems, setNoRelatedItems] = useState(false);
   const [showLeftChevron, setShowLeftChevron] = useState(false);
@@ -51,13 +51,11 @@ export default function RelatedItems({ chevronClickHandler }) {
   }, [productId]);
 
   const rightClickHandler = () => {
-    console.log('rightClick', 'viewIndex:', viewIndex);
     setViewIndex(viewIndex + 1);
     chevronClickHandler(carouselId, 'right');
   };
 
   const leftClickHandler = () => {
-    console.log('leftClick', 'viewIndex:', viewIndex);
     setViewIndex(viewIndex - 1);
     chevronClickHandler(carouselId, 'left');
   };
@@ -83,7 +81,7 @@ export default function RelatedItems({ chevronClickHandler }) {
         <Carousel id={carouselId} data-testid={carouselId}>
           {noRelatedItems && <NoRelatedItemsCard />}
           {relatedProducts.map((id) => (
-            <ProductCard id={id} symbol={symbol} key={id} />
+            <ProductCard handleStarClick={handleStarClick} id={id} symbol={symbol} key={id} />
           ))}
         </Carousel>
       </Container>
@@ -94,4 +92,5 @@ export default function RelatedItems({ chevronClickHandler }) {
 
 RelatedItems.propTypes = {
   chevronClickHandler: PropTypes.func.isRequired,
+  handleStarClick: PropTypes.func.isRequired,
 };
