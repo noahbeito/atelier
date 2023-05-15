@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ButtonNav from './ButtonNav';
+// import ButtonNav from './ButtonNav';
 
 const StyledDiv = styled.div`
   /* width: 60%; */
+  position: relative;
   width: 100%;
   height: 98%;
   display: flex;
@@ -27,13 +28,16 @@ const StyledImageTop = styled.img`
 `;
 
 const StyledButtonContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 5px;
-  /* border: solid 2px black; */
+  width: 200px;
+  height: 200px;
+  /* padding: 5px; */
+  border: solid 10px black;
+  position: absolute;
+  top: 75%;
+  left: 50%;
 `;
-
-export default function ImageGalleryExpand({ bg, bgHandler, onClickHandler }) {
+// bgHandler
+export default function ImageGalleryExpand({ bg, onClickHandler }) {
   const [posX, setPosX] = useState(-650);
   const [posY, setPosY] = useState(-650);
   const mouse = (e) => {
@@ -41,11 +45,21 @@ export default function ImageGalleryExpand({ bg, bgHandler, onClickHandler }) {
     // console.log(e);
     const y = e.clientY;
     const x = e.clientX;
-    let mouseLoc = x - y;
-    const width = e.view.innerWidth;
-    const height = e.view.innerHeight;
+    // let mouseLoc = x - y;
+    // const width = e.view.innerWidth;
+    // const height = e.view.innerHeight;
+    // const topLeft = () => {
+    //   if (posX < 0 && posY < 0) {
+    //     setPosX((prev) => prev + 5);
+    //     setPosY((prev) => prev + 5);
+    //   }
+    //   if (posY < 0) {
+    //     setPosY((prev) => prev + 5);
+    //   }
+    // };
     if (x < 300) {
       if (y < 200) {
+        // topLeft();
         if (posX < 0 && posY < 0) {
           setPosX((prev) => prev + 5);
           setPosY((prev) => prev + 5);
@@ -114,6 +128,7 @@ export default function ImageGalleryExpand({ bg, bgHandler, onClickHandler }) {
           <ButtonNav />
         </StyledButtonContainer> */}
       </StyledImageTop>
+      <StyledButtonContainer />
     </StyledDiv>
   );
 }
@@ -121,5 +136,5 @@ export default function ImageGalleryExpand({ bg, bgHandler, onClickHandler }) {
 ImageGalleryExpand.propTypes = {
   onClickHandler: PropTypes.func.isRequired,
   bg: PropTypes.string.isRequired,
-  bgHandler: PropTypes.func.isRequired,
+  // bgHandler: PropTypes.func.isRequired,
 };

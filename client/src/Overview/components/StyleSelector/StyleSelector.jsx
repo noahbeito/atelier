@@ -53,7 +53,7 @@ export default function StyleSelector({
     }
     return [];
   });
-  console.log(renderList1);
+  // console.log(renderList1);
   const getPhotoList = (style) => {
     if (style.length === 0) {
       return [];
@@ -69,14 +69,14 @@ export default function StyleSelector({
   // console.log(tempList);
   const moveDefaultOnLoad = () => {
     const index = newList1.map((e) => e['default?']).indexOf(true);
-    console.log('this is newList1:', index);
+    // console.log('this is newList1:', index);
     const tempList = newList1.slice();
     const value = tempList.splice(index, 1);
     tempList.unshift(...value);
     newList = tempList;
   };
   useEffect(() => {
-    console.log('This is newList 75 : ', newList);
+    // console.log('This is newList 75 : ', newList);
     // console.log(newList);
     // let sortedList = [];
     if (newList.length > 0) {
@@ -93,11 +93,11 @@ export default function StyleSelector({
       return groups;
     };
     const vals = doSome(newList);
-    console.log('This is vals 84 : ', vals);
+    // console.log('This is vals 84 : ', vals);
     // const first = [vals[0], vals[1]];
     // const second = [...vals].slice(2);
     if (newList1.length < 8) {
-      console.log('This is vals:', vals);
+      // console.log('This is vals:', vals);
       setRenderList1([vals[0], vals[1]]);
       setListToMap(newList.slice(0, 8));
       // setLeftOverList(second);
@@ -140,8 +140,10 @@ export default function StyleSelector({
             <StyledThumbnailGrid>
               {listToMap.map((styletype) => (
                 <StyleThumbnail
-                  className={styletype['default?']}
-                  styletype={styletype}
+                  className={`${styletype['default?']}`}
+                  // styletype={styletype}
+                  // default={}
+                  name={styletype.name}
                   key={styletype.style_id}
                   id={styletype.style_id}
                   defaultHandler={defaultHandler}

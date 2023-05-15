@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+// import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import AddToCart from '../AddToCart/AddToCart';
@@ -49,6 +50,8 @@ export default function ProductDisplay({
   defaultNumberHandler,
 }) {
   const [currentItem, setCurrentItem] = useState({});
+  // const ReviewsNum = useSelector((state) => state.ratingsReviews.reviews.results.length);
+  // console.log('This is where thangs selector is');
   useEffect(() => {
     axios.get(`/products/${product}`)
       .then((result) => {

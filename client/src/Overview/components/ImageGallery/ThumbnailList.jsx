@@ -52,17 +52,24 @@ export default function ThumbnailList({ bgHandler, defaultNumber }) {
     }
     // console.log('****  STYLESARRAY ****: 1', style);
     const defaultStyles = style.filter((element) => element.style_id === defaultNumber);
-    return defaultStyles[0].photos;
+    // console.log('This is default styles line 55: ', defaultStyles);
+    if (defaultStyles.length === 0) {
+      return [];
+    }
+    if (defaultStyles.length > 0) {
+      return defaultStyles[0].photos;
+    }
+    return [];
   };
   const photoList = getPhotoList(styles);
   const newList = photoList.slice();
-  console.log('This is newList in thumbnailist:2', newList);
+  // console.log('This is newList in thumbnailist:2', newList);
   useEffect(() => {
     // setStyleArray(list);
     newList.map((obj, i) => {
       if (i === 0) {
         newList[i].class = 'selected';
-        console.log('This is newList in thumbnailist:2', newList[0]);
+        // console.log('This is newList in thumbnailist:2', newList[0]);
         bgHandler(newList[0]);
       } else {
         newList[i].class = 'unselected';

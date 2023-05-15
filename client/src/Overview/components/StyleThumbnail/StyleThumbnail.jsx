@@ -53,9 +53,10 @@ transition: 0.2s;
 }
 `;
 export default function StyleThumbnail({
-  styletype,
   id,
   defaultNumberHandler,
+  className,
+  name,
 }) {
   // let list = [];
   let list = useSelector((state) => {
@@ -87,20 +88,24 @@ export default function StyleThumbnail({
       key={id}
       id={id}
       data-id={id}
-      className={styletype['default?']}
+      className={className}
     >
-      <p>{styletype.name}</p>
+      <p>{name}</p>
     </StyledThumbnail>
   );
 }
 
 StyleThumbnail.propTypes = {
-  styletype: PropTypes.node,
+  // styletype: PropTypes.node,
   id: PropTypes.number,
   defaultNumberHandler: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  className: PropTypes.string,
 };
 
 StyleThumbnail.defaultProps = {
-  styletype: PropTypes.node,
+  // styletype: PropTypes.node,
   id: PropTypes.number,
+  name: PropTypes.string,
+  className: PropTypes.boolean,
 };

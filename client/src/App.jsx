@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 import Overview from './Overview';
-// import QuestionsAnswers from './QuestionsAnswers';
-// import RelatedItemsComparisons from './RelatedItemsComparison';
-// import RatingsReviews from './RatingsReviews';
+import QuestionsAnswers from './QuestionsAnswers';
+import RelatedItemsComparisons from './RelatedItemsComparison';
+import RatingsReviews from './RatingsReviews';
 
 import { GlobalStyle, Theme } from './globalStyles';
 
@@ -29,9 +29,9 @@ export default function App() {
         <>
           <GlobalStyle />
           <Overview />
-          {/* <RelatedItemsComparisons />
+          <RelatedItemsComparisons />
           <QuestionsAnswers />
-          <RatingsReviews /> */}
+          <RatingsReviews />
         </>
       </Theme>
     </div>

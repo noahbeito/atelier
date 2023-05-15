@@ -36,7 +36,7 @@ export default function ProductDisplay({
         bg={bg}
         // defaultHandler={defaultHandler}
         bgHandler={bgHandler}
-        onClickHandler={onClickHandler}
+        onClickHandler={onClickHandler || (() => {})}
         defaultNumber={defaultNumber}
       />
       <CheckoutDisplay
@@ -50,7 +50,7 @@ export default function ProductDisplay({
 }
 
 ProductDisplay.propTypes = {
-  onClickHandler: PropTypes.func.isRequired,
+  onClickHandler: PropTypes.func,
   bg: PropTypes.string.isRequired,
   bgHandler: PropTypes.func.isRequired,
   // defaultList: PropTypes.array.isRequired,
@@ -60,8 +60,8 @@ ProductDisplay.propTypes = {
   product: PropTypes.number.isRequired,
 };
 
-ImageGalleryDefault.defaultProps = {
-  // onClickHandler: PropTypes.func.isRequired,
+ProductDisplay.defaultProps = {
+  onClickHandler: () => {},
   // bg: PropTypes.objectOf(PropTypes.string),
   // defaultList: PropTypes.arrayof(PropTypes.strings),
   // bgHandler: PropTypes.func.isRequired,

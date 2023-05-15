@@ -27,12 +27,6 @@ const StyledImageTop = styled.div`
   /* border: solid 2px black; */
   display: flex;
 `;
-const StyledImageBottom = styled.div`
-  width: 80%;
-  height: 100%;
-
-  /* border: solid 2px black; */
-`;
 const StyledthumbnailContainer = styled.div`
   width: 20%;
   height: 100%;
@@ -59,6 +53,7 @@ export default function ImageGalleryDefault({
   bgHandler,
   defaultNumber,
 }) {
+  // console.log('This is bg', bg);
   return (
     <StyledDiv className="checker" bg={bg}>
       <StyledImageTop className="top">
@@ -77,14 +72,14 @@ export default function ImageGalleryDefault({
     </StyledDiv>
   );
 }
-StyledButtonContainer.propTypes = {
-  onClickHandler: PropTypes.func.isRequired,
-};
-StyledImageBottom.propTypes = {
-  onClickHandler: PropTypes.func.isRequired,
-};
+// StyledButtonContainer.propTypes = {
+//   onClickHandler: PropTypes.func.isRequired,
+// };
+// StyledImageBottom.propTypes = {
+//   onClickHandler: PropTypes.func.isRequired,
+// };
 ImageGalleryDefault.propTypes = {
-  onClickHandler: PropTypes.func.isRequired,
+  onClickHandler: PropTypes.func,
   bg: PropTypes.string.isRequired,
   defaultNumber: PropTypes.number.isRequired,
   // bg.url: PropTypes.objectOf(PropTypes.string),
@@ -92,4 +87,5 @@ ImageGalleryDefault.propTypes = {
 };
 ImageGalleryDefault.defaultProps = {
   // bg: PropTypes.objectOf(PropTypes.string),
+  onClickHandler: () => {},
 };
