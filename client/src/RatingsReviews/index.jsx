@@ -6,7 +6,7 @@ import ReviewList from './components/ReviewsList/ReviewList';
 import RatingBreakdown from './components/RatingBreakdown/RatingBreakdown';
 import Button from '../components/ui/Button';
 import SortOptions from './components/SortOptions/SortOptions';
-import WriteNewReview from './components/WriteNewReview/WriteNewReview';
+// import WriteNewReview from './components/WriteNewReview/WriteNewReview';
 import Icons from '../components/Icons';
 
 import { fetchReviews, fetchMetadata } from './actions/index';
