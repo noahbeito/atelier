@@ -8,13 +8,16 @@ import Input from '../../components/ui/Input';
 const StyledSearch = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row;
+  justify-content: center;
   gap: 10px;
+  margin: 0 auto;
 
   .icon {
-    color: teal;
+    color: ${(props) => props.theme.secondaryColor};
   }
-
+  .search {
+    width: 80%;
+  }
 `;
 
 export default function Search() {
@@ -28,7 +31,7 @@ export default function Search() {
   return (
     <StyledSearch>
       <Input
-        size="60"
+        className="search"
         data-testid="search"
         value={searchText}
         onChange={onChangeHandler}

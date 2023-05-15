@@ -10,8 +10,10 @@ import Report from '../../components/Report';
 import NameDate from '../../components/NameDate';
 import PhotoList from './PhotoList';
 
+import useWindowSize from '../../hooks/useWindowSize';
+
 const StyledAnswer = styled.div`
-  margin-bottom: 10px;
+  margin-left: 10px;
   padding: 5px 5px;
 
   & p {
@@ -23,6 +25,9 @@ const StyledAnswer = styled.div`
 export default function Answer({ answer }) {
   const [clickedYes, setClickedYes] = useState(false);
   const [clickedReport, setClickedReport] = useState(false);
+
+  // Gets window size via custom hook
+  const { width } = useWindowSize();
 
   const dispatch = useDispatch();
 
@@ -57,19 +62,42 @@ export default function Answer({ answer }) {
       <p>{answer.body}</p>
       <PhotoList photos={answer.photos} />
       <div style={{ marginTop: '10px', color: '#666' }} data-testid="answer-bar">
-        <Divider>
-          <NameDate
-            username={answer.answerer_name}
-            date={answer.date}
-            includeBy
-          />
-          <Helpful
-            helpfulness={answer.helpfulness}
-            clickedYes={clickedYes}
-            onClick={handleHelpful}
-          />
-          <Report clickedReport={clickedReport} onClick={handleReportAnswer} />
-        </Divider>
+        {
+        width >= 1080
+          ? (
+            <Divider>
+              <NameDate
+                username={answer.answerer_name}
+                date={answer.date}
+                includeBy
+              />
+              <Helpful
+                helpfulness={answer.helpfulness}
+                clickedYes={clickedYes}
+                onClick={handleHelpful}
+              />
+              <Report clickedReport={clickedReport} onClick={handleReportAnswer} />
+            </Divider>
+          )
+          : (
+            <>
+              <NameDate
+                username={answer.answerer_name}
+                date={answer.date}
+                includeBy
+              />
+              <br />
+              <Divider>
+                <Helpful
+                  helpfulness={answer.helpfulness}
+                  clickedYes={clickedYes}
+                  onClick={handleHelpful}
+                />
+                <Report clickedReport={clickedReport} onClick={handleReportAnswer} />
+              </Divider>
+            </>
+          )
+        }
       </div>
     </StyledAnswer>
   );

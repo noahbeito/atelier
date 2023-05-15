@@ -12,29 +12,91 @@ import Report from '../../components/Report';
 import Popup from '../../components/Popup';
 import AddAnswer from './AddAnswer';
 
-import { LargeLetter, FlexBetween } from '../styles';
+import { LargeLetter } from '../styles';
 
+/* * Styles * */
 const StyledQuestion = styled.div`
   position: relative;
-  & .question {
+
+  .question {
     font-size: 1.4rem;
     font-weight: bold;
+    display: flex;
+    align-items: center;
     &::before {
       content: "Q";
       ${LargeLetter}
     }
   }
+
+  /* .a .b::before .c:hover + .d {
+    background: red;
+  }
+
+
+  .button {
+    width: 300px;
+    height: 100px;
+  }
+
+  @media (max-height: 720px) {
+    .button {
+      height: 300px;
+      width: 100px;
+    }
+
+    .a .b::before .c:hover + .d {
+      background: blue;
+    }
+  } */
+
+  .a .b::before .c:hover + .d {
+    background: red;
+
+    @media (max-height: 720px) {
+      background: blue;
+    }
+  }
+
+
+  .button {
+    width: 300px;
+    height: 100px;
+
+    @media (max-height: 720px) {
+      height: 300px;
+      width: 100px;
+    }
+  }
+
+
   & .accordion-title {
-    border-radius: 5px;
+    border-radius: 10px;
+    background-color: ${(props) => props.theme.background};
     padding: 10px 40px 10px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: ${({ theme }) => theme.bpTablet}) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
     background-color: #eee;
     border-bottom: 2px solid ${(props) => props.theme.secondaryColor};
-    margin-top: 10px;
+    margin-top: 5px;
     position: relative;
     cursor: pointer;
 
-    &:hover .question {
+    &:hover .question, &:focus .question {
       color: ${(props) => props.theme.secondaryColor};
+    }
+    &:focus-visible {
+      outline: none;
+      border: 3px solid ${(props) => props.theme.secondaryColor};
     }
     &.open:not(.empty-chevron)::after, &.closed:not(.empty-chevron)::after {
       content: '\uf077';
@@ -49,6 +111,14 @@ const StyledQuestion = styled.div`
     }
     &.closed::after {
       transform: translateY(-50%) scaleY(-1);
+    }
+    .question {
+      padding: 0;
+    }
+    .bar {
+      display: inline-block;
+      min-width: 300px;
+      margin-left: 12px;
     }
   }
 
@@ -70,17 +140,22 @@ const StyledQuestion = styled.div`
 `;
 
 export default function Question({ question }) {
+  /* * Selectors and states * */
   const productName = useSelector((state) => state.product.data.name);
-
   const productId = useSelector((state) => state.product.data.id);
 
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
   const dispatch = useDispatch();
 
+  const modalRef = useRef();
+
   // Handle `yes` and `report` click states
   const [clickedYes, setClickedYes] = useState(false);
   const [clickedReport, setClickedReport] = useState(false);
+
+  /* * Handlers * */
+  const handleCloseModal = () => modalRef.current.closeModal();
 
   const handleAccordionClick = () => {
     setShowAnswers(!showAnswers);
@@ -100,8 +175,6 @@ export default function Question({ question }) {
     }
   };
 
-  const modalRef = useRef();
-  const handleCloseModal = () => modalRef.current.closeModal();
   const handleAddAnswer = (e) => {
     e.stopPropagation();
     modalRef.current.openModal();
@@ -120,15 +193,20 @@ export default function Question({ question }) {
         .catch(() => setClickedReport(temp));
     }
   };
+
+  /* * Structure * */
   return (
     <>
       <StyledQuestion>
-        <FlexBetween
+        <div
           className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')} ${answerCount.current === 0 ? 'empty-chevron' : ''}`}
+          role="button"
+          tabIndex="0"
           onClick={handleAccordionClick}
+          onKeyPress={handleAccordionClick}
         >
           <span data-testid="question" className="question">{question.question_body}</span>
-          <span>
+          <span className="bar">
             <Divider>
               <Helpful
                 helpfulness={question.question_helpfulness || 0}
@@ -139,7 +217,7 @@ export default function Question({ question }) {
               <Report clickedReport={clickedReport} onClick={handleReportQuestion} />
             </Divider>
           </span>
-        </FlexBetween>
+        </div>
         <div className="accordion-body">
           {answerCount.current !== 0
             ? (

@@ -9,6 +9,7 @@ import Button from '../../components/ui/Button';
 const Rule = styled.hr`
   border: 1px solid black;
   margin-bottom: 20px;
+  margin-left: 10px;
 `;
 
 const StyledAnswers = styled.div`

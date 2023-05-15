@@ -13,16 +13,28 @@ import { FlexLeft } from '../styles';
 
 import { fetchInitialQuestions, fetchMoreQuestions } from '../actions';
 
+/* * Styles * */
+
 const Container = styled.div`
   margin: 0 auto;
   width: 60%;
+  .main-title {
+    font-size: 2rem;
+    font-family: 'Inter';
+    margin: 1rem;
+  }
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    width: 80%;
+  }
 `;
 
 const StyledLoading = styled.div`
   margin: 50px auto;
   text-align: center;
-  color: gray;
+  color: ${(props) => props.theme.loading};
 `;
+
+/* * Selectors * */
 
 const getQuestionCount = (state) => state.questionsAnswers.main.questions.length;
 const getQuestions = (maxQuestions) => (state) => state
@@ -58,9 +70,11 @@ export default function QuestionsAnswers() {
       });
   };
 
+  /* * Structure * */
+
   return (
     <Container>
-      <h2>Questions & Answers</h2>
+      <h2 className="main-title">Questions & Answers</h2>
       <Search />
       {isLoading ? <StyledLoading data-testid="loading"><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
         : (

@@ -6,8 +6,13 @@ import styled from 'styled-components';
 import Question from './Question';
 
 const Scroll = styled.div`
+
   max-height: calc(100vh - 300px);
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  gap: 10px;
 `;
 
 export default function QuestionsList({ questions }) {

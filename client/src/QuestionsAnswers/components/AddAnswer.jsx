@@ -45,8 +45,6 @@ export default function AddAnswer({ productId, questionId, handleCloseModal }) {
     <Form onSubmit={handleSubmit}>
       <TextArea
         required
-        cols="100"
-        rows="10"
         value={body}
         onChange={(e) => setBody(e.target.value)}
         label="Your Answer"
@@ -56,7 +54,6 @@ export default function AddAnswer({ productId, questionId, handleCloseModal }) {
       />
       <Input
         required
-        size="60"
         value={name}
         onChange={(e) => setName(e.target.value)}
         label="What is your nickname"
@@ -68,7 +65,6 @@ export default function AddAnswer({ productId, questionId, handleCloseModal }) {
       />
       <Input
         required
-        size="60"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         label="Your email"
