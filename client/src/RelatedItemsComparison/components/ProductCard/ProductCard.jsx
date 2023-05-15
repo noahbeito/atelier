@@ -4,26 +4,30 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
 import ActionButton from './ActionButton';
-import ComparisonModal from '../RelatedItems/ComparisonModal';
+import StarRating from '../../../components/StarRating';
+import SalePrice from './SalePrice';
 import { Card } from '../../styles';
 
 const StyledCategory = styled.div`
+  font-style: italic;
 `;
 const StyledName = styled.div`
+  font-weight: bold;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
 `;
-const StyledPrice = styled.div`
-`;
-// const StyledSalePrice ...
 
-const Rating = styled.div`
-  // will likely delete this when the Rating component is eventually imported and used
-`;
 const StyledImg = styled.img`
   max-width: 100%;
   aspect-ratio: .9;
   object-fit: cover;
 `;
-const StyledWrap = styled.div`
+
+const StyledStarWrap = styled.div`
+  margin-top: 0.25rem;
+`;
+
+const StyledActionWrap = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
@@ -33,23 +37,25 @@ const StyledWrap = styled.div`
     transform: scale(1.2);
   }
 `;
+
 export default function ProductCard({
-  id, handleRemoveItemClick, symbol,
+  id, handleRemoveItemClick, symbol, handleStarClick,
 }) {
   const dispatch = useDispatch();
-  // create states for all relevant pieces of data;
   const [photoURL, setPhotoURL] = useState('');
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState(null);
   const [salePrice, setSalePrice] = useState('');
-  // const [avgRating, setAvgRating] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [avgRating, setAvgRating] = useState('');
   const [cardClick, setCardClick] = useState(true);
 
-  // const calculateAvgRating = (ratings) => {
-  //   // calculate and return avg of all ratings in ratings obj
-  // };
+  const calculateAvgRating = (ratings) => {
+    const totalRatings = Object.values(ratings)
+      .reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
+    const avg = ((ratings['1'] * 1) + (ratings['2'] * 2) + (ratings['3'] * 3) + (ratings['4'] * 4) + (ratings['5'] * 5)) / totalRatings;
+    return avg;
+  };
 
   const getNameAndCategory = () => (
     axios.get(`/products/${id}`)
@@ -59,30 +65,25 @@ export default function ProductCard({
     axios.get(`/products/${id}/styles`)
   );
 
-  // const getRatings = () => (
-  //   axios({
-  //     url: '/reviews/meta',
-  //     method: 'GET',
-  //     params: { product_id: id },
-  //   })
-  // );
+  const getRatings = () => (
+    axios({
+      url: '/reviews/meta',
+      method: 'GET',
+      params: { product_id: id },
+    })
+  );
 
   const handleClick = () => {
     if (cardClick) {
       dispatch({ type: '@product/FETCH_DATA' });
       axios.get(`/products/${id}`)
         .then((result) => {
-          console.log('datadata: ', result.data);
           dispatch({ type: '@product/SET_DATA', payload: result.data });
         })
         .catch((err) => {
           dispatch({ type: '@product/FETCH_FAILED', payload: err.message });
         });
     }
-  };
-
-  const handleStarClick = () => {
-    setShowModal(!showModal);
   };
 
   const handleMouseEnter = () => {
@@ -93,21 +94,20 @@ export default function ProductCard({
     setCardClick(true);
   };
 
-  // will likely have to wrap this in a useEffect
   useEffect(() => {
     axios.all([
       getNameAndCategory(),
       getPhotosAndPrices(),
-      // getRatings,
+      getRatings(),
     ])
       .then((axios.spread(
-        (nameAndCategory, photosAndPrices /* ratings */) => {
+        (nameAndCategory, photosAndPrices, ratings) => {
           setCategory(nameAndCategory.data.category);
           setName(nameAndCategory.data.name);
           setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
           setPrice(photosAndPrices.data.results[0].original_price);
           setSalePrice(photosAndPrices.data.results[0].sale_price);
-          // setAvgRating(calculateAvgRating(ratings.ratings));
+          setAvgRating(calculateAvgRating(ratings.data.ratings));
         },
       )))
       .catch((err) => {
@@ -117,22 +117,24 @@ export default function ProductCard({
 
   return (
     <Card onClick={() => handleClick()}>
-      {showModal && <ComparisonModal />}
-      <StyledWrap>
+      <StyledActionWrap>
         <ActionButton
           id={id}
+          name={name}
           handleRemoveItemClick={handleRemoveItemClick}
           symbol={symbol}
           handleStarClick={handleStarClick}
           handleMouseEnter={handleMouseEnter}
           handleMouseLeave={handleMouseLeave}
         />
-      </StyledWrap>
+      </StyledActionWrap>
       <StyledImg src={photoURL} />
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>
-      <StyledPrice>{salePrice || price}</StyledPrice>
-      <Rating />
+      { salePrice ? <SalePrice salePrice={salePrice} price={price} /> : price }
+      <StyledStarWrap>
+        <StarRating rating={avgRating} />
+      </StyledStarWrap>
     </Card>
   );
 }
@@ -141,4 +143,5 @@ ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   handleRemoveItemClick: PropTypes.func.isRequired,
   symbol: PropTypes.string.isRequired,
+  handleStarClick: PropTypes.func.isRequired,
 };
