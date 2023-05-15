@@ -2,14 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import _ from 'underscore';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import ProductCard from '../ProductCard/ProductCard';
 import NoRelatedItemsCard from '../ProductCard/NoRelatedItemsCard';
-import { Title, Carousel } from '../../styles';
+import ChevronLeft from '../CarouselButtons/ChevronLeft';
+import ChevronRight from '../CarouselButtons/ChevronRight';
+import {
+  Title, Carousel, Container, List,
+} from '../../styles';
 
-export default function RelatedItems() {
+export default function RelatedItems({ chevronClickHandler }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [noRelatedItems, setNoRelatedItems] = useState(false);
+  const [showLeftChevron, setShowLeftChevron] = useState(false);
+  const [showRightChevron, setShowRightChevron] = useState(false);
+  const [viewIndex, setViewIndex] = useState(0);
   const productId = useSelector((state) => state.product.data.id);
+  const symbol = 'EmptyStar';
+  const carouselId = 'related-carousel';
 
   useEffect(() => {
     if (productId) {
@@ -28,6 +38,11 @@ export default function RelatedItems() {
           } else {
             setNoRelatedItems(false);
           }
+          if (ids.length > 4) {
+            setShowRightChevron(true);
+          } else {
+            setShowRightChevron(false);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -35,17 +50,48 @@ export default function RelatedItems() {
     }
   }, [productId]);
 
-  const symbol = 'EmptyStar';
+  const rightClickHandler = () => {
+    console.log('rightClick', 'viewIndex:', viewIndex);
+    setViewIndex(viewIndex + 1);
+    chevronClickHandler(carouselId, 'right');
+  };
+
+  const leftClickHandler = () => {
+    console.log('leftClick', 'viewIndex:', viewIndex);
+    setViewIndex(viewIndex - 1);
+    chevronClickHandler(carouselId, 'left');
+  };
+
+  useEffect(() => {
+    if (viewIndex + 4 >= relatedProducts.length) {
+      setShowRightChevron(false);
+    } else {
+      setShowRightChevron(true);
+    }
+    if (viewIndex > 0) {
+      setShowLeftChevron(true);
+    } else {
+      setShowLeftChevron(false);
+    }
+  }, [viewIndex]);
 
   return (
-    <div>
+    <List>
       <Title>Related Items</Title>
-      <Carousel>
-        {noRelatedItems && <NoRelatedItemsCard />}
-        {relatedProducts.map((id) => (
-          <ProductCard id={id} symbol={symbol} key={id} />
-        ))}
-      </Carousel>
-    </div>
+      {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
+      <Container>
+        <Carousel id={carouselId} data-testid={carouselId}>
+          {noRelatedItems && <NoRelatedItemsCard />}
+          {relatedProducts.map((id) => (
+            <ProductCard id={id} symbol={symbol} key={id} />
+          ))}
+        </Carousel>
+      </Container>
+      {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
+    </List>
   );
 }
+
+RelatedItems.propTypes = {
+  chevronClickHandler: PropTypes.func.isRequired,
+};

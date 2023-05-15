@@ -37,7 +37,6 @@ export default function ProductCard({
   id, handleRemoveItemClick, symbol,
 }) {
   const dispatch = useDispatch();
-  // create states for all relevant pieces of data;
   const [photoURL, setPhotoURL] = useState('');
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
@@ -72,7 +71,6 @@ export default function ProductCard({
       dispatch({ type: '@product/FETCH_DATA' });
       axios.get(`/products/${id}`)
         .then((result) => {
-          console.log('datadata: ', result.data);
           dispatch({ type: '@product/SET_DATA', payload: result.data });
         })
         .catch((err) => {
@@ -93,7 +91,6 @@ export default function ProductCard({
     setCardClick(true);
   };
 
-  // will likely have to wrap this in a useEffect
   useEffect(() => {
     axios.all([
       getNameAndCategory(),
