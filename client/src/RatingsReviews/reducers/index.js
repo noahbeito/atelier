@@ -31,6 +31,7 @@ const ratingsReviewsReducer = (
         },
       },
     },
+    sortOption: 'relevant', // [newest, helpful, relevant]
     filter: false,
     sort: {
       1: false,
@@ -63,6 +64,8 @@ const ratingsReviewsReducer = (
       return { ...state, mloading: false, error: action.payload };
     case '@reviews/sort/UPDATE':
       return { ...state, filter: nFilter(action), sort: action.payload };
+    case '@reviews/SET_SORT_OPTION':
+      return { ...state, sortOption: action.payload };
 
     default:
       return state;
