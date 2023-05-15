@@ -10,6 +10,8 @@ export default function RelatedItemsComparison() {
   const [characteristics, setCharacteristics] = useState({});
   const [compareName, setCompareName] = useState('');
   const [compare, setCompare] = useState({});
+  const [currentFeatures, setCurrentFeatures] = useState([]);
+  const [compareFeatures, setCompareFeatures] = useState([]);
 
   const productId = useSelector((state) => state.product.data.id);
 
@@ -24,31 +26,52 @@ export default function RelatedItemsComparison() {
     }
   };
 
-  const handleStarClick = (clickedId, clickedName) => {
+  // axios routes to retrieve modal data
+  const getCurrentProduct = () => (
     axios({
       url: '/reviews/meta',
       method: 'GET',
       params: { product_id: productId },
     })
-      .then((response) => {
-        setCharacteristics(response.data.characteristics);
-      })
-      .then(() => (
-        axios({
-          url: '/reviews/meta',
-          method: 'GET',
-          params: { product_id: clickedId },
-        })
-      ))
-      .then((response) => {
-        setCompare(response.data.characteristics);
-        setCompareName(clickedName);
-      })
-      .then(() => {
-        setShowModal(true);
-      })
+  );
+  const getCompareProduct = (compareId) => (
+    axios({
+      url: '/reviews/meta',
+      method: 'GET',
+      params: { product_id: compareId },
+    })
+  );
+  const getCurrentFeatures = () => (
+    axios.get(`/products/${productId}`)
+  );
+  const getCompareFeatures = (compareId) => (
+    axios.get(`/products/${compareId}`)
+  );
+
+  const handleStarClick = (clickedId, clickedName) => {
+    axios.all([
+      getCurrentProduct(),
+      getCompareProduct(clickedId),
+      getCurrentFeatures(),
+      getCompareFeatures(clickedId),
+    ])
+      .then((axios.spread(
+        (
+          currentCharacteristics,
+          compareCharacteristics,
+          currentFeaturesList,
+          compareFeaturesList,
+        ) => {
+          setCharacteristics(currentCharacteristics.data.characteristics);
+          setCompare(compareCharacteristics.data.characteristics);
+          setCurrentFeatures(currentFeaturesList.data.features);
+          setCompareFeatures(compareFeaturesList.data.features);
+          setCompareName(clickedName);
+          setShowModal(true);
+        },
+      )))
       .catch((err) => {
-        console.log('could not load comparison', err);
+        console.log('unable to load comparison ', err);
       });
   };
 
@@ -70,6 +93,8 @@ export default function RelatedItemsComparison() {
         characteristics={characteristics}
         compare={compare}
         compareName={compareName}
+        currentFeatures={currentFeatures}
+        compareFeatures={compareFeatures}
       />
       )}
     </div>

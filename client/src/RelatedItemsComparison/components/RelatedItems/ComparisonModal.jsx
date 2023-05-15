@@ -28,7 +28,8 @@ const StyledContent = styled.div`
   grid-template-rows: 10% 10% 80%;
   grid-template-columns: 20% 20% 20% 20% 20%;
   height: 400px;
-  width: 500px;
+  width: 600px;
+  overflow-y: auto;
   z-index: 20;
 `;
 
@@ -78,7 +79,7 @@ const StyledCompareAttributes = styled.div`
   text-align: center;
 `;
 
-const StyledStarWrap = styled.div`
+const StyledWrap = styled.div`
   margin-top: 1rem;
 `;
 
@@ -86,27 +87,59 @@ const StyledXButton = styled.button`
   grid-area: 1 / 5 / span 1 / span 1;
   justify-self: end;
   text-align: end;
+  position: fixed;
   cursor: pointer;
   border: none;
   background: none;
-  padding-top: 0.5rem;
+  margin-top: 1rem;
   transition: transform 250ms ease-in-out;
   &:hover {
     transform: scale(1.5)
   }
 `;
+
 export default function ComparisonModal({
-  modalOnClose, characteristics, compare, compareName,
+  modalOnClose,
+  characteristics,
+  compare,
+  compareName,
+  currentFeatures,
+  compareFeatures,
 }) {
   const [allCharacteristics, setAllCharacteristics] = useState([]);
   const [currentAttributes, setCurrentAttributes] = useState([]);
   const [compareAttributes, setCompareAttributes] = useState([]);
+  const [allFeatures, setAllFeatures] = useState([]);
+  const [currentFeaturesArray, setCurrentFeaturesArray] = useState([]);
+  const [compareFeaturesArray, setCompareFeaturesArray] = useState([]);
   const currentProduct = useSelector((state) => state.product.data.name);
 
   useEffect(() => {
     setAllCharacteristics(_.uniq(Object.keys(characteristics).concat(Object.keys(compare))));
     setCurrentAttributes(Object.values(characteristics));
     setCompareAttributes(Object.values(compare));
+    let features = currentFeatures.concat(compareFeatures);
+    features = features.map((feature) => {
+      if (feature.feature) {
+        return feature.feature;
+      }
+      return ' ';
+    });
+    setAllFeatures(_.uniq(features));
+    const currFeatures = currentFeatures.map((feat) => {
+      if (feat.value) {
+        return feat.value;
+      }
+      return ' ';
+    });
+    setCurrentFeaturesArray(currFeatures);
+    const compFeatures = compareFeatures.map((feat) => {
+      if (feat.value) {
+        return feat.value;
+      }
+      return ' ';
+    });
+    setCompareFeaturesArray(compFeatures);
   }, []);
 
   return (
@@ -119,19 +152,28 @@ export default function ComparisonModal({
           {allCharacteristics.map((characteristic) => (
             <StyledCharacteristic key={characteristic}>{characteristic}</StyledCharacteristic>
           ))}
+          {allFeatures.map((feature) => (
+            <StyledCharacteristic key={feature}>{feature}</StyledCharacteristic>
+          ))}
         </StyledCompare>
         <StyledCurrentAttributes>
           {currentAttributes.map((attribute) => (
-            <StyledStarWrap>
+            <StyledWrap>
               <StarRating key={attribute.id} rating={attribute.value} />
-            </StyledStarWrap>
+            </StyledWrap>
+          ))}
+          {currentFeaturesArray.map((feat) => (
+            <StyledWrap key={feat}>{feat}</StyledWrap>
           ))}
         </StyledCurrentAttributes>
         <StyledCompareAttributes>
           {compareAttributes.map((attribute) => (
-            <StyledStarWrap>
+            <StyledWrap>
               <StarRating key={attribute.id} rating={attribute.value} />
-            </StyledStarWrap>
+            </StyledWrap>
+          ))}
+          {compareFeaturesArray.map((feat) => (
+            <StyledWrap key={feat}>{feat}</StyledWrap>
           ))}
         </StyledCompareAttributes>
         <StyledXButton>
@@ -157,9 +199,23 @@ ComparisonModal.propTypes = {
     }),
   }),
   compareName: PropTypes.string.isRequired,
+  currentFeatures: PropTypes.arrayOf(
+    PropTypes.shape({
+      feature: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ),
+  compareFeatures: PropTypes.arrayOf(
+    PropTypes.shape({
+      feature: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ),
 };
 
 ComparisonModal.defaultProps = {
   characteristics: {},
   compare: {},
+  currentFeatures: [],
+  compareFeatures: [],
 };
