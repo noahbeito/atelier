@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -16,36 +16,59 @@ const Section = styled.section`
 `;
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
+  const [defaultList, setDefaultList] = useState([]);
+  // const [product, setProduct] = useState(40344);
+  const [defaultNumber, setDefaultNumber] = useState(1);
+  const [bgImg, setBgImg] = useState('');
   const dispatch = useDispatch();
-
+  // setProduct(40344);
+  // 40344,40345, 40346, 40347, 40348
+  // console.log(setProduct);
+  const product = 40344;
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
-    axios.get('/products/40349/styles')
+    axios.get(`/products/${product}/styles`)
       .then((result) => {
-        console.log('This is result', result);
+        setDefaultList(result.data.results);
+        setDefaultNumber(result.data.results[0].style_id);
         dispatch({ type: '@styles/SET_DATA', payload: result.data });
       })
       .catch((error) => {
         dispatch({ type: '@styles/FETCH_FAILED', payload: error.message });
       });
   }, [dispatch]);
-  const onClick = useCallback(() => {
+  const onClickHandler = useCallback(() => {
     setRenderCheckout(!renderCheckout);
   });
+  const bgHndle = (val) => {
+    setBgImg(val.url);
+  };
+  // console.log('This is default NUMBER: ', defaultNumber);
+  // console.log('This is default list', defaultList);
   return (
     <Section>
-      {/* <p>{product}</p> */}
-      { renderCheckout ? <ProductDisplay onClickHandler={onClick} />
-        : <ImageGalleryExpand onClickHandler={onClick} />}
-      {/* <ProductDisplay /> */}
+      { renderCheckout
+        ? (
+          <ProductDisplay
+            product={product}
+            defaultList={defaultList}
+            defaultHandler={setDefaultList}
+            defaultNumber={defaultNumber}
+            defaultNumberHandler={setDefaultNumber}
+            bg={bgImg}
+            bgHandler={bgHndle}
+            onClickHandler={onClickHandler || (() => {})}
+          />
+        )
+        : <ImageGalleryExpand bg={bgImg} onClickHandler={onClickHandler} />}
       <ProductInfo />
     </Section>
   );
 }
-ProductDisplay.propTypes = {
-  onClickHandler: PropTypes.func.isRequired,
-};
+// ProductDisplay.propTypes = {
+//   onClickHandler: PropTypes.func.isRequired,
+// };
 
-ProductDisplay.defaultProps = {
-  onClickHandler: PropTypes.func.isRequired,
-};
+// ProductDisplay.defaultProps = {
+//   onClickHandler: PropTypes.func.isRequired,
+// };

@@ -1,14 +1,10 @@
-import React from 'react';
 import axios from 'axios';
-import { createStore, applyMiddleware, Provider } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import '@testing-library/jest-dom';
-import { render /* , screen */ } from '@testing-library/react';
 
 import ratingsReviewsReducer from '../reducers/index';
 import { fetchMetadata } from '../actions/index';
-// import RatingBreakdown from '../components/RatingBreakdown/RatingBreakdown';
-import App from '../../App';
 
 import testdata from '../testData/metaData.json';
 
@@ -67,16 +63,6 @@ export default () => {
       expect(currentState.meta.product_id).toBe('40346');
       expect(currentState.meta.recommended.false).toBe('69');
       expect(currentState.meta.characteristics.Fit.id).toBe(135224);
-    });
-
-    xit('it should render RatingBreakdown with overall rating', async () => {
-      render(
-        <Provider store={store}>
-          <App />
-        </Provider>,
-      );
-
-      console.log(store.getState());
     });
 
     it('should set state.error data after failed axios call', async () => {

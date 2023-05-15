@@ -8,7 +8,7 @@ export const fetchReviews = (
 ) => (dispatch) => {
   dispatch({ type: '@reviews/FETCH_DATA' });
   if (productId !== undefined) {
-    axios({
+    return axios({
       method: 'GET',
       url: '/reviews',
       params: {
@@ -22,6 +22,9 @@ export const fetchReviews = (
         dispatch({ type: '@reviews/FAILED', payload: message });
       });
   }
+  return new Promise((reject) => {
+    reject(new Error('There is no product ID.'));
+  });
 };
 
 export const fetchMetadata = (
@@ -29,7 +32,7 @@ export const fetchMetadata = (
 ) => (dispatch) => {
   dispatch({ type: '@reviews/meta/FETCH_DATA' });
   if (productId !== undefined) {
-    axios({
+    return axios({
       method: 'GET',
       url: '/reviews/meta',
       params: { product_id: productId },
@@ -41,4 +44,7 @@ export const fetchMetadata = (
         dispatch({ type: '@reviews/meta/FAILED', payload: message });
       });
   }
+  return new Promise((reject) => {
+    reject(new Error('There is no product ID.'));
+  });
 };

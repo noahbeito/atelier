@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../../components/ui/Button';
 import Icons from '../../../components/Icons';
@@ -14,9 +14,14 @@ const StyledDiv = styled.div`
   padding:5px;
 `;
 export default function AddToFavButton() {
+  const [faveCount, setFavCount] = useState(0);
+  const addOne = () => {
+    setFavCount((prev) => prev + 1);
+  };
   return (
     <StyledDiv>
-      <Button variant="large-base" style={{ color: 'orange', height: '50px', width: '50px' }}>
+      <h1 data-testid="counter">{ faveCount }</h1>
+      <Button data-testid="button-up" onClick={addOne} variant="large-base" style={{ color: 'orange', height: '50px', width: '50px' }}>
         <Icons.Star />
       </Button>
     </StyledDiv>
