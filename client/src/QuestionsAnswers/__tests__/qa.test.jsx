@@ -1,57 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-import { render, waitFor } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  waitFor,
+  screen,
+} from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import thunk from 'redux-thunk';
 
+import { mockData, mockError, mockState } from './__mocks__/mockData';
+
 import QuestionsAnswers from '../components/QuestionsAnswers';
-
-// Mock errors
-const mockError = 'Failed!';
-
-// Mock data
-const mockId = '1234';
-
-const mockData = {
-  product_id: mockId,
-  results: [
-    {
-      question_id: 100,
-      question_body: 'Where is this product made?',
-      question_date: '2018-02-28T00:00:00.000Z',
-      asker_name: 'funnygirl',
-      question_helpfulness: 18,
-      reported: false,
-      answers: {
-        345: {
-          id: 1,
-          body: 'idk',
-          date: '2023-03-23T00:00:00.000Z',
-          answerer_name: 'professor',
-          helpfulness: 5,
-          photos: [],
-        },
-      },
-    },
-  ],
-};
-
-const mockState = {
-  product: {
-    loading: false,
-    data: {
-      id: mockId,
-    },
-    error: null,
-  },
-  questionsAnswers: {
-    main: {
-      loading: false,
-      questions: mockData.results,
-    },
-  },
-};
 
 // Mock functions
 jest.mock('react-redux', () => ({
@@ -60,58 +21,170 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 
-useSelector.mockImplementation((selector) => selector(mockState));
-
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
-const store = mockStore();
-
 jest.mock('../components/AnswersList');
-const dispatchMock = jest.fn((actionOrThunk) => {
-  if (typeof actionOrThunk === 'function') {
-    return actionOrThunk(dispatchMock);
-  }
-  return null;
-});
-useDispatch.mockReturnValue(dispatchMock);
-
 jest.mock('axios');
 
 export default () => {
-  describe('QA component mocks', () => {
-    it('should fetch qa data and dispatch it to the Redux store', async () => {
-      axios.get.mockResolvedValueOnce({ data: mockData });
+  const mockStore = configureStore([thunk]);
+  let store;
+  let dispatchMock;
 
-      const { getByText } = render(
-        <Provider store={store}>
-          <QuestionsAnswers />
-        </Provider>,
-      );
+  beforeEach(() => {
+    jest.clearAllMocks();
 
-      await waitFor(() => expect(axios.get).toHaveBeenCalled());
-
-      expect(dispatchMock).toHaveBeenCalledTimes(3);
-      expect(dispatchMock).toHaveBeenNthCalledWith(2, { type: '@questions/FETCH_DATA' });
-      expect(dispatchMock).toHaveBeenNthCalledWith(3, { type: '@questions/SET_DATA', payload: mockData.results });
-
-      // Test that the question has entered the DOM
-      expect(getByText('Where is this product made?')).toBeInTheDocument();
+    dispatchMock = jest.fn((actionOrThunk) => {
+      if (typeof actionOrThunk === 'function') {
+        return actionOrThunk(dispatchMock);
+      }
+      return null;
     });
 
-    it('should fail and dispatch error when axios fails', async () => {
-      axios.get.mockRejectedValueOnce({ error: mockError });
+    useDispatch.mockReturnValue(dispatchMock);
+    store = mockStore();
+  });
 
-      render(
-        <Provider store={store}>
-          <QuestionsAnswers />
-        </Provider>,
-      );
+  it('should fetch qa data and dispatch it to the Redux store', async () => {
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[0])));
+    axios.get.mockResolvedValueOnce({ data: mockData[0] });
 
-      await waitFor(() => expect(axios.get).toHaveBeenCalled());
+    render(
+      <Provider store={store}>
+        <QuestionsAnswers />
+      </Provider>,
+    );
 
-      expect(dispatchMock).toHaveBeenCalledTimes(3);
-      expect(dispatchMock).toHaveBeenNthCalledWith(2, { type: '@questions/FETCH_DATA' });
-      expect(dispatchMock).toHaveBeenNthCalledWith(3, { type: '@questions/FETCH_FAILED', payload: mockError.message });
-    });
+    await waitFor(() => expect(axios.get).toHaveBeenCalled());
+
+    expect(dispatchMock).toHaveBeenCalledTimes(3);
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, { type: '@questions/FETCH_DATA' });
+    expect(dispatchMock).toHaveBeenNthCalledWith(3, { type: '@questions/SET_DATA', payload: mockData[0].results });
+  });
+
+  it('should fail and dispatch error when axios fails', async () => {
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[0])));
+    axios.get.mockRejectedValueOnce({ error: mockError });
+
+    render(
+      <Provider store={store}>
+        <QuestionsAnswers />
+      </Provider>,
+    );
+
+    expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
+
+    await waitFor(() => expect(axios.get).toHaveBeenCalled());
+
+    expect(dispatchMock).toHaveBeenCalledTimes(3);
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, { type: '@questions/FETCH_DATA' });
+    expect(dispatchMock).toHaveBeenNthCalledWith(3, { type: '@questions/FETCH_FAILED', payload: mockError.message });
+  });
+
+  it('should display a loading icon when loading state is activated', async () => {
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[0], true)));
+    axios.get.mockResolvedValueOnce({ data: mockData[0] });
+
+    render(
+      <Provider store={store}>
+        <QuestionsAnswers />
+      </Provider>,
+    );
+    expect(screen.queryByTestId('loading')).toBeInTheDocument();
+  });
+
+  it('should initialize with only four questions and add more', async () => {
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1])));
+    axios.get.mockResolvedValueOnce({ data: mockData[1] });
+
+    render(
+      <Provider store={store}>
+        <QuestionsAnswers />
+      </Provider>,
+    );
+
+    const moreQuestions = screen.getByText('More Answered Questions');
+
+    let questions = screen.getAllByTestId('question');
+    expect(questions).toHaveLength(4);
+
+    // Ensure the button sent a dispatch through. Added the clears to eliminate
+    // disturbance from the `useEffect` calls
+    await waitFor(() => expect(axios.get).toHaveBeenCalled());
+
+    dispatchMock.mockClear();
+    axios.get.mockClear();
+    axios.get.mockResolvedValueOnce({ data: mockData[1] });
+
+    fireEvent.click(moreQuestions);
+
+    await waitFor(() => expect(axios.get).toHaveBeenCalled());
+    await waitFor(() => expect(dispatchMock).toHaveBeenCalled());
+
+    expect(dispatchMock).toHaveBeenCalledTimes(3);
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, { type: '@questions/FETCH_DATA' });
+    expect(dispatchMock).toHaveBeenNthCalledWith(3, { type: '@questions/ADD_QUESTIONS', payload: mockData[1].results });
+
+    questions = screen.getAllByTestId('question');
+
+    expect(questions).toHaveLength(6);
+
+    // Do another round of tests for the next click
+    dispatchMock.mockClear();
+    axios.get.mockClear();
+    axios.get.mockResolvedValueOnce({ data: mockData[1] });
+
+    fireEvent.click(moreQuestions);
+
+    await waitFor(() => expect(axios.get).toHaveBeenCalled());
+    await waitFor(() => expect(dispatchMock).toHaveBeenCalled());
+
+    questions = screen.getAllByTestId('question');
+
+    expect(questions).toHaveLength(7);
+  });
+
+  it('should not add more questions if axios fails', async () => {
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[1])));
+    axios.get.mockResolvedValueOnce({ data: mockData[1] });
+    render(
+      <Provider store={store}>
+        <QuestionsAnswers />
+      </Provider>,
+    );
+
+    const moreQuestions = screen.getByText('More Answered Questions');
+    let questions = screen.getAllByTestId('question');
+    expect(questions).toHaveLength(4);
+
+    await waitFor(() => expect(axios.get).toHaveBeenCalled());
+
+    dispatchMock.mockClear();
+    axios.get.mockClear();
+    axios.get.mockRejectedValueOnce({ error: mockError });
+
+    fireEvent.click(moreQuestions);
+
+    await waitFor(() => expect(axios.get).toHaveBeenCalled());
+
+    expect(dispatchMock).toHaveBeenCalledTimes(3);
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, { type: '@questions/FETCH_DATA' });
+    expect(dispatchMock).toHaveBeenNthCalledWith(3, { type: '@questions/FETCH_FAILED', payload: mockError.message });
+
+    questions = screen.getAllByTestId('question');
+
+    expect(questions).toHaveLength(4);
+  });
+
+  it('should not find any questions if no questions were found', () => {
+    useSelector.mockImplementation((selector) => selector(mockState(mockData[2])));
+    axios.get.mockResolvedValueOnce({ data: mockData[2] });
+
+    render(
+      <Provider store={store}>
+        <QuestionsAnswers />
+      </Provider>,
+    );
+
+    expect(screen.getByText('No Questions Available')).toBeInTheDocument();
+    expect(screen.queryAllByTestId('question')).toHaveLength(0);
   });
 };

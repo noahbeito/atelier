@@ -17,18 +17,32 @@ export default function YourOutfit() {
     localStorage.setItem('outfit', JSON.stringify(outfit));
   }, [outfit]);
 
-  const AddToOutfitClickHandler = (productId) => {
+  const handleAddToOutfitClick = (productId) => {
     if (!outfit.includes(productId)) {
       setOutfit([...outfit, productId]);
     }
   };
 
+  const handleRemoveItemClick = (id) => {
+    outfit.splice(outfit.indexOf(id), 1);
+    setOutfit([...outfit]);
+  };
+
+  const symbol = 'Exit';
+
   return (
     <div>
       <Title>Your Outfit</Title>
       <Carousel>
-        <AddItemToOutfit clickHandler={AddToOutfitClickHandler} />
-        {outfit.map((productId) => <ProductCard id={productId} key={productId} />)}
+        <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
+        {outfit.map((productId) => (
+          <ProductCard
+            id={productId}
+            handleRemoveItemClick={handleRemoveItemClick}
+            symbol={symbol}
+            key={productId}
+          />
+        ))}
       </Carousel>
     </div>
   );

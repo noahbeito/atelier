@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,9 +7,9 @@ import Icons from '../../components/Icons';
 import Search from './Search';
 import QuestionsList from './QuestionsList';
 import Button from '../../components/ui/Button';
-import AddAnswer from './AddAnswer';
 import AddQuestion from './AddQuestion';
-import PhotoModal from './PhotoModal';
+import Popup from '../../components/Popup';
+import { FlexLeft } from '../styles';
 
 import { fetchInitialQuestions, fetchMoreQuestions } from '../actions';
 
@@ -39,32 +39,40 @@ export default function QuestionsAnswers() {
   const isLoading = useSelector(getIsLoading);
 
   const productId = useSelector((state) => state.product.data.id);
+  const productName = useSelector((state) => state.product.data.name);
   const dispatch = useDispatch();
+
+  // Attaches reference to open and close functions from within modal
+  const modalRef = useRef();
+  const handleAddQuestion = () => modalRef.current.openModal();
+  const handleCloseModal = () => modalRef.current.closeModal();
 
   useEffect(() => {
     dispatch(fetchInitialQuestions(productId));
   }, [productId]);
 
   const moreQuestionsHandler = () => {
-    dispatch(fetchMoreQuestions(productId));
-    setMaxQuestions(Math.min(maxQuestions + 2, currentQuestionCount));
+    dispatch(fetchMoreQuestions(productId))
+      .then(() => {
+        setMaxQuestions(Math.min(maxQuestions + 2, currentQuestionCount));
+      });
   };
 
   return (
     <Container>
       <h2>Questions & Answers</h2>
       <Search />
-      {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
+      {isLoading ? <StyledLoading data-testid="loading"><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
         : (
           <>
             <QuestionsList questions={questions} />
-            <div className="button-row">
+            <FlexLeft>
               {currentQuestionCount > questions.length && <Button variant="large-base" onClick={moreQuestionsHandler}>More Answered Questions</Button>}
-              <Button variant="large-add">Add A Question</Button>
-            </div>
-            <AddAnswer />
-            <PhotoModal />
-            <AddQuestion />
+              <Button variant="large-add" onClick={handleAddQuestion}>Add A Question</Button>
+            </FlexLeft>
+            <Popup ref={modalRef} titles={['Ask Your Question', `About the ${productName}`]}>
+              <AddQuestion productId={productId} handleCloseModal={handleCloseModal} />
+            </Popup>
           </>
         )}
     </Container>

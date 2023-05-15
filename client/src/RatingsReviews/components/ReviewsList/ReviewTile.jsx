@@ -65,8 +65,8 @@ const StyledResponse = styled(Response)`
 `;
 
 const StyledReviewTile = styled.div`
-  padding-top: 5%;
   padding-bottom: 3%;
+  padding-top: 3%;
   border-bottom: solid black 2px;
 `;
 
@@ -110,7 +110,7 @@ export default function ReviewTile({
       </StyledBody>
       {
         recommend
-          ? <StyledRecommend className="Recommned"> ✓ I recommend this product </StyledRecommend>
+          ? <StyledRecommend className="Recommend"> ✓ I recommend this product </StyledRecommend>
           : ''
       }
       {

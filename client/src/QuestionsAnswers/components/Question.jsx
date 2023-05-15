@@ -1,13 +1,16 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import AnswersList from './AnswersList';
 import Button from '../../components/ui/Button';
 import Divider from '../../components/Divider';
 import Helpful from '../../components/Helpful';
 import Report from '../../components/Report';
+import Popup from '../../components/Popup';
+import AddAnswer from './AddAnswer';
 
 import { LargeLetter, FlexBetween } from '../styles';
 
@@ -67,9 +70,17 @@ const StyledQuestion = styled.div`
 `;
 
 export default function Question({ question }) {
+  const productName = useSelector((state) => state.product.data.name);
+
+  const productId = useSelector((state) => state.product.data.id);
+
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
   const dispatch = useDispatch();
+
+  // Handle `yes` and `report` click states
+  const [clickedYes, setClickedYes] = useState(false);
+  const [clickedReport, setClickedReport] = useState(false);
 
   const handleAccordionClick = () => {
     setShowAnswers(!showAnswers);
@@ -77,43 +88,77 @@ export default function Question({ question }) {
 
   const handleHelpful = (e) => {
     e.stopPropagation();
-    dispatch({ type: '@questions/MARK_HELPFUL', question_id: question.question_id });
+    const temp = clickedYes;
+    if (!clickedYes) {
+      setClickedYes(true);
+      axios.put(`/qa/questions/${question.question_id}/helpful`)
+        .then(() => {
+          dispatch({ type: '@questions/MARK_HELPFUL', question_id: question.question_id });
+          setClickedYes(true);
+        })
+        .catch(() => setClickedYes(temp));
+    }
   };
 
+  const modalRef = useRef();
+  const handleCloseModal = () => modalRef.current.closeModal();
   const handleAddAnswer = (e) => {
     e.stopPropagation();
+    modalRef.current.openModal();
   };
 
   const handleReportQuestion = (e) => {
     e.stopPropagation();
-    dispatch({ type: '@questions/REPORT', question_id: question.question_id });
+    const temp = clickedReport;
+    if (!clickedReport) {
+      setClickedReport(true);
+      axios.put(`/qa/questions/${question.question_id}/report`)
+        .then(() => {
+          dispatch({ type: '@questions/REPORT', question_id: question.question_id });
+          setClickedReport(true);
+        })
+        .catch(() => setClickedReport(temp));
+    }
   };
   return (
-    <StyledQuestion>
-      <FlexBetween
-        className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')} ${answerCount.current === 0 ? 'empty-chevron' : ''}`}
-        onClick={handleAccordionClick}
-      >
-        <span className="question">{question.question_body}</span>
-        <span>
-          <Divider>
-            <Helpful helpfulness={question.question_helpfulness} onClick={handleHelpful} />
-            <Button variant="small" onClick={handleAddAnswer}>Add Answer</Button>
-            <Report onClick={handleReportQuestion} />
-          </Divider>
-        </span>
-      </FlexBetween>
-      <div className="accordion-body">
-        {answerCount.current !== 0
-          ? (
-            <>
-              <span className="big-A">A</span>
-              <AnswersList className="answers" questionId={question.question_id} />
-            </>
-          )
-          : ''}
-      </div>
-    </StyledQuestion>
+    <>
+      <StyledQuestion>
+        <FlexBetween
+          className={`accordion-title ${((showAnswers && answerCount.current !== 0) ? 'open' : 'closed')} ${answerCount.current === 0 ? 'empty-chevron' : ''}`}
+          onClick={handleAccordionClick}
+        >
+          <span data-testid="question" className="question">{question.question_body}</span>
+          <span>
+            <Divider>
+              <Helpful
+                helpfulness={question.question_helpfulness || 0}
+                onClick={handleHelpful}
+                clickedYes={clickedYes}
+              />
+              <Button variant="small" onClick={handleAddAnswer}>Add Answer</Button>
+              <Report clickedReport={clickedReport} onClick={handleReportQuestion} />
+            </Divider>
+          </span>
+        </FlexBetween>
+        <div className="accordion-body">
+          {answerCount.current !== 0
+            ? (
+              <>
+                <span className="big-A">A</span>
+                <AnswersList className="answers" questionId={question.question_id} />
+              </>
+            )
+            : ''}
+        </div>
+      </StyledQuestion>
+      <Popup ref={modalRef} titles={['Submit your Answer', `${productName}: ${question.question_body}`]}>
+        <AddAnswer
+          productId={productId}
+          questionId={question.question_id}
+          handleCloseModal={handleCloseModal}
+        />
+      </Popup>
+    </>
   );
 }
 

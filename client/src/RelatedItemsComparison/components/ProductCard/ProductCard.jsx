@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
+import ActionButton from './ActionButton';
+import ComparisonModal from '../RelatedItems/ComparisonModal';
 import { Card } from '../../styles';
 
 const StyledCategory = styled.div`
@@ -18,31 +20,37 @@ const Rating = styled.div`
 `;
 const StyledImg = styled.img`
   max-width: 100%;
-  aspect-ratio: .7;
+  aspect-ratio: .9;
   object-fit: cover;
 `;
-export default function ProductCard({ id }) {
+const StyledWrap = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.5);
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
+export default function ProductCard({
+  id, handleRemoveItemClick, symbol,
+}) {
   const dispatch = useDispatch();
-
+  // create states for all relevant pieces of data;
   const [photoURL, setPhotoURL] = useState('');
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState(null);
   const [salePrice, setSalePrice] = useState('');
   // const [avgRating, setAvgRating] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [cardClick, setCardClick] = useState(true);
 
   // const calculateAvgRating = (ratings) => {
   //   // calculate and return avg of all ratings in ratings obj
   // };
 
-  // send an axios.all/axios.spread request to the following endpoints:
-  // 1) /products/:product_id
-  //   --> name and category from response
-  // 2) /products/:product_id/styles
-  //   --> photo, original price, sale price (prices for the default? === true style only)
-  // 3) /reviews
-  //   --> average of all reviews to render stars
-  //    (need to calculate average manually, refer to Thangs formula);
   const getNameAndCategory = () => (
     axios.get(`/products/${id}`)
   );
@@ -60,39 +68,66 @@ export default function ProductCard({ id }) {
   // );
 
   const handleClick = () => {
-    dispatch({ type: '@product/FETCH_DATA' });
-    axios.get(`/products/${id}`)
-      .then((result) => {
-        console.log('datadata: ', result.data);
-        dispatch({ type: '@product/SET_DATA', payload: result.data });
-      })
-      .catch((err) => {
-        dispatch({ type: '@product/FETCH_FAILED', payload: err.message });
-      });
+    if (cardClick) {
+      dispatch({ type: '@product/FETCH_DATA' });
+      axios.get(`/products/${id}`)
+        .then((result) => {
+          console.log('datadata: ', result.data);
+          dispatch({ type: '@product/SET_DATA', payload: result.data });
+        })
+        .catch((err) => {
+          dispatch({ type: '@product/FETCH_FAILED', payload: err.message });
+        });
+    }
+  };
+
+  const handleStarClick = () => {
+    setShowModal(!showModal);
+  };
+
+  const handleMouseEnter = () => {
+    setCardClick(false);
+  };
+
+  const handleMouseLeave = () => {
+    setCardClick(true);
   };
 
   // will likely have to wrap this in a useEffect
-  axios.all([
-    getNameAndCategory(),
-    getPhotosAndPrices(),
-    // getRatings,
-  ])
-    .then((axios.spread(
-      (nameAndCategory, photosAndPrices /* ratings */) => {
-        setCategory(nameAndCategory.data.category);
-        setName(nameAndCategory.data.name);
-        setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
-        setPrice(photosAndPrices.data.results[0].original_price);
-        setSalePrice(photosAndPrices.data.results[0].sale_price);
-        // setAvgRating(calculateAvgRating(ratings.ratings));
-      },
-    )))
-    .catch((err) => {
-      console.log(err);
-    });
+  useEffect(() => {
+    axios.all([
+      getNameAndCategory(),
+      getPhotosAndPrices(),
+      // getRatings,
+    ])
+      .then((axios.spread(
+        (nameAndCategory, photosAndPrices /* ratings */) => {
+          setCategory(nameAndCategory.data.category);
+          setName(nameAndCategory.data.name);
+          setPhotoURL(photosAndPrices.data.results[0].photos[0].url);
+          setPrice(photosAndPrices.data.results[0].original_price);
+          setSalePrice(photosAndPrices.data.results[0].sale_price);
+          // setAvgRating(calculateAvgRating(ratings.ratings));
+        },
+      )))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Card onClick={() => handleClick()}>
+      {showModal && <ComparisonModal />}
+      <StyledWrap>
+        <ActionButton
+          id={id}
+          handleRemoveItemClick={handleRemoveItemClick}
+          symbol={symbol}
+          handleStarClick={handleStarClick}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+        />
+      </StyledWrap>
       <StyledImg src={photoURL} />
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>
@@ -104,4 +139,6 @@ export default function ProductCard({ id }) {
 
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
+  handleRemoveItemClick: PropTypes.func.isRequired,
+  symbol: PropTypes.string.isRequired,
 };

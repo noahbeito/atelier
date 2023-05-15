@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const StyledSeller = styled.strong`
+  color: ${(props) => props.theme.secondaryColor};
+`;
 
 export default function NameDate({
   username,
   date,
   isVerified,
-  isSeller,
   includeBy,
 }) {
   const dateString = new Date(date);
-  if (Number.isNaN(dateString.getTime())) {
-    console.error('Invalid date string');
-    return undefined;
-  }
   const fdate = dateString.toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
@@ -23,8 +23,7 @@ export default function NameDate({
     <>
       {includeBy ? 'by ' : ''}
       {isVerified ? 'V' : ''}
-      {username}
-      {isSeller && <strong> - Seller</strong>}
+      {username === 'Seller' ? <StyledSeller>Seller</StyledSeller> : username}
       ,
       {' '}
       {fdate}
@@ -36,12 +35,10 @@ NameDate.propTypes = {
   username: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   isVerified: PropTypes.bool,
-  isSeller: PropTypes.bool,
   includeBy: PropTypes.bool,
 };
 
 NameDate.defaultProps = {
   isVerified: false,
-  isSeller: false,
   includeBy: false,
 };
