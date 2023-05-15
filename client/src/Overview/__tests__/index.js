@@ -1,7 +1,8 @@
 /* eslint-env jest */
+import componentTest from './overView.test';
+// import eventTest from './event.test';
 
-describe('app', () => {
-  it('This is inside Overview', () => {
-    expect(true).toBe(true);
-  });
+describe('Overview Test', () => {
+  componentTest();
+  // eventTest();
 });
