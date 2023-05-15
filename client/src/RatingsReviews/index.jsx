@@ -18,7 +18,7 @@ const StyledFlex = styled.div`
 
 const StyledRatingBreakdown = styled(RatingBreakdown)`
   flex-grow: 1;
-  padding-right: 5%;
+  padding-right: 2.5%;
   position: sticky;
   top: 4%;
   height: min-content;
@@ -27,6 +27,8 @@ const StyledRatingBreakdown = styled(RatingBreakdown)`
 const StyledReviewList = styled.div`
   flex-grow: 3;
   max-width: 66%;
+  padding: 1%;
+  padding-left: 2.5%;
 `;
 
 const StyledRatingsReviews = styled.div`

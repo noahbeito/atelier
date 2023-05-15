@@ -36,6 +36,7 @@ import { putHelpfulReport } from '../../actions/index';
 const StyledFlex = styled.div`
   display: flex;
   flex-direction: row;
+  padding-left: 1%;
 `;
 
 const StyledImg = styled.img`
