@@ -25,6 +25,7 @@ export const fetchMoreQuestions = (() => {
         .then(({ data }) => {
           dispatch({ type: '@questions/ADD_QUESTIONS', payload: data.results });
           currentPage += 1;
+          return data;
         })
         .catch(({ message }) => dispatch({ type: '@questions/FETCH_FAILED', payload: message }));
     }
@@ -37,7 +38,7 @@ export const fetchMoreQuestions = (() => {
 export const postQuestion = (productId, question) => (dispatch) => {
   if (productId !== undefined) {
     dispatch({ type: '@questions/FETCH_DATA' });
-    axios.post('/qa/questions', { ...question, product_id: productId })
+    return axios.post('/qa/questions', { ...question, product_id: productId })
       .then(() => {
         dispatch({ type: '@questions/ADD_QUESTIONS', payload: [question] });
       })
@@ -46,6 +47,9 @@ export const postQuestion = (productId, question) => (dispatch) => {
       })
       .catch(({ message }) => dispatch({ type: '@questions/FETCH_FAILED', payload: message }));
   }
+  return new Promise((resolve, reject) => {
+    reject(new Error('This id does not exist!'));
+  });
 };
 
 export const postAnswer = (productId, questionId, answer) => (dispatch) => {

@@ -29,35 +29,14 @@ const StyledQuestion = styled.div`
     }
   }
 
-  /* .a .b::before .c:hover + .d {
-    background: red;
+  .substring {
+    white-space: pre-wrap;
   }
-
-
-  .button {
-    width: 300px;
-    height: 100px;
+  .mark {
+    background-color: #ffffbf;
+    box-shadow: 0 2px 2px #0005;
+    border-radius: 5px;
   }
-
-  @media (max-height: 720px) {
-    .button {
-      height: 300px;
-      width: 100px;
-    }
-
-    .a .b::before .c:hover + .d {
-      background: blue;
-    }
-  } */
-
-  .a .b::before .c:hover + .d {
-    background: red;
-
-    @media (max-height: 720px) {
-      background: blue;
-    }
-  }
-
 
   .button {
     width: 300px;
@@ -139,7 +118,7 @@ const StyledQuestion = styled.div`
   }
 `;
 
-export default function Question({ question }) {
+export default function Question({ question, searchText }) {
   /* * Selectors and states * */
   const productName = useSelector((state) => state.product.data.name);
   const productId = useSelector((state) => state.product.data.id);
@@ -147,6 +126,9 @@ export default function Question({ question }) {
   const [showAnswers, setShowAnswers] = useState(false);
   const answerCount = useRef(Object.entries(question.answers).length);
   const dispatch = useDispatch();
+
+  const markStart = question.question_body.toLowerCase().indexOf(searchText.toLowerCase());
+  const markEnd = markStart + searchText.length;
 
   const modalRef = useRef();
 
@@ -205,7 +187,17 @@ export default function Question({ question }) {
           onClick={handleAccordionClick}
           onKeyPress={handleAccordionClick}
         >
-          <span data-testid="question" className="question">{question.question_body}</span>
+          <span data-testid="question" className="question">
+            {
+              searchText.length >= 3 ? (
+                <span>
+                  <span className="substring">{question.question_body.substring(0, markStart)}</span>
+                  <span className="substring mark">{question.question_body.substring(markStart, markEnd)}</span>
+                  <span className="substring">{question.question_body.substring(markEnd)}</span>
+                </span>
+              ) : question.question_body
+            }
+          </span>
           <span className="bar">
             <Divider>
               <Helpful
@@ -254,4 +246,9 @@ Question.propTypes = {
     question_body: PropTypes.string,
     question_helpfulness: PropTypes.number,
   }).isRequired,
+  searchText: PropTypes.string,
+};
+
+Question.defaultProps = {
+  searchText: '',
 };

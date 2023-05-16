@@ -22,7 +22,13 @@ export default function QuestionsList({ questions }) {
     questionText = questions
       .filter((question) => searchText.length < 3
       || question.question_body.toLowerCase().includes(searchText.toLowerCase()))
-      .map((question) => <Question key={question.question_id} question={question} />);
+      .map((question) => (
+        <Question
+          key={question.question_id}
+          question={question}
+          searchText={searchText || ''}
+        />
+      ));
   } else if (searchText.length === 0) {
     questionText = 'No Questions Available';
   }

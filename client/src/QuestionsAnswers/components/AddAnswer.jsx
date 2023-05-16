@@ -9,6 +9,8 @@ import ImageUpload from '../../components/ui/ImageUpload';
 import Submit from '../../components/ui/Submit';
 import { postAnswer } from '../actions';
 
+import validateEmail from '../../utils/validateEmail';
+
 export default function AddAnswer({ productId, questionId, handleCloseModal }) {
   const [body, setBody] = useState('');
   const [name, setName] = useState('');
@@ -42,9 +44,10 @@ export default function AddAnswer({ productId, questionId, handleCloseModal }) {
     }
   };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} data-testid="form">
       <TextArea
         required
+        data-testid="question-field"
         value={body}
         onChange={(e) => setBody(e.target.value)}
         label="Your Answer"
@@ -54,6 +57,7 @@ export default function AddAnswer({ productId, questionId, handleCloseModal }) {
       />
       <Input
         required
+        data-testid="nickname-field"
         value={name}
         onChange={(e) => setName(e.target.value)}
         label="What is your nickname"
@@ -65,16 +69,18 @@ export default function AddAnswer({ productId, questionId, handleCloseModal }) {
       />
       <Input
         required
+        data-testid="email-field"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         label="Your email"
-        validation={(value) => value.length <= 60}
+        validation={(value) => value.length <= 60 && validateEmail(value)}
         placeholder="Example: jack@email.com!"
         warning="For authentication reasons, you will not be emailed"
         error="Email must be a valid email."
         id="answer-email"
       />
       <ImageUpload
+        data-testid="image-field"
         label="Upload your photos"
         images={photos}
         onDelete={imageDeleteHandler}
