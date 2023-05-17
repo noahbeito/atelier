@@ -3,12 +3,31 @@
 import questionTest from './question.test';
 import qaTest from './qa.test';
 import answerTest from './answer.test';
+import answerlistTest from './answerlist.test';
 import searchTest from './search.test';
 import formTest from './forms.test';
 
 describe('Questions Answers Test', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  beforeAll(() => {
+    jest.restoreAllMocks();
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
+  describe('AnswerList Tests', () => {
+    beforeAll(() => {
+      jest.restoreAllMocks();
+    });
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+    answerlistTest();
   });
 
   describe('Search Tests', () => {

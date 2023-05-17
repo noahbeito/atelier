@@ -8,11 +8,11 @@ import {
   waitFor,
   screen,
 } from '@testing-library/react';
-import { useDispatch, Provider } from 'react-redux';
+import { useDispatch, Provider, useSelector } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { mockData } from './__mocks__/mockData';
+import { mockData, mockState } from './__mocks__/mockData';
 import Question from '../components/Question';
 
 // Function Mocks
@@ -25,7 +25,7 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 
-jest.mock('../components/AnswersList');
+// jest.mock('../components/AnswersList');
 
 export default () => {
   const mockStore = configureStore([thunk]);
@@ -48,6 +48,8 @@ export default () => {
 
   describe('Question Accordion Component', () => {
     it('should not affect anything when clicked if there are no answers', () => {
+      useSelector.mockImplementation((selector) => selector(mockState(mockData[0])));
+
       // Grab accordion title and body
       const { container } = render(<Question question={mockData[3].results[0]} />);
       const accordionTitle = container.getElementsByClassName('accordion-title');
@@ -73,6 +75,8 @@ export default () => {
     });
 
     it('should toggle the accordion state on', () => {
+      useSelector.mockImplementation((selector) => selector(mockState(mockData[0])));
+
       // Grab accordion title and body
       const { container } = render(<Question question={mockData[0].results[0]} />);
       const accordionTitle = container.getElementsByClassName('accordion-title');
@@ -110,6 +114,7 @@ export default () => {
 
   describe('Question Widget Functionality', () => {
     it('should make an axios request and dispatch an action when widgets are clicked', async () => {
+      useSelector.mockImplementation((selector) => selector(mockState(mockData[3])));
       axios.put.mockResolvedValueOnce();
 
       const { getByText } = render(
@@ -141,6 +146,7 @@ export default () => {
     });
 
     it('should not send multiple requests when widgets are clicked multiple times', async () => {
+      useSelector.mockImplementation((selector) => selector(mockState(mockData[3])));
       axios.put.mockResolvedValueOnce();
 
       render(
@@ -167,6 +173,7 @@ export default () => {
     });
 
     it('should not open accordion when widgets are clicked', () => {
+      useSelector.mockImplementation((selector) => selector(mockState(mockData[3])));
       // Mock axios resolve
       axios.put.mockResolvedValueOnce();
 

@@ -40,7 +40,8 @@ export default function AddAnswer({ productId, questionId, handleCloseModal }) {
       }))
         .then(() => {
           handleCloseModal();
-        });
+        })
+        .catch(() => new Error('Server error: Error submitting form!'));
     }
   };
   return (

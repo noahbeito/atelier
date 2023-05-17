@@ -58,7 +58,7 @@ export default function Answer({ answer }) {
   };
 
   return (
-    <StyledAnswer>
+    <StyledAnswer data-testid="answer">
       <p>{answer.body}</p>
       <PhotoList photos={answer.photos} />
       <div style={{ marginTop: '10px', color: '#666' }} data-testid="answer-bar">
