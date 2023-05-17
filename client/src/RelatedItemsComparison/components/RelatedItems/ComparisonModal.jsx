@@ -52,7 +52,6 @@ const StyledCompare = styled.div`
   grid-area: 3 / 3 / span 1 / span 1;
   justify-self: center;
   text-align: center;
-  vertical-align: middle;
 `;
 
 const StyledRelated = styled.div`
@@ -62,27 +61,22 @@ const StyledRelated = styled.div`
   font-weight: bold;
   position: sticky;
   margin-top: 1rem;
-  vertical-align: middle;
 `;
 
 const StyledCharacteristic = styled.div`
   margin-top: 1rem;
-  vertical-align: middle;
 `;
 
 const StyledCurrentAttributes = styled.div`
   grid-area: 3 / 1 / span 1 / span 2;
   justify-self: center;
   text-align: center;
-  vertical-align: middle;
 `;
 
 const StyledCompareAttributes = styled.div`
   grid-area: 3 / 4 / span 1 / span 2;
   justify-self: center;
-  align-self: start;
   text-align: center;
-  vertical-align: middle;
 `;
 
 const StyledWrap = styled.div`
@@ -143,7 +137,17 @@ export default function ComparisonModal({
 
     const features = _.uniq(currentFeatures.map((feature) => (feature.feature))
       .concat(compareFeatures.map((feat) => (feat.feature))));
+
     setAllFeatures(features);
+
+    features.forEach((feature, i) => {
+      if (feature === 'Lifetime Guarantee') {
+        features.splice(i, 1, 'Guarantee');
+      }
+      if (feature === 'Satisfaction Guaranteed') {
+        features.splice(i, 1);
+      }
+    });
 
     const currFeatures = {};
     const compFeatures = {};
@@ -160,8 +164,14 @@ export default function ComparisonModal({
       if (!currFeatures[feature]) {
         currFeatures[feature] = 'x';
       }
+      if ((feature === 'Non-GMO' || feature === 'button') && currFeatures[feature]) {
+        currFeatures[feature] = 'check';
+      }
       if (!compFeatures[feature]) {
         compFeatures[feature] = 'x';
+      }
+      if ((feature === 'Non-GMO' || feature === 'button') && compFeatures[feature]) {
+        compFeatures[feature] = 'check';
       }
     });
 
@@ -191,9 +201,19 @@ export default function ComparisonModal({
               }
             </StyledWrap>
           ))}
-          {currentFeaturesArray.map((feat) => (
-            <StyledWrap key={feat}>{feat}</StyledWrap>
-          ))}
+          {currentFeaturesArray.map((feat) => {
+            if (feat === 'x') {
+              return <br />;
+            }
+            if (feat === 'check') {
+              return (
+                <StyledWrap>
+                  <Icons.Check />
+                </StyledWrap>
+              );
+            }
+            return <StyledWrap key={feat}>{feat}</StyledWrap>;
+          })}
         </StyledCurrentAttributes>
         <StyledCompareAttributes>
           {compareAttributes.map((attribute) => (
@@ -203,9 +223,19 @@ export default function ComparisonModal({
               }
             </StyledWrap>
           ))}
-          {compareFeaturesArray.map((feat) => (
-            <StyledWrap key={feat}>{feat}</StyledWrap>
-          ))}
+          {compareFeaturesArray.map((feat) => {
+            if (feat === 'x') {
+              return <br />;
+            }
+            if (feat === 'check') {
+              return (
+                <StyledWrap>
+                  <Icons.Check />
+                </StyledWrap>
+              );
+            }
+            return <StyledWrap key={feat}>{feat}</StyledWrap>;
+          })}
         </StyledCompareAttributes>
         <StyledXButton>
           <Icons.X onClick={() => modalOnClose()} />
