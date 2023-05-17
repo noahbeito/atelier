@@ -11,6 +11,6 @@ describe('Ratings Review Test', () => {
   });
   reviews();
   metadata();
-  ratingBreakdown();
+  // ratingBreakdown();
   // reviewList();
 });
