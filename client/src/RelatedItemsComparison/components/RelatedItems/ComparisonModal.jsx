@@ -115,30 +115,32 @@ export default function ComparisonModal({
   const currentProduct = useSelector((state) => state.product.data.name);
 
   useEffect(() => {
-    setAllCharacteristics(_.uniq(Object.keys(characteristics).concat(Object.keys(compare))));
-    setCurrentAttributes(Object.values(characteristics));
-    setCompareAttributes(Object.values(compare));
+    const all = _.uniq(Object.keys(characteristics).concat(Object.keys(compare)));
+    const charObj = {};
+    const compObj = {};
+    all.forEach((characteristic) => {
+      if (characteristics[characteristic] === undefined) {
+        charObj[characteristic] = 'x';
+      } else {
+        charObj[characteristic] = characteristics[characteristic];
+      }
+      if (compare[characteristic] === undefined) {
+        compObj[characteristic] = 'x';
+      } else {
+        compObj[characteristic] = compare[characteristic];
+      }
+    });
+    console.log('CHAR OBJ:', charObj);
+    console.log('COMP OBJ:', compObj);
+    setAllCharacteristics(all);
+    setCurrentAttributes(Object.values(charObj));
+    setCompareAttributes(Object.values(compObj));
     let features = currentFeatures.concat(compareFeatures);
-    features = features.map((feature) => {
-      if (feature.feature) {
-        return feature.feature;
-      }
-      return ' ';
-    });
+    features = features.map((feature) => (feature.feature));
     setAllFeatures(_.uniq(features));
-    const currFeatures = currentFeatures.map((feat) => {
-      if (feat.value) {
-        return feat.value;
-      }
-      return ' ';
-    });
+    const currFeatures = currentFeatures.map((feat) => (feat.value));
     setCurrentFeaturesArray(currFeatures);
-    const compFeatures = compareFeatures.map((feat) => {
-      if (feat.value) {
-        return feat.value;
-      }
-      return ' ';
-    });
+    const compFeatures = compareFeatures.map((feat) => (feat.value));
     setCompareFeaturesArray(compFeatures);
   }, []);
 
@@ -159,7 +161,9 @@ export default function ComparisonModal({
         <StyledCurrentAttributes>
           {currentAttributes.map((attribute) => (
             <StyledWrap>
-              <StarRating key={attribute.id} rating={attribute.value} />
+              {
+                attribute === 'x' ? <br /> : <StarRating key={attribute.id} rating={attribute.value} />
+              }
             </StyledWrap>
           ))}
           {currentFeaturesArray.map((feat) => (
@@ -169,7 +173,9 @@ export default function ComparisonModal({
         <StyledCompareAttributes>
           {compareAttributes.map((attribute) => (
             <StyledWrap>
-              <StarRating key={attribute.id} rating={attribute.value} />
+              {
+                 attribute === 'x' ? <br /> : <StarRating key={attribute.id} rating={attribute.value} />
+              }
             </StyledWrap>
           ))}
           {compareFeaturesArray.map((feat) => (
