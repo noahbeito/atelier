@@ -5,7 +5,7 @@ const LargeLetter = css`
   font-size: 1.8rem;
   font-family: sans-serif;
   font-weight: bold;
-  margin: 5px;
+  margin: 0 10px;
 `;
 const FlexBetween = styled.div`
   display: flex;
