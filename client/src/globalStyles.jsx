@@ -7,15 +7,34 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Font Awesome 5 Free";
     src: url('/assets/fonts/font-awesome/fa-free-solid-900.otf');
   }
+  body {
+    font-family: 'Lexend Deca';
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 `;
 
 const theme = {
+  bpTablet: '1080px',
+  bpMobile: '720px',
   primaryColor: 'white',
   secondaryColor: 'teal',
+  background: '#eee',
+  loading: 'gray',
 };
 
 function Theme({ children, ...props }) {
-  return <ThemeProvider theme={theme} {...props}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider
+      theme={theme}
+      {...props}
+    >
+      {children}
+    </ThemeProvider>
+  );
 }
 
 Theme.propTypes = {

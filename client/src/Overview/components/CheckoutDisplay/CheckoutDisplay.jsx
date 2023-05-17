@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+// import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import AddToCart from '../AddToCart/AddToCart';
 import StyleSelector from '../StyleSelector/StyleSelector';
 import DropdownContain from '../DropdownContain/DropdownContain';
@@ -40,22 +43,51 @@ const StyledSection = styled.section`
   padding:2px;
 `;
 
-const data = ['one', 'two', 'three', 'four', 'five', 'six'];
-export default function ProductDisplay() {
+export default function ProductDisplay({
+  product,
+  defaultHandler,
+  defaultNumber,
+  defaultNumberHandler,
+}) {
+  const [currentItem, setCurrentItem] = useState({});
+  // const ReviewsNum = useSelector((state) => state.ratingsReviews.reviews.results.length);
+  // console.log('This is where thangs selector is');
+  useEffect(() => {
+    axios.get(`/products/${product}`)
+      .then((result) => {
+        setCurrentItem(result.data);
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }, []);
   return (
     <StyledDiv>
       <StyledProductDetails>
         {/* <StarRating rating={3} className="StarRating" /> */}
-        <p>Title</p>
-        <p>Price</p>
-        <p>Category</p>
+        <p>{currentItem.category}</p>
+        <div>
+          <p>{currentItem.name}</p>
+          <p>{currentItem.default_price}</p>
+        </div>
+        <p>{currentItem.slogan}</p>
         <p>Social Media links</p>
       </StyledProductDetails>
-      <StyleSelector products={data} />
+      <StyleSelector
+        defaultHandler={defaultHandler}
+        defaultNumber={defaultNumber}
+        defaultNumberHandler={defaultNumberHandler}
+      />
       <StyledSection>
-        <DropdownContain />
+        <DropdownContain defaultNumber={defaultNumber} />
         <AddToCart />
       </StyledSection>
     </StyledDiv>
   );
 }
+ProductDisplay.propTypes = {
+  defaultHandler: PropTypes.func.isRequired,
+  defaultNumberHandler: PropTypes.func.isRequired,
+  defaultNumber: PropTypes.number.isRequired,
+  product: PropTypes.number.isRequired,
+};

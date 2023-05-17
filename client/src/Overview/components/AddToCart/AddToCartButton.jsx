@@ -25,7 +25,7 @@ const StyledButton = styled.button`
 export default function AddToCartButton() {
   return (
     <StyledDiv>
-      <StyledButton type="button">Add to Cart</StyledButton>
+      <StyledButton data-testid="button" type="button">Add to Cart</StyledButton>
     </StyledDiv>
   );
 }

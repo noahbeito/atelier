@@ -37,6 +37,8 @@ const StyledPopup = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
+    overflow: scroll;
 
     position: absolute;
     transform: translate(-50%, -150%) scale(0.2);
@@ -69,20 +71,27 @@ const StyledPopup = styled.div`
     }
   }
 
-  h1, h2, h3 {
+  .title, .subtitle, .subsubtitle {
     text-align: center;
-    font-family: verdana;
+    color: ${({ theme }) => theme.secondaryColor};
   }
-  h1 {
+  .title {
     font-size: 1.3rem;
+    font-family: 'Inter';
   }
-  h2 {
+  .subtitle {
     font-size: 1.1rem;
-    margin: 0;
+    margin-top: 5px;
+    color: gray;
   }
-  h3 {
+  .subsubtitle {
     font-size: 0.9rem;
     margin: 0;
+  }
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    .container {
+      width: 100%;
+    }
   }
 `;
 
@@ -130,9 +139,9 @@ const Modal = forwardRef(({ titles, children, ...props }, ref) => {
         <div className="container">
           <Button className="exit" data-testid="exit" variant="medium" onClick={handleExit}><Icons.Exit size="2x" /></Button>
           <div className="wrapper">
-            <h1>{titles[0] || ''}</h1>
-            <h2>{titles[1] || ''}</h2>
-            <h2>{titles[2] || ''}</h2>
+            <h1 className="title">{titles[0] || ''}</h1>
+            <h2 className="subtitle">{titles[1] || ''}</h2>
+            <h3 className="subsubtitle">{titles[2] || ''}</h3>
             {children}
           </div>
         </div>
