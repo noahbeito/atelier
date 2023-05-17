@@ -88,7 +88,7 @@ export default function RatingsReviews() {
 
   return (
     <div>
-      <StyledRatingsReviews>
+      <StyledRatingsReviews id="ratingsReview">
         RATINGS & REVIEWS
       </StyledRatingsReviews>
       <StyledFlex>
