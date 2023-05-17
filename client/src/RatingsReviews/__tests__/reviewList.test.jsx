@@ -40,7 +40,6 @@ export default () => {
       ].forEach((element) => {
         expect(screen.getByText(element)).toBeInTheDocument();
       });
-
     });
   });
 };
