@@ -11,7 +11,7 @@ export default function AddItemToOutfit({ clickHandler }) {
   const productId = useSelector((state) => state.product.data.id);
 
   return (
-    <AddCard onClick={() => clickHandler(productId)}>
+    <AddCard onClick={() => clickHandler(productId)} data-testid="add-card">
       <StyledText>+</StyledText>
     </AddCard>
   );
