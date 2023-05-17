@@ -10,7 +10,7 @@ export default () => {
 
     it('should by default display no children', () => {
       render(
-        <Popup>
+        <Popup titles={['Title', 'Subtitle']}>
           <div>{sampleText}</div>
         </Popup>,
       );
@@ -18,14 +18,14 @@ export default () => {
       expect(text).not.toBeInTheDocument();
     });
 
-    xit('should be able to open to display its children', () => {
+    it('should be able to open to display its children', () => {
       function App() {
         const modalRef = useRef();
         useEffect(() => {
           modalRef.current.openModal();
         }, []);
         return (
-          <Popup ref={modalRef}>
+          <Popup titles={['Title', 'Subtitle']} ref={modalRef}>
             <div>{sampleText}</div>
           </Popup>
         );
@@ -44,7 +44,7 @@ export default () => {
           modalRef.current.closeModal();
         }, []);
         return (
-          <Popup ref={modalRef}>
+          <Popup titles={['Title', 'Subtitle']} ref={modalRef}>
             <div>{sampleText}</div>
           </Popup>
         );
@@ -55,14 +55,14 @@ export default () => {
       expect(text).not.toBeInTheDocument();
     });
 
-    xit('should be able to close by clicking on internal exit button', () => {
+    it('should be able to close by clicking on internal exit button', () => {
       function App() {
         const modalRef = useRef();
         useEffect(() => {
           modalRef.current.openModal();
         }, []);
         return (
-          <Popup ref={modalRef}>
+          <Popup titles={['Title', 'Subtitle']} ref={modalRef}>
             <div>{sampleText}</div>
           </Popup>
         );
