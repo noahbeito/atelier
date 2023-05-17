@@ -41,6 +41,9 @@ const StyledToast = styled.div`
     padding: 0 50px;
     transition: padding 1s, max-height 1s;
   }
+  @media (max-width: ${({ theme }) => theme.bpTablet}) {
+    width: 100%;
+  }
 `;
 
 export default function Toast({

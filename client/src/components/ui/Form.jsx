@@ -10,6 +10,17 @@ const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  textarea {
+    width: 100%;
+  }
+
+  & input {
+    width: 80%;
+
+    @media (max-width: ${({ theme }) => theme.bpMobile}) {
+      width: 100%;
+    }
+  }
 `;
 
 export default function Form({ children, onSubmit, ...props }) {

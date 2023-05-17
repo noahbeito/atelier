@@ -6,8 +6,13 @@ import styled from 'styled-components';
 import Question from './Question';
 
 const Scroll = styled.div`
+
   max-height: calc(100vh - 300px);
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  gap: 10px;
 `;
 
 export default function QuestionsList({ questions }) {
@@ -17,7 +22,13 @@ export default function QuestionsList({ questions }) {
     questionText = questions
       .filter((question) => searchText.length < 3
       || question.question_body.toLowerCase().includes(searchText.toLowerCase()))
-      .map((question) => <Question key={question.question_id} question={question} />);
+      .map((question) => (
+        <Question
+          key={question.question_id}
+          question={question}
+          searchText={searchText || ''}
+        />
+      ));
   } else if (searchText.length === 0) {
     questionText = 'No Questions Available';
   }
