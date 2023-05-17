@@ -80,12 +80,8 @@ export default function StyleSelector({
     newList = tempList;
   };
   useEffect(() => {
-    // console.log('This is newList 75 : ', newList);
-    // console.log(newList);
-    // let sortedList = [];
     if (newList.length > 0) {
       if (newList[0]['default?'] !== true) {
-        // sortedList = newList;
         moveDefaultOnLoad();
       }
     }
@@ -97,22 +93,15 @@ export default function StyleSelector({
       return groups;
     };
     const vals = doSome(newList);
-    // console.log('This is vals 84 : ', vals);
-    // const first = [vals[0], vals[1]];
-    // const second = [...vals].slice(2);
     if (newList1.length < 8) {
-      // console.log('This is vals:', vals);
       setRenderList1([vals[0], vals[1]]);
       setListToMap(newList.slice(0, 8));
-      // setLeftOverList(second);
     } else {
       setRenderList1([vals[0], vals[1]]);
       setLeftOverList(vals.slice(2));
       setListToMap(newList.slice(0, 8));
     }
   }, [isLoading]);
-  // console.log('first ***:', first);
-  // console.log('second****:', second);
   const rotateUp = () => {
     const main = [...renderList1];
     const leftOvr = [...leftOverList];
@@ -145,8 +134,6 @@ export default function StyleSelector({
               {listToMap.map((styletype, i) => (
                 <StyleThumbnail
                   className={`${styletype['default?']}`}
-                  // styletype={styletype}
-                  // default={}
                   data-testid={`styleSelector${i}`}
                   name={styletype.name}
                   key={styletype.style_id}
@@ -172,16 +159,4 @@ export default function StyleSelector({
 StyleSelector.propTypes = {
   defaultHandler: PropTypes.func.isRequired,
   defaultNumberHandler: PropTypes.func.isRequired,
-  // defaultNumber: PropTypes.number.isRequired,
 };
-
-// {newList.map((styletype) => (
-//   <StyleThumbnail
-//     className={styletype['default?']}
-//     styletype={styletype}
-//     key={styletype.style_id}
-//     id={styletype.style_id}
-//     defaultHandler={defaultHandler}
-//     defaultNumberHandler={defaultNumberHandler}
-//   />
-// ))}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-// import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -21,10 +20,6 @@ export default function Overview() {
   const [defaultNumber, setDefaultNumber] = useState(1);
   const [bgImg, setBgImg] = useState('');
   const dispatch = useDispatch();
-  // setProduct(40344);
-  // 40344,40345, 40346, 40347, 40348
-  // console.log(setProduct);
-  // const product = 40344;
   const product = useSelector((state) => {
     if (state.product.data.id) {
       console.log('This is product data id:', state.product.data.id);
@@ -52,9 +47,6 @@ export default function Overview() {
   const bgHndle = (val) => {
     setBgImg(val.url);
   };
-  console.log('This is background image : ', bgImg);
-  // console.log('This is default NUMBER: ', defaultNumber);
-  // console.log('This is default list', defaultList);
   return (
     <Section data-testid="index">
       { renderCheckout
@@ -83,10 +75,3 @@ export default function Overview() {
     </Section>
   );
 }
-// ProductDisplay.propTypes = {
-//   onClickHandler: PropTypes.func.isRequired,
-// };
-
-// ProductDisplay.defaultProps = {
-//   onClickHandler: PropTypes.func.isRequired,
-// };

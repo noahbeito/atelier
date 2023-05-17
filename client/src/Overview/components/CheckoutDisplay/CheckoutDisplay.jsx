@@ -86,7 +86,7 @@ export default function ProductDisplay({
       <StyledProductDetails>
         <StyledReview>
           <Ratings />
-          <a className="ratingtext" href="ratingsReview">Ratings & Reviews</a>
+          <a className="ratingtext" href="#ratingsReview">Ratings & Reviews</a>
         </StyledReview>
         <p className="category">{currentItem.category}</p>
         <div>
