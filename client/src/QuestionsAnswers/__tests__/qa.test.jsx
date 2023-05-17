@@ -21,7 +21,7 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 
-jest.mock('../components/AnswersList');
+// jest.mock('../components/AnswersList');
 jest.mock('axios');
 
 export default () => {

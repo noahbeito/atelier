@@ -8,6 +8,8 @@ import Form from '../../components/ui/Form';
 import Submit from '../../components/ui/Submit';
 import { postQuestion } from '../actions';
 
+import validateEmail from '../../utils/validateEmail';
+
 export default function AddQuestion({ productId, handleCloseModal }) {
   const [body, setBody] = useState('');
   const [name, setName] = useState('');
@@ -27,21 +29,20 @@ export default function AddQuestion({ productId, handleCloseModal }) {
     }
   };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} data-testid="form">
       <TextArea
         required
-        cols="100"
-        rows="5"
+        data-testid="question-field"
         value={body}
         onChange={(e) => setBody(e.target.value)}
-        label="Your Questions"
+        label="Your Question"
         validation={(value) => value.length <= 1000}
         error="You wrote too many characters in your question! The limit is 1000."
         id="question"
       />
       <Input
         required
-        size="60"
+        data-testid="nickname-field"
         value={name}
         onChange={(e) => setName(e.target.value)}
         label="What is your nickname"
@@ -53,11 +54,11 @@ export default function AddQuestion({ productId, handleCloseModal }) {
       />
       <Input
         required
-        size="60"
+        data-testid="email-field"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         label="Your email"
-        validation={(value) => value.length <= 60}
+        validation={(value) => value.length <= 60 && validateEmail(value)}
         placeholder="Example: jack@email.com!"
         warning="For authentication reasons, you will not be emailed"
         error="Email must be a valid email."

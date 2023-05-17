@@ -1,5 +1,10 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -27,7 +32,12 @@ export default () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    dispatchMock = jest.fn();
+    dispatchMock = jest.fn((actionOrThunk) => {
+      if (typeof actionOrThunk === 'function') {
+        return actionOrThunk(dispatchMock);
+      }
+      return null;
+    });
     useDispatch.mockReturnValue(dispatchMock);
 
     axios.get.mockResolvedValueOnce({ data: { ...mockData[1] } });
@@ -123,7 +133,7 @@ export default () => {
     expect(questions).toHaveLength(0);
   });
 
-  xit('should load to next found loaded item when "More Answered Questions" is pressed', () => {
+  it('should load to next found loaded item when "More Answered Questions" is pressed', async () => {
     const text = 'hello';
     useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, text)));
 
@@ -140,24 +150,31 @@ export default () => {
     const moreQuestions = screen.getByText('More Answered Questions');
     fireEvent.click(moreQuestions);
 
+    // Wait until all asynchronous methods finish
+    await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(6));
+
+    // Then check that just the one more `hello` was added
     questions = screen.queryAllByTestId('question');
     expect(questions).toHaveLength(4);
   });
 
-  xit('should highlight responses with class `mark` whenever there are searches', () => {
+  it('should highlight responses with class `mark` whenever there are searches', () => {
     const text = 'hello';
     useSelector.mockImplementation((selector) => selector(mockState(mockData[1], false, text)));
 
-    render(
+    const { container } = render(
       <Provider store={store}>
         <QuestionsAnswers questions={mockData[1].results} />
       </Provider>,
     );
 
+    console.log(container.outerHTML);
+
     const questions = screen.queryAllByTestId('question');
     expect(questions).toHaveLength(3);
 
-    const marks = screen.getAllByText(text);
+    // Us
+    const marks = screen.getAllByText(new RegExp(String.raw`${text}`, 'i'));
 
     expect(marks).toHaveLength(3);
 
