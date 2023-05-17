@@ -50,13 +50,13 @@ export default function StyleSelector({
   // let list = [];
   const styles = useSelector((state) => {
     if (state.overview.productStyles.styles.results) {
-      console.log('This is state', state);
+      // console.log('This is state', state);
       // setRenderList(list);
       return state.overview.productStyles.styles.results;
     }
     return [];
   });
-  console.log('This is styles data: ', styles);
+  // console.log('This is styles data: ', styles);
   const getPhotoList = (style) => {
     if (style.length === 0) {
       return [];
@@ -75,6 +75,7 @@ export default function StyleSelector({
     // console.log('this is newList1:', index);
     const tempList = newList1.slice();
     const value = tempList.splice(index, 1);
+    console.log('This is value in styleselector,:', value);
     tempList.unshift(...value);
     newList = tempList;
   };

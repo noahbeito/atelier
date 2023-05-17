@@ -30,7 +30,8 @@ export default function Overview() {
       console.log('This is product data id:', state.product.data.id);
       return state.product.data.id;
     }
-    return 40344;
+    console.error('This use selector in index is not working');
+    return undefined;
   });
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
@@ -43,7 +44,8 @@ export default function Overview() {
       .catch((error) => {
         dispatch({ type: '@styles/FETCH_FAILED', payload: error.message });
       });
-  }, []);
+    console.log('This is product in index : ', product);
+  }, [product]);
   const onClickHandler = useCallback(() => {
     setRenderCheckout(!renderCheckout);
   });
