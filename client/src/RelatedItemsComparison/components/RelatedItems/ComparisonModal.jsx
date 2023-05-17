@@ -12,7 +12,7 @@ const StyledModal = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 128, 128, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,6 +42,7 @@ const StyledCurrent = styled.div`
   grid-area: 2 / 1 / span 1 / span 2;
   justify-self: center;
   text-align: center;
+  vertical-align: middle;
   font-weight: bold;
   position: sticky;
   margin-top: 1rem;
@@ -51,6 +52,7 @@ const StyledCompare = styled.div`
   grid-area: 3 / 3 / span 1 / span 1;
   justify-self: center;
   text-align: center;
+  vertical-align: middle;
 `;
 
 const StyledRelated = styled.div`
@@ -60,16 +62,19 @@ const StyledRelated = styled.div`
   font-weight: bold;
   position: sticky;
   margin-top: 1rem;
+  vertical-align: middle;
 `;
 
 const StyledCharacteristic = styled.div`
   margin-top: 1rem;
+  vertical-align: middle;
 `;
 
 const StyledCurrentAttributes = styled.div`
   grid-area: 3 / 1 / span 1 / span 2;
   justify-self: center;
   text-align: center;
+  vertical-align: middle;
 `;
 
 const StyledCompareAttributes = styled.div`
@@ -77,6 +82,7 @@ const StyledCompareAttributes = styled.div`
   justify-self: center;
   align-self: start;
   text-align: center;
+  vertical-align: middle;
 `;
 
 const StyledWrap = styled.div`
@@ -119,29 +125,48 @@ export default function ComparisonModal({
     const charObj = {};
     const compObj = {};
     all.forEach((characteristic) => {
-      if (characteristics[characteristic] === undefined) {
+      if (!characteristics[characteristic]) {
         charObj[characteristic] = 'x';
       } else {
         charObj[characteristic] = characteristics[characteristic];
       }
-      if (compare[characteristic] === undefined) {
+      if (!compare[characteristic]) {
         compObj[characteristic] = 'x';
       } else {
         compObj[characteristic] = compare[characteristic];
       }
     });
-    console.log('CHAR OBJ:', charObj);
-    console.log('COMP OBJ:', compObj);
+
     setAllCharacteristics(all);
     setCurrentAttributes(Object.values(charObj));
     setCompareAttributes(Object.values(compObj));
-    let features = currentFeatures.concat(compareFeatures);
-    features = features.map((feature) => (feature.feature));
-    setAllFeatures(_.uniq(features));
-    const currFeatures = currentFeatures.map((feat) => (feat.value));
-    setCurrentFeaturesArray(currFeatures);
-    const compFeatures = compareFeatures.map((feat) => (feat.value));
-    setCompareFeaturesArray(compFeatures);
+
+    const features = _.uniq(currentFeatures.map((feature) => (feature.feature))
+      .concat(compareFeatures.map((feat) => (feat.feature))));
+    setAllFeatures(features);
+
+    const currFeatures = {};
+    const compFeatures = {};
+
+    currentFeatures.forEach((feature) => {
+      currFeatures[feature.feature] = feature.value;
+    });
+
+    compareFeatures.forEach((feature) => {
+      compFeatures[feature.feature] = feature.value;
+    });
+
+    features.forEach((feature) => {
+      if (!currFeatures[feature]) {
+        currFeatures[feature] = 'x';
+      }
+      if (!compFeatures[feature]) {
+        compFeatures[feature] = 'x';
+      }
+    });
+
+    setCurrentFeaturesArray(Object.values(currFeatures));
+    setCompareFeaturesArray(Object.values(compFeatures));
   }, []);
 
   return (

@@ -35,9 +35,7 @@ export default function RelatedItemsComparison() {
     })
   );
   const getCompareProduct = (compareId) => (
-    axios({
-      url: '/reviews/meta',
-      method: 'GET',
+    axios.get('/reviews/meta', {
       params: { product_id: compareId },
     })
   );
