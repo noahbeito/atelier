@@ -12,7 +12,7 @@ const StyledModal = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.backdropColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,24 +24,28 @@ const StyledContent = styled.div`
   display: grid;
   padding: 0 1rem 1rem 1rem;
   border-radius: 3px;
-  background-color: white;
+  background-color: ${(props) => props.theme.primaryColor};
   grid-template-rows: 10% 10% 80%;
   grid-template-columns: 20% 20% 20% 20% 20%;
   height: 400px;
   width: 600px;
   overflow-y: auto;
   z-index: 20;
+  color: ${(props) => props.theme.textColor};
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 `;
 
 const StyledTitle = styled.div`
   grid-area: 1 / 0 / span 1 / span 1;
   margin-top: 1rem;
+  font-style: italic;
 `;
 
 const StyledCurrent = styled.div`
   grid-area: 2 / 1 / span 1 / span 2;
   justify-self: center;
   text-align: center;
+  vertical-align: middle;
   font-weight: bold;
   position: sticky;
   margin-top: 1rem;
@@ -75,7 +79,6 @@ const StyledCurrentAttributes = styled.div`
 const StyledCompareAttributes = styled.div`
   grid-area: 3 / 4 / span 1 / span 2;
   justify-self: center;
-  align-self: start;
   text-align: center;
 `;
 
@@ -115,31 +118,68 @@ export default function ComparisonModal({
   const currentProduct = useSelector((state) => state.product.data.name);
 
   useEffect(() => {
-    setAllCharacteristics(_.uniq(Object.keys(characteristics).concat(Object.keys(compare))));
-    setCurrentAttributes(Object.values(characteristics));
-    setCompareAttributes(Object.values(compare));
-    let features = currentFeatures.concat(compareFeatures);
-    features = features.map((feature) => {
-      if (feature.feature) {
-        return feature.feature;
+    const all = _.uniq(Object.keys(characteristics).concat(Object.keys(compare)));
+    const charObj = {};
+    const compObj = {};
+    all.forEach((characteristic) => {
+      if (!characteristics[characteristic]) {
+        charObj[characteristic] = 'x';
+      } else {
+        charObj[characteristic] = characteristics[characteristic];
       }
-      return ' ';
-    });
-    setAllFeatures(_.uniq(features));
-    const currFeatures = currentFeatures.map((feat) => {
-      if (feat.value) {
-        return feat.value;
+      if (!compare[characteristic]) {
+        compObj[characteristic] = 'x';
+      } else {
+        compObj[characteristic] = compare[characteristic];
       }
-      return ' ';
     });
-    setCurrentFeaturesArray(currFeatures);
-    const compFeatures = compareFeatures.map((feat) => {
-      if (feat.value) {
-        return feat.value;
+
+    setAllCharacteristics(all);
+    setCurrentAttributes(Object.values(charObj));
+    setCompareAttributes(Object.values(compObj));
+
+    const features = _.uniq(currentFeatures.map((feature) => (feature.feature))
+      .concat(compareFeatures.map((feat) => (feat.feature))));
+
+    setAllFeatures(features);
+
+    features.forEach((feature, i) => {
+      if (feature === 'Lifetime Guarantee') {
+        features.splice(i, 1, 'Guarantee');
       }
-      return ' ';
+      if (feature === 'Satisfaction Guaranteed') {
+        features.splice(i, 1);
+      }
     });
-    setCompareFeaturesArray(compFeatures);
+
+    const currFeatures = {};
+    const compFeatures = {};
+
+    currentFeatures.forEach((feature) => {
+      currFeatures[feature.feature] = feature.value;
+    });
+
+    compareFeatures.forEach((feature) => {
+      compFeatures[feature.feature] = feature.value;
+    });
+
+    features.forEach((feature) => {
+      if (!currFeatures[feature]) {
+        currFeatures[feature] = 'x';
+      }
+      if ((feature === 'Non-GMO' || feature === 'button') && currFeatures[feature]) {
+        currFeatures[feature] = 'check';
+      }
+      if (!compFeatures[feature]) {
+        compFeatures[feature] = 'x';
+      }
+      if ((feature === 'Non-GMO' || feature === 'button') && compFeatures[feature]) {
+        compFeatures[feature] = 'check';
+      }
+    });
+
+    setCurrentFeaturesArray(Object.values(currFeatures));
+    setCompareFeaturesArray(Object.values(compFeatures));
   }, []);
 
   return (
@@ -159,22 +199,46 @@ export default function ComparisonModal({
         <StyledCurrentAttributes>
           {currentAttributes.map((attribute) => (
             <StyledWrap>
-              <StarRating key={attribute.id} rating={attribute.value} />
+              {
+                attribute === 'x' ? <br /> : <StarRating key={attribute.id} rating={attribute.value} />
+              }
             </StyledWrap>
           ))}
-          {currentFeaturesArray.map((feat) => (
-            <StyledWrap key={feat}>{feat}</StyledWrap>
-          ))}
+          {currentFeaturesArray.map((feat) => {
+            if (feat === 'x') {
+              return <br />;
+            }
+            if (feat === 'check') {
+              return (
+                <StyledWrap>
+                  <Icons.Check />
+                </StyledWrap>
+              );
+            }
+            return <StyledWrap key={feat}>{feat}</StyledWrap>;
+          })}
         </StyledCurrentAttributes>
         <StyledCompareAttributes>
           {compareAttributes.map((attribute) => (
             <StyledWrap>
-              <StarRating key={attribute.id} rating={attribute.value} />
+              {
+                 attribute === 'x' ? <br /> : <StarRating key={attribute.id} rating={attribute.value} />
+              }
             </StyledWrap>
           ))}
-          {compareFeaturesArray.map((feat) => (
-            <StyledWrap key={feat}>{feat}</StyledWrap>
-          ))}
+          {compareFeaturesArray.map((feat) => {
+            if (feat === 'x') {
+              return <br />;
+            }
+            if (feat === 'check') {
+              return (
+                <StyledWrap>
+                  <Icons.Check />
+                </StyledWrap>
+              );
+            }
+            return <StyledWrap key={feat}>{feat}</StyledWrap>;
+          })}
         </StyledCompareAttributes>
         <StyledXButton>
           <Icons.X onClick={() => modalOnClose()} />

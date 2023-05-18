@@ -4,13 +4,14 @@ import styled from 'styled-components';
 
 const StyledSalePrice = styled.div`
   display: inline-block;
-  color: red;
+  color: ${(props) => props.theme.onSell};
 `;
 
 const StyledPrice = styled.div`
   display: inline-block;
   text-decoration: line-through;
   margin-left: 0.5rem;
+  color: ${(props) => props.theme.loading};
 `;
 
 export default function SalePrice({ salePrice, price }) {
