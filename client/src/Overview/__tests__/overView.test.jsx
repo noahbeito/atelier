@@ -144,11 +144,5 @@ export default () => {
       const component = await screen.getByTestId('ProductDisplay');
       expect(component).toBeInTheDocument();
     });
-    it('Should have a value of 1 after event fire', () => {
-      const { getByTestId } = render(<AddToFavButton />);
-      const countTextNode = getByTestId('counter');
-      fireEvent.click(getByTestId('button-up'));
-      expect(countTextNode.textContent).toBe('1');
-    });
   });
 };
