@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const RequiredStyle = styled.span`
-  color: #bb3838;
+  color: ${({ theme }) => theme.onSell};
 `;
 const StyledInput = styled.input`
   display: block;
   font-size: 0.9rem;
   padding: 10px;
   border: none;
-  border-bottom: 2px solid teal;
-  background-color: #eee;
+  border-bottom: 2px solid ${({ theme }) => theme.secondaryColor};
+  background-color: ${({ theme }) => theme.background};
   transition: 0.3s;
   &:focus {
     outline: none;
-    background-color: white;
+    background-color: ${({ theme }) => theme.primaryColor};
   }
 `;
 const StyledContainer = styled.div`
@@ -23,18 +23,18 @@ const StyledContainer = styled.div`
   @media (min-width: ${({ theme }) => theme.bpTablet}) {
     & .warning {
       margin: 5px 0;
-      background-color: #ffffc1;
+      background-color: ${({ theme }) => theme.marker};
       padding: 20px;
       padding-left: 40px;
       border-radius: 5px;
-      border: 1px solid #bebe48;
+      border: 1px solid ${({ theme }) => theme.warning};
       position: relative;
       font-size: 0.9rem;
 
       &::before {
         content: '!';
         font-family: verdana;
-        color: #bebe48;
+        color: ${({ theme }) => theme.warning};
         font-size: 2rem;
         position: absolute;
         left: 15px;
@@ -47,7 +47,6 @@ const StyledContainer = styled.div`
     & .warning {
       font-size: 0.7rem;
       margin-top: 3px;
-      color: gray
     }
   }
 `;

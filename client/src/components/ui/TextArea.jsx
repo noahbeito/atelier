@@ -13,21 +13,20 @@ const StyledArea = styled.div`
     display: block;
     font-size: 0.7rem;
     padding: 5px;
-    font-family: verdana;
     resize: none;
     height: 4rem;
-    background-color: #eee;
+    background-color: ${({ theme }) => theme.background};
     border: none;
     border-radius: 10px;
     border-top-left-radius: 0px;
-    border: 1px solid #eee;
+    border: 1px solid ${({ theme }) => theme.background};
     transition: 0.3s;
 
     &:focus {
       box-sizing: border-box;
       outline: none;
       background-color: white;
-      border: 1px solid teal;
+      border: 1px solid ${({ theme }) => theme.secondaryColor};
     }
   }
 `;
