@@ -38,6 +38,7 @@ const Carousel = styled.div`
   transform: translateX(calc(var(--slider-index) * 25%));
   transition: transform 250ms ease-in-out;
   margin-top: 1rem;
+  padding-left: 1rem;
 `;
 
 const OutfitCarousel = styled(Carousel)`
@@ -57,6 +58,12 @@ const DefaultCard = styled.li`
   padding: 0.5rem;
   z-index: 9;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  transition: 0.2s;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: scale(1.05);
+  }
 `;
 
 const AddCard = styled(DefaultCard)`
@@ -64,6 +71,7 @@ const AddCard = styled(DefaultCard)`
   position: relative;
   width: 91.5%;
   z-index: 9;
+  margin-left: 1rem;
 `;
 
 const Card = styled(DefaultCard)`

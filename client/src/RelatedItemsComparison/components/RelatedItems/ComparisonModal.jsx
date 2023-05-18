@@ -31,11 +31,13 @@ const StyledContent = styled.div`
   width: 600px;
   overflow-y: auto;
   z-index: 20;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 `;
 
 const StyledTitle = styled.div`
   grid-area: 1 / 0 / span 1 / span 1;
   margin-top: 1rem;
+  font-style: italic;
 `;
 
 const StyledCurrent = styled.div`
