@@ -7,10 +7,10 @@ import Button from './Button';
 
 const StyledToast = styled.div`
   box-sizing: border-box;
-  background-color: #ffadad;
+  background-color: ${({ theme }) => theme.toast};
   position: relative;
 
-  color: #414141;
+  color: ${({ theme }) => theme.textColor};
   font-size: 1rem;
 
   overflow: hidden;
@@ -25,7 +25,7 @@ const StyledToast = styled.div`
 
   & .exit {
     &:hover {
-      color: #cb4646;
+      color: ${({ theme }) => theme.onSell};
     }
     top: 0;
     right: 5px;

@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Lexend Deca';
   }
+
+  textarea, input {
+    font-family: verdana;
+  }
   * {
     margin: 0;
     padding: 0;
@@ -20,14 +24,18 @@ const GlobalStyle = createGlobalStyle`
 const theme = {
   bpTablet: '1080px',
   bpMobile: '720px',
+
   primaryColor: 'white',
   secondaryColor: 'teal',
   background: '#eee',
   loading: 'gray',
-  textColor: 'black',
-  onSell: 'red',
+  textColor: '#333',
+  onSell: '#bb3838',
   star: 'gold',
   backdropColor: 'rgba(152, 205, 222, 0.5)',
+  marker: '#ffffbf',
+  warning: '#bebe48',
+  toast: '#ffadad',
 };
 
 function Theme({ children, ...props }) {
