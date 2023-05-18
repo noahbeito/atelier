@@ -8,6 +8,8 @@ const StyledStarBox = styled.div`
 const StyledStar = styled.span`
   display:inline-block;
   position: relative;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: gray;
   &::before {
     display: block;
     content: "\uf005";
@@ -22,7 +24,7 @@ const StyledStar = styled.span`
     font-family: "Font Awesome 5 Free";
     overflow: hidden;
     width: ${(props) => props.val * 100}%;
-    color: #080808;
+    color: ${(props) => props.theme.star};
   }
 `;
 

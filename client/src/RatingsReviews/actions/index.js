@@ -56,3 +56,13 @@ export const putHelpfulReport = (
   method: 'PUT',
   url: `/reviews/${reviewId}/${type}`,
 });
+
+export const postReview = (
+  productId,
+  data,
+) => () => axios({
+  method: 'POST',
+  url: '/reviews',
+  params: { product_id: productId },
+  data,
+});

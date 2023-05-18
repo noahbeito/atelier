@@ -11,6 +11,7 @@ import Helpful from '../../../components/Helpful';
 import Response from './Response';
 import Thumbnail from '../../../components/Thumbnail';
 import Popup from '../../../components/Popup';
+// import Icons from '../../../components/Icons';
 
 import { putHelpfulReport } from '../../actions/index';
 
@@ -36,6 +37,7 @@ import { putHelpfulReport } from '../../actions/index';
 const StyledFlex = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   padding-left: 1%;
 `;
 
@@ -77,6 +79,11 @@ const StyledBody = styled.div`
 
 const StyledRecommend = styled.div`
   padding-bottom: 2%;
+
+  &::before {
+    content: "\uf00c";
+    font-family: "Font Awesome 5 Free";
+  }
 `;
 
 const StyledResponse = styled(Response)`
@@ -116,7 +123,7 @@ export default function ReviewTile({
     const handleCloseModal = () => modalRef.current.closeModal();
     const handleOpenModal = () => modalRef.current.openModal();
     return (
-      <div>
+      <StyledFlex>
         <Thumbnail
           src={photo.url}
           key={photo.id}
@@ -131,7 +138,7 @@ export default function ReviewTile({
             handleCloseModal={handleCloseModal}
           />
         </Popup>
-      </div>
+      </StyledFlex>
     );
   });
 
@@ -183,7 +190,11 @@ export default function ReviewTile({
       </StyledBody>
       {
         recommend
-          ? <StyledRecommend className="Recommend"> ✓ I recommend this product </StyledRecommend>
+          ? (
+            <StyledRecommend className="Recommend">
+              {' I recommend this product'}
+            </StyledRecommend>
+          )
           : ''
       }
       {
