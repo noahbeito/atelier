@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// GLOBAL STYLES FOR RELATED ITEMS WIDGET ** //
 const List = styled.div`
  display: grid;
  grid-template-rows: 10% 90%;
@@ -23,6 +24,7 @@ const OutfitContainer = styled(Container)`
 
 const Title = styled.h2`
   grid-area: 1 / 2 / span 1 / span 1;
+  min-width: 200px;
   margin-inline: auto;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
@@ -40,12 +42,24 @@ const Carousel = styled.div`
   transition: transform 250ms ease-in-out;
   margin-top: 1rem;
   padding-left: 1rem;
+
+  @media (max-width: ${(props) => props.theme.bpTablet}) {
+    grid-auto-columns: 32.3%;
+    gap: 1.1%;
+    transform: translateX(calc(var(--slider-index) * (33.3%)));
+  }
 `;
 
 const OutfitCarousel = styled(Carousel)`
   grid-auto-columns: 32.3%;
   gap: 1.1%;
   transform: translateX(calc(var(--slider-index) * (33.3%)));
+
+  @media (max-width: ${(props) => props.theme.bpTablet}) {
+    grid-auto-columns: 49%;
+    gap: 1%;
+    transform: translateX(calc(var(--slider-index) * (50%)));
+  }
 `;
 
 const DefaultCard = styled.li`
@@ -53,6 +67,7 @@ const DefaultCard = styled.li`
   align-self: center;
   height: 400px;
   width: 95%;
+  max-width: 275px;
   background-color: ${(props) => props.theme.background};
   border-radius: 3px;
 
@@ -84,6 +99,7 @@ const ChevronButton = styled.button`
   height: 84%;
   width: 20%;
   color: ${(props) => props.theme.primaryColor};
+  -webkit-text-stroke: 5px black;
   font-size: 1.5em;
   z-index: 10;
   background-color: transparent;
