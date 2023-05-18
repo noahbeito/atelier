@@ -11,7 +11,7 @@ const buttonBuilder = ({ variant, width }) => {
     background-color: transparent;
     cursor: pointer;
     font-family: sans-serif;
-    color: #333;
+    color: ${({ theme }) => theme.textColor};
     transition: 0.2s;
     width: ${width || 'auto'};
     &:hover, &:focus {
@@ -23,7 +23,7 @@ const buttonBuilder = ({ variant, width }) => {
     ${reset}
     padding: 0 20px;
     font-size: 1.1rem;
-    border: 2px solid black;
+    border: 2px solid ${(props) => props.theme.textColor};
     text-transform: uppercase;
     font-weight: bold;
     margin: 10px;
@@ -79,11 +79,11 @@ const buttonBuilder = ({ variant, width }) => {
         background-color: ${(props) => props.theme.secondaryColor};
         padding: 10px 15px;
         font-size: 1.1rem;
-        color: white;
+        color: ${(props) => props.theme.primaryColor};
         border: 2px solid ${(props) => props.theme.secondaryColor};
         &:hover, &:focus {
           color: ${(props) => props.theme.secondaryColor};
-          background-color: white;
+          background-color: ${(props) => props.theme.primaryColor};
           outline: none;
         }
       `;

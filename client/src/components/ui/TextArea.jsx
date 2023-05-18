@@ -13,6 +13,7 @@ const StyledArea = styled.div`
     display: block;
     font-size: 0.7rem;
     padding: 5px;
+    font-family: verdana;
     resize: none;
     height: 4rem;
     background-color: ${({ theme }) => theme.background};
@@ -25,7 +26,7 @@ const StyledArea = styled.div`
     &:focus {
       box-sizing: border-box;
       outline: none;
-      background-color: white;
+      background-color: ${(props) => props.theme.primaryColor};
       border: 1px solid ${({ theme }) => theme.secondaryColor};
     }
   }

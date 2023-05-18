@@ -29,12 +29,13 @@ const theme = {
   secondaryColor: 'teal',
   background: '#eee',
   loading: 'gray',
-  textColor: 'black',
+  textColor: '#333',
   onSell: '#bb3838',
   star: 'gold',
   backdropColor: 'rgba(152, 205, 222, 0.5)',
   marker: '#ffffbf',
   warning: '#bebe48',
+  toast: '#ffadad',
 };
 
 function Theme({ children, ...props }) {
