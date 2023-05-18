@@ -49,7 +49,7 @@ export default function WriteNewReview({ productId, handleCloseModal }) {
         submitChar[charObj.id] = ratings[char];
       });
 
-      const params = {
+      const data = {
         product_id: productId,
         rating: ratings.Overall,
         summary,
@@ -61,8 +61,8 @@ export default function WriteNewReview({ productId, handleCloseModal }) {
         characteristics: submitChar,
       };
 
-      console.log(params);
-      dispatch(postReview(JSON.stringify(params)))
+      console.log(data);
+      dispatch(postReview(productId, data))
         .then(() => {
           handleCloseModal();
         })

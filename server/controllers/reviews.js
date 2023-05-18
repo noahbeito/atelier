@@ -47,6 +47,7 @@ module.exports = {
   },
 
   postReviews: (req, res) => {
+    console.log("Post route is hit")
     axios({
       method: 'POST',
       baseURL: process.env.SERVER,
@@ -54,7 +55,7 @@ module.exports = {
       responseType: 'json',
       requestType: 'json',
       headers: { Authorization: process.env.API_TOKEN },
-      // params: req.params,
+      params: req.params,
       data: req.data,
     })
       .then((result) => {

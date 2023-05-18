@@ -58,11 +58,11 @@ export const putHelpfulReport = (
 });
 
 export const postReview = (
-  // params,
+  productId,
   data,
 ) => () => axios({
   method: 'POST',
   url: '/reviews',
-  // params,
+  params: { product_id: productId },
   data,
 });
