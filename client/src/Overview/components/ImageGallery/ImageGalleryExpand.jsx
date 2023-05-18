@@ -10,6 +10,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  cursor: zoom-out;
 `;
 const StyledImageTop = styled.img`
   width: 2500px;

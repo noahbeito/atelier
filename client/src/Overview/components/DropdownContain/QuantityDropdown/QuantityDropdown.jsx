@@ -31,7 +31,7 @@ export default function QuantityDropdown({
   const [quantityValue, setQuantityValue] = useState({});
   const [mapValues, setMapValues] = useState([]);
   const isLoading = useSelector((state) => state.product.isLoading
-                                        || state.overview.productStyles.loading);
+    || state.overview.productStyles.loading);
 
   const styles = useSelector((state) => {
     if (state.overview.productStyles.styles.results) {
@@ -39,32 +39,38 @@ export default function QuantityDropdown({
     }
     return [];
   });
+  const previousVal = [];
+  previousVal.push(currentValue);
   useEffect(() => {
     console.log('This is default nuumber in quantity', defaultNumber);
     if (defaultNumber !== 1) {
-      const value = styles.filter((element) => element.style_id === defaultNumber);
-      setDropdownValue(value[0].skus);
-    }
-    const reArrange = Object.entries(dropDownValue);
-    const listToMap = reArrange.map((node, idx) => (
-      {
-        sku: Number(reArrange[idx][0]),
-        size: reArrange[idx][1].size,
-        quantity: reArrange[idx][1].quantity,
-      }
-    ));
-    if (currentValue !== 'size') {
-      const val = listToMap.filter((element) => element.size === currentValue);
-      if (val.length > 0) {
-        const quantityLimit = [];
-        for (let i = 0; i < val[0].quantity; i += 1) {
-          quantityLimit.push(i + 1);
+      if (defaultNumber !== previousVal.pop()) {
+        const value = styles.filter((element) => element.style_id === defaultNumber);
+        if (value.length > 0) {
+          setDropdownValue(value[0].skus);
         }
-        const newLimit = quantityLimit.slice(0, 15);
-        setMapValues(newLimit);
+      }
+      const reArrange = Object.entries(dropDownValue);
+      const listToMap = reArrange.map((node, idx) => (
+        {
+          sku: Number(reArrange[idx][0]),
+          size: reArrange[idx][1].size,
+          quantity: reArrange[idx][1].quantity,
+        }
+      ));
+      if (currentValue !== 'size') {
+        const val = listToMap.filter((element) => element.size === currentValue);
+        if (val.length > 0) {
+          const quantityLimit = [];
+          for (let i = 0; i < val[0].quantity; i += 1) {
+            quantityLimit.push(i + 1);
+          }
+          const newLimit = quantityLimit.slice(0, 15);
+          setMapValues(newLimit);
+        }
       }
     }
-  }, [defaultNumber, dropDownValue, currentValue]);
+  }, [isLoading, defaultNumber, currentValue]);
   const handleChange = (e) => {
     const quantity = e.target.value;
     setNumOfOrders(quantity);

@@ -56,7 +56,7 @@ export default function StyleSelector({
     }
     return [];
   });
-  // console.log('This is styles data: ', styles);
+  console.log('This is styles data StyleSelector Line 59: ', styles);
   const getPhotoList = (style) => {
     if (style.length === 0) {
       return [];

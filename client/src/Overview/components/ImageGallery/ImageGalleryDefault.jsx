@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
   height: 98%;
   display: flex;
   flex-direction: column;
-  cursor: url(${(props) => props.pointers});
+  cursor: zoom-in;
   background: url(${(props) => props.bg});
   background-position: center top;
   background-repeat: no-repeat;

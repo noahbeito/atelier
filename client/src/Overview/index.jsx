@@ -20,28 +20,29 @@ const Section = styled.section`
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
   const [defaultList, setDefaultList] = useState([]);
-  // const [product, setProduct] = useState(40344);
+  const [product, setProduct] = useState(40344);
   const [defaultNumber, setDefaultNumber] = useState(1);
   const [bgImg, setBgImg] = useState('');
   const dispatch = useDispatch();
-  // const productid = useSelector((state) => {
-  //   if (state.product.data.id) {
-  //     console.log('This is product data id:', state.product.data.id);
-  //     console.log('This is product data xxxx:', state.product.data);
-  //     return state.product.data.id;
-  //   }
-  //   console.error('This use selector in index is not working');
-  //   return undefined;
-  // });
-  // if (productid !== product) {
-  //   setProduct(productid);
-  // }
-  const product = 40344;
+  const productid = useSelector((state) => {
+    if (state.product.data.id) {
+      console.log('This is product data id:', state.product.data.id);
+      console.log('This is product data xxxx:', state.product.data);
+      return state.product.data.id;
+    }
+    console.error('This use selector in index is not working');
+    return undefined;
+  });
+  if (productid !== product) {
+    setProduct(productid);
+  }
+  console.log('This is default Number Index Line 39: ', defaultNumber);
+  // const product = 40344;
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
     axios.get(`/products/${product}/styles`)
       .then((result) => {
-        console.log('result data reulsts', result.data.results);
+        console.log('This is set default Number Index Line 45', result.data.results[0].style_id);
         setDefaultList(result.data.results);
         setDefaultNumber(result.data.results[0].style_id);
         dispatch({ type: '@styles/SET_DATA', payload: result.data });
@@ -57,6 +58,7 @@ export default function Overview() {
   const bgHndle = (val) => {
     setBgImg(val.url);
   };
+  console.log('This is default Number Index Line 60: ', defaultNumber);
   return (
     <Section data-testid="index">
       { renderCheckout
