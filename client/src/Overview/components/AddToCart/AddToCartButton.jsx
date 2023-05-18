@@ -21,7 +21,13 @@ const StyledButton = styled.button`
   border: solid 2px black;
   margin:0px;
   padding:5px;
+  cursor: pointer;
   background-color: white;
+  &:hover, &:focus {
+      background: #eee;
+      border-color: ${(props) => props.theme.secondaryColor};
+      outline: none;
+    }
 `;
 
 export default function AddToCartButton({ sku, num }) {
@@ -30,14 +36,12 @@ export default function AddToCartButton({ sku, num }) {
     if (sku !== 0 && num !== 0) {
       setDisable(false);
     }
-    // console.log('This is sku', sku, 'This is num : ', num);
   }, [sku, num]);
   const sendCartData = (skuNum, quantity) => {
     const obj = {
       sku_id: skuNum,
       count: quantity,
     };
-    console.log(obj);
     axios.post('/cart', {
       ...obj,
     })
@@ -58,6 +62,6 @@ export default function AddToCartButton({ sku, num }) {
 }
 
 AddToCartButton.propTypes = {
-  sku: PropTypes.number.isRequired,
-  num: PropTypes.number.isRequired,
+  sku: PropTypes.string.isRequired,
+  num: PropTypes.string.isRequired,
 };

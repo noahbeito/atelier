@@ -8,6 +8,7 @@ const StyledAside = styled.aside`
   height: 20%;
   display: flex;
   border: solid 2px black;
+  padding: 10px;
 `;
 const StyledLoading = styled.div`
   margin: 50px auto;

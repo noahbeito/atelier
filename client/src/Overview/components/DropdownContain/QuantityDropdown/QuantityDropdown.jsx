@@ -40,6 +40,7 @@ export default function QuantityDropdown({
     return [];
   });
   useEffect(() => {
+    console.log('This is default nuumber in quantity', defaultNumber);
     if (defaultNumber !== 1) {
       const value = styles.filter((element) => element.style_id === defaultNumber);
       setDropdownValue(value[0].skus);

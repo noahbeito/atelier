@@ -46,9 +46,9 @@ export default function SizeDropdown({ defaultNumber, setCurrentValue, addsku })
     if (styles.length > 0) {
       if (defaultNumber !== 1) {
         // console.log('Thisis styles in size dropdown: ', styles);
-        // console.log('This is defaultNumber in sizeDropdown: ', defaultNumber);
+        console.log('This is defaultNumber in sizeDropdown: ', defaultNumber);
         const value = styles.filter((element) => element.style_id === defaultNumber);
-        // console.log('This is value in sizeDropdown: ', value);
+        // consoleb.log('This is value in sizeDropdown: ', value);
         // console.log('This is dropDownValue in sizeDropdown: ', dropDownValue);
         setDropdownValue(value[0].skus);
       }

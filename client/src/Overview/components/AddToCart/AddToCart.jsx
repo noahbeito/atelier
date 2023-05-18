@@ -24,5 +24,5 @@ export default function AddToCart({ sku, num }) {
 
 AddToCart.propTypes = {
   sku: PropTypes.number.isRequired,
-  num: PropTypes.number.isRequired,
+  num: PropTypes.string.isRequired,
 };

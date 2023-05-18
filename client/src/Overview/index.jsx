@@ -12,6 +12,10 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   border: solid 2px black;
+  @media(max-width: 600px){
+    width: 100%;
+  height: 1600px;
+  }
 `;
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
@@ -20,18 +24,24 @@ export default function Overview() {
   const [defaultNumber, setDefaultNumber] = useState(1);
   const [bgImg, setBgImg] = useState('');
   const dispatch = useDispatch();
-  const product = useSelector((state) => {
-    if (state.product.data.id) {
-      console.log('This is product data id:', state.product.data.id);
-      return state.product.data.id;
-    }
-    console.error('This use selector in index is not working');
-    return undefined;
-  });
+  // const productid = useSelector((state) => {
+  //   if (state.product.data.id) {
+  //     console.log('This is product data id:', state.product.data.id);
+  //     console.log('This is product data xxxx:', state.product.data);
+  //     return state.product.data.id;
+  //   }
+  //   console.error('This use selector in index is not working');
+  //   return undefined;
+  // });
+  // if (productid !== product) {
+  //   setProduct(productid);
+  // }
+  const product = 40344;
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
     axios.get(`/products/${product}/styles`)
       .then((result) => {
+        console.log('result data reulsts', result.data.results);
         setDefaultList(result.data.results);
         setDefaultNumber(result.data.results[0].style_id);
         dispatch({ type: '@styles/SET_DATA', payload: result.data });
