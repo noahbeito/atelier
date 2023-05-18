@@ -6,6 +6,7 @@ import Button from './ui/Button';
 
 const StyledText = styled.strong`
   color: ${(props) => props.theme.secondaryColor};
+  text-decoration: underline;
 `;
 
 export default function Helpful({ helpfulness, clickedYes, ...props }) {
