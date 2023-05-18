@@ -13,6 +13,7 @@ const StyledInput = styled.input`
   border-bottom: 2px solid ${({ theme }) => theme.secondaryColor};
   background-color: ${({ theme }) => theme.background};
   transition: 0.3s;
+  color: ${({ theme }) => theme.textColor};
   &:focus {
     outline: none;
     background-color: ${({ theme }) => theme.primaryColor};
