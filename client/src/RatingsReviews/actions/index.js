@@ -58,11 +58,19 @@ export const putHelpfulReport = (
 });
 
 export const postReview = (
+<<<<<<< HEAD
   // params,
+=======
+  productId,
+>>>>>>> 5cb1731f8c6d50dd8c973250d844489fd3dd3b1c
   data,
 ) => () => axios({
   method: 'POST',
   url: '/reviews',
+<<<<<<< HEAD
   // params,
+=======
+  params: { product_id: productId },
+>>>>>>> 5cb1731f8c6d50dd8c973250d844489fd3dd3b1c
   data,
 });

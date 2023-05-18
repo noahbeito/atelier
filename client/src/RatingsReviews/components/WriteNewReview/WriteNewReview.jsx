@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -8,9 +8,11 @@ import Input from '../../../components/ui/Input';
 import Form from '../../../components/ui/Form';
 import Submit from '../../../components/ui/Submit';
 import ImageUpload from '../../../components/ui/ImageUpload';
+import { postReview } from '../../actions/index';
 
-import Icons from '../../../components/Icons';
 import StarRating from './StarRating';
+
+import validateEmail from '../../../utils/validateEmail';
 
 const StyledRadioButton = styled.label`
   display: flex;
@@ -25,36 +27,63 @@ const StyledRadioButtons = styled.form`
   padding-bottom: 2%;
 `;
 
-export default function AddQuestion({ productId, handleCloseModal }) {
-  const [ratings, setRatings] = useState({}); // inclusive of overall and characteristics
-  let recommend = false;
+export default function WriteNewReview({ productId, handleCloseModal }) {
+  const [ratings, setRatings] = useState({});
+  const [recommend, setRecommned] = useState(false);
   const [summary, setSummary] = useState('');
   const [body, setBody] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
-
   const [rYes, setRYes] = useState(false);
   const [rNo, setRNo] = useState(false);
+
+  const characteristics = useSelector((state) => (state.ratingsReviews.meta.characteristics));
+  const characteristicsTraits = Object.keys(characteristics);
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e, error) => {
     if (!error) {
-      console.log('no errosr');
+      const submitChar = {};
+      characteristicsTraits.forEach((char) => {
+        const charObj = characteristics[char];
+        submitChar[charObj.id] = ratings[char];
+      });
+
+      const data = {
+        product_id: productId,
+        rating: ratings.Overall,
+        summary,
+        body,
+        recommend,
+        name,
+        email,
+        photos,
+        characteristics: submitChar,
+      };
+
+      console.log(data);
+      dispatch(postReview(productId, data))
+        .then(() => {
+          handleCloseModal();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
   const handleYesClick = () => {
     setRYes(true);
     setRNo(false);
-    recommend = true;
+    setRecommned(true);
   };
 
   const handleNoClick = () => {
     setRYes(false);
     setRNo(true);
-    recommend = false;
+    setRecommned(false);
   };
 
   const imageDeleteHandler = (e, i) => {
@@ -72,18 +101,21 @@ export default function AddQuestion({ productId, handleCloseModal }) {
     setPhotos(temp);
   };
 
-  const clickableStars = [1, 2, 3, 4, 5].map((value) => {
-    return <Icons.EmptyStar value={value} />;
-  })
-
+  const charRatings = ['Overall', ...characteristicsTraits].map((char) => (
+    <StarRating
+      ratings={ratings}
+      setRatings={setRatings}
+      char={char}
+    />
+  ));
 
   return (
     <Form onSubmit={handleSubmit}>
       <Input
         required
         size="60"
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
         label="What is your nickname"
         validation={(value) => value.length <= 60}
         placeholder="Example: jackson11!"
@@ -98,7 +130,7 @@ export default function AddQuestion({ productId, handleCloseModal }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         label="Your email"
-        validation={(value) => value.length <= 60}
+        validation={(value) => value.length <= 60 && validateEmail(value)}
         placeholder="Example: jack@email.com!"
         warning="For authentication reasons, you will not be emailed"
         error="Email must be a valid email."
@@ -119,10 +151,7 @@ export default function AddQuestion({ productId, handleCloseModal }) {
 
       <div>
         Ratings
-        <div>
-          {clickableStars}
-        </div>
-        <StarRating />
+        {charRatings}
       </div>
 
       <TextArea
@@ -169,7 +198,7 @@ export default function AddQuestion({ productId, handleCloseModal }) {
   );
 }
 
-AddQuestion.propTypes = {
+WriteNewReview.propTypes = {
   productId: PropTypes.number.isRequired,
   handleCloseModal: PropTypes.func.isRequired,
 };
