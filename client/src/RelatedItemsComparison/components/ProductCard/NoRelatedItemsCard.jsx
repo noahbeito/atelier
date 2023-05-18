@@ -4,6 +4,7 @@ import { DefaultCard } from '../../styles';
 
 const StyledText = styled.div`
   width: 100%;
+  color: ${(props) => props.theme.textColor};
 `;
 
 export default function NoRelatedItemsCard() {

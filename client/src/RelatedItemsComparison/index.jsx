@@ -35,9 +35,7 @@ export default function RelatedItemsComparison() {
     })
   );
   const getCompareProduct = (compareId) => (
-    axios({
-      url: '/reviews/meta',
-      method: 'GET',
+    axios.get('/reviews/meta', {
       params: { product_id: compareId },
     })
   );
@@ -68,6 +66,7 @@ export default function RelatedItemsComparison() {
           setCompareFeatures(compareFeaturesList.data.features);
           setCompareName(clickedName);
           setShowModal(true);
+          document.body.style.overflow = 'hidden';
         },
       )))
       .catch((err) => {
@@ -77,6 +76,7 @@ export default function RelatedItemsComparison() {
 
   const modalOnClose = () => {
     setShowModal(false);
+    document.body.style.overflow = 'auto';
   };
 
   return (
