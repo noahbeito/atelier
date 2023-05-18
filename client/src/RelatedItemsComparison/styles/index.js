@@ -26,6 +26,7 @@ const Title = styled.h2`
   margin-inline: auto;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
+  color: ${(props) => props.theme.textColor};
   `;
 
 const Carousel = styled.div`
@@ -38,6 +39,7 @@ const Carousel = styled.div`
   transform: translateX(calc(var(--slider-index) * 25%));
   transition: transform 250ms ease-in-out;
   margin-top: 1rem;
+  padding-left: 1rem;
 `;
 
 const OutfitCarousel = styled(Carousel)`
@@ -51,12 +53,18 @@ const DefaultCard = styled.li`
   align-self: center;
   height: 400px;
   width: 95%;
-  background-color: #CDCDCD;
+  background-color: ${(props) => props.theme.background};
   border-radius: 3px;
 
   padding: 0.5rem;
   z-index: 9;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  transition: 0.2s;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: scale(1.05);
+  }
 `;
 
 const AddCard = styled(DefaultCard)`
@@ -64,6 +72,7 @@ const AddCard = styled(DefaultCard)`
   position: relative;
   width: 91.5%;
   z-index: 9;
+  margin-left: 1rem;
 `;
 
 const Card = styled(DefaultCard)`
@@ -74,10 +83,10 @@ const ChevronButton = styled.button`
   align-self: center;
   height: 84%;
   width: 20%;
-  color: white;
+  color: ${(props) => props.theme.primaryColor};
   font-size: 1.5em;
   z-index: 10;
-  background-color: rgba(0, 128, 128, 0);
+  background-color: transparent;
   border: none;
   border-radius: 3px;
   cursor: pointer;
