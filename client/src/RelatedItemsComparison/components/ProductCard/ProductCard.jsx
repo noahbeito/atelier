@@ -39,7 +39,7 @@ const StyledActionWrap = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
-  color: ${(props) => props.theme.primaryColor};
+  color: white;
   &:hover {
     transform: scale(1.2);
     fill: yellow;
