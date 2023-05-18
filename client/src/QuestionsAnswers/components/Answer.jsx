@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -35,12 +35,17 @@ export default function Answer({ answer }) {
     const temp = clickedYes;
     if (!clickedYes) {
       setClickedYes(true);
+      localStorage.setItem(`atelier-answer-yes/${answer.id}`, true);
       axios.put(`/qa/answers/${answer.id}/helpful`)
         .then(() => {
           dispatch({ type: '@answers/MARK_HELPFUL', answer_id: answer.id });
           setClickedYes(true);
+          localStorage.setItem(`atelier-answer-yes/${answer.id}`, true);
         })
-        .catch(() => setClickedYes(temp));
+        .catch(() => {
+          setClickedYes(temp);
+          localStorage.setItem(`atelier-answer-yes/${answer.id}`, true);
+        });
     }
   };
 
@@ -48,14 +53,25 @@ export default function Answer({ answer }) {
     const temp = clickedReport;
     if (!clickedReport) {
       setClickedReport(true);
+      localStorage.setItem(`atelier-answer-report/${answer.id}`, true);
       axios.put(`/qa/answers/${answer.id}/report`)
         .then(() => {
           dispatch({ type: '@answers/REPORT', answer_id: answer.id });
           setClickedReport(true);
+          localStorage.setItem(`atelier-answer-report/${answer.id}`, true);
         })
-        .catch(() => setClickedReport(temp));
+        .catch(() => {
+          setClickedReport(temp);
+          localStorage.setItem(`atelier-answer-report/${answer.id}`, temp);
+        });
     }
   };
+
+  /* * Effects * */
+  useEffect(() => {
+    setClickedYes(localStorage.getItem(`atelier-answer-yes/${answer.id}`) || clickedYes);
+    setClickedReport(localStorage.getItem(`atelier-answer-report/${answer.id}`) || clickedReport);
+  }, []);
 
   return (
     <StyledAnswer data-testid="answer">
