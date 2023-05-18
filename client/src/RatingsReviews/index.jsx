@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ReviewList from './components/ReviewsList/ReviewList';
 import RatingBreakdown from './components/RatingBreakdown/RatingBreakdown';
 import Button from '../components/ui/Button';
+import Popup from '../components/Popup';
 import SortOptions from './components/SortOptions/SortOptions';
-// import WriteNewReview from './components/WriteNewReview/WriteNewReview';
+import WriteNewReview from './components/WriteNewReview/WriteNewReview';
 import Icons from '../components/Icons';
 
 import { fetchReviews, fetchMetadata } from './actions/index';
@@ -14,6 +15,9 @@ import { fetchReviews, fetchMetadata } from './actions/index';
 const StyledFlex = styled.div`
   display: flex;
   flex-direction: row;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    flex-direction: column;
+  }
 `;
 
 const StyledRatingBreakdown = styled(RatingBreakdown)`
@@ -22,6 +26,9 @@ const StyledRatingBreakdown = styled(RatingBreakdown)`
   position: sticky;
   top: 4%;
   height: min-content;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    position: static;
+  }
 `;
 
 const StyledReviewList = styled.div`
@@ -29,12 +36,19 @@ const StyledReviewList = styled.div`
   max-width: 66%;
   padding: 1%;
   padding-left: 2.5%;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    max-width: 100%;
+    padding: 0%;
+  }
 `;
 
 const StyledRatingsReviews = styled.div`
   padding-bottom: 1%;
   position: sticky;
   top: 1%;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    position: static;
+  }
 `;
 
 const StyledMoreReviewButton = styled(Button)`
@@ -61,12 +75,25 @@ const StyledLoading = styled.div`
 const StyledReviews = styled(ReviewList)`
   max-height: calc(100vh - 100px);
   overflow-y: scroll;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    max-height: none;
+    overflow-y: none;
+  }
+`;
+
+const StyledContainer = styled.div`
+  margin: 0 auto;
+  width: 60%;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    width: 80%;
+  }
 `;
 
 export default function RatingsReviews() {
   const [showMoreReviews, setShowMoreReviews] = useState(true);
 
   const productId = useSelector((state) => state.product.data.id);
+  const productName = useSelector((state) => state.product.data.name);
   const sortOption = useSelector((state) => state.sortOption);
   const rloading = useSelector((state) => state.ratingsReviews.rloading);
   const mloading = useSelector((state) => state.ratingsReviews.mloading);
@@ -86,8 +113,13 @@ export default function RatingsReviews() {
     setShowMoreReviews(false);
   };
 
+  // Attaches reference to open and close functions from within modal
+  const modalRef = useRef();
+  const handleAddReview = () => modalRef.current.openModal();
+  const handleCloseModal = () => modalRef.current.closeModal();
+
   return (
-    <div>
+    <StyledContainer>
       <StyledRatingsReviews id="ratingsReview">
         RATINGS & REVIEWS
       </StyledRatingsReviews>
@@ -111,13 +143,16 @@ export default function RatingsReviews() {
                       ? <StyledMoreReviewButton variant="large" onClick={fetchAllReviews}> MORE REVIEWS </StyledMoreReviewButton>
                       : ''
                   }
-                  <StyledAddAReviewButton variant="large-add"> ADD A REVIEW </StyledAddAReviewButton>
+                  <StyledAddAReviewButton variant="large-add" onClick={handleAddReview}> ADD A REVIEW </StyledAddAReviewButton>
+                  <Popup ref={modalRef} titles={['Write Your Review', `About the ${productName}`]}>
+                    <WriteNewReview productId={productId} handleCloseModal={handleCloseModal} />
+                  </Popup>
                 </StyledFlex>
               </StyledReviewList>
             )
         }
 
       </StyledFlex>
-    </div>
+    </StyledContainer>
   );
 }

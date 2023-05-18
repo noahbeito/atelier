@@ -19,6 +19,7 @@ const StyledRating = styled(StyledRatingBar)`
   color: ${(props) => (props.sort ? props.theme.secondaryColor : '')};
   ${StyledRatingBar}:hover & {
     color: ${(props) => props.theme.secondaryColor};
+    cursor: pointer;
   }
 `;
 
@@ -39,6 +40,7 @@ const StyledBar = styled.div`
 
   ${StyledRatingBar}:hover &::after {
     background-color: ${(props) => props.theme.secondaryColor};
+    cursor: pointer;
   }
 `;
 
