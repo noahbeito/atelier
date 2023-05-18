@@ -3,18 +3,20 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledStarBox = styled.div`
+  white-space: nowrap;
+  object-fit: contain;
 `;
 
 const StyledStar = styled.span`
   display:inline-block;
   position: relative;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: gray;
+  -webkit-text-stroke-color: black;
   &::before {
     display: block;
     content: "\uf005";
     font-family: "Font Awesome 5 Free";
-    color: #C3C3C3;
+    color: ${(props) => props.theme.background}
   }
   &::after {
     display: block;
@@ -56,9 +58,7 @@ export default function StarRating({
 
   return (
     <StyledStarBox {...props}>
-      {' '}
       {star}
-      {' '}
     </StyledStarBox>
   );
 }
