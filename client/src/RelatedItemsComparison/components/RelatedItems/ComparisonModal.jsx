@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import StarRating from '../../../components/StarRating';
 import Icons from '../../../components/Icons';
 
+// ** STYLES ** //
 const StyledModal = styled.div`
   position: fixed;
   left: 0;
@@ -101,6 +102,7 @@ const StyledXButton = styled.button`
   }
 `;
 
+// ** COMPONENT ** //
 export default function ComparisonModal({
   modalOnClose,
   characteristics,
@@ -109,14 +111,18 @@ export default function ComparisonModal({
   currentFeatures,
   compareFeatures,
 }) {
+  // ** LOCAL STATE ** //
   const [allCharacteristics, setAllCharacteristics] = useState([]);
   const [currentAttributes, setCurrentAttributes] = useState([]);
   const [compareAttributes, setCompareAttributes] = useState([]);
   const [allFeatures, setAllFeatures] = useState([]);
   const [currentFeaturesArray, setCurrentFeaturesArray] = useState([]);
   const [compareFeaturesArray, setCompareFeaturesArray] = useState([]);
+
+  // ** GET STATE FROM REDUX STORE ** //
   const currentProduct = useSelector((state) => state.product.data.name);
 
+  // ** ON RENDER ** //
   useEffect(() => {
     const all = _.uniq(Object.keys(characteristics).concat(Object.keys(compare)));
     const charObj = {};
@@ -182,6 +188,7 @@ export default function ComparisonModal({
     setCompareFeaturesArray(Object.values(compFeatures));
   }, []);
 
+  // ** STRUCTURE **//
   return (
     <StyledModal onClick={() => modalOnClose()}>
       <StyledContent onClick={(e) => e.stopPropagation()}>
@@ -248,6 +255,7 @@ export default function ComparisonModal({
   );
 }
 
+// ** PROPTYPES ** //
 ComparisonModal.propTypes = {
   modalOnClose: PropTypes.func.isRequired,
   characteristics: PropTypes.shape({
