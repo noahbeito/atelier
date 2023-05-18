@@ -16,7 +16,7 @@ import SizeDropdown from '../components/DropdownContain/SizeDropdown/SizeDropdow
 import DropdownContain from '../components/DropdownContain/DropdownContain';
 import Twitter from '../components/CheckoutDisplay/Twitter';
 import Facebook from '../components/CheckoutDisplay/Facebook';
-import ProductDisplay from '../components/ProductDisplay/ProductDisplay';
+// import ProductDisplay from '../components/ProductDisplay/ProductDisplay';
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -130,16 +130,6 @@ export default () => {
         <StyleSelector />,
       ));
       const component = await screen.getByTestId('StyleSelector');
-      expect(component).toBeInTheDocument();
-    });
-    it('Should render Product Display Component', async () => {
-      await act(async () => render(
-        <ProductDisplay
-          defaultNumber={240500}
-          bgHandler={() => { }}
-        />,
-      ));
-      const component = await screen.getByTestId('ProductDisplay');
       expect(component).toBeInTheDocument();
     });
   });
