@@ -47,7 +47,7 @@ module.exports = {
   },
 
   postReviews: (req, res) => {
-    console.log("Post route is hit")
+    console.log('Post route is hit');
     axios({
       method: 'POST',
       baseURL: process.env.SERVER,
