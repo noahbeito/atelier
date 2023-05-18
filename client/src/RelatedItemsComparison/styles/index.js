@@ -24,6 +24,7 @@ const OutfitContainer = styled(Container)`
 
 const Title = styled.h2`
   grid-area: 1 / 2 / span 1 / span 1;
+  min-width: 200px;
   margin-inline: auto;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
