@@ -17,6 +17,7 @@ import { fetchInitialQuestions, fetchMoreQuestions } from '../actions';
 const Container = styled.div`
   margin: 0 auto;
   width: 60%;
+  color: ${({ theme }) => theme.textColor};
   .main-title {
     font-size: 2rem;
     font-family: 'Inter';

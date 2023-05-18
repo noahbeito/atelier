@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCoffee, faCircleCheck, faMagnifyingGlass, faStar as Star, faArrowRight, faArrowLeft,
   faChevronUp, faChevronDown, faChevronLeft, faChevronRight, faCheck, faPlus, faExpand,
-  faSpinner, faXmark, faMagnifyingGlassMinus, faMagnifyingGlassPlus, faCircle,
+  faSpinner, faXmark, faMagnifyingGlassMinus, faMagnifyingGlassPlus, faCircle, faSun as Sun,
 } from '@fortawesome/free-solid-svg-icons';
-import { faStar as EmptyStar, faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import { faStar as EmptyStar, faCircleXmark, faSun as EmptySun } from '@fortawesome/free-regular-svg-icons';
 
 // Icons //////////////////////////
 const iconMap = {
@@ -29,6 +29,8 @@ const iconMap = {
   MagnifyMinus: faMagnifyingGlassMinus,
   MagnifyPlus: faMagnifyingGlassPlus,
   Circle: faCircle,
+  Sun,
+  EmptySun,
 };
 /**
  * ### ADD ICON:

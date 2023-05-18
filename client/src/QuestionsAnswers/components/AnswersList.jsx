@@ -8,7 +8,7 @@ import Button from '../../components/ui/Button';
 import sortAnswers from '../../utils/sortHelpfulness';
 
 const Rule = styled.hr`
-  border: 1px solid black;
+  border: 1px solid ${({ theme }) => theme.textColor};
   margin-bottom: 20px;
   margin-left: 10px;
 `;
