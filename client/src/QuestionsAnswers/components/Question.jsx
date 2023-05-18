@@ -33,7 +33,7 @@ const StyledQuestion = styled.div`
     white-space: pre-wrap;
   }
   .mark {
-    background-color: #ffffbf;
+    background-color: ${({ theme }) => theme.marker};
     box-shadow: 0 2px 2px #0005;
     border-radius: 5px;
   }
@@ -64,7 +64,6 @@ const StyledQuestion = styled.div`
       gap: 10px;
     }
 
-    background-color: #eee;
     border-bottom: 2px solid ${(props) => props.theme.secondaryColor};
     margin-top: 5px;
     position: relative;

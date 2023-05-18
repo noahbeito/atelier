@@ -24,15 +24,15 @@ const StyledPopup = styled.div`
   transition: 0.5s;
 
   &:has(> .open) {
-    background-color: rgba(152, 205, 222, 0.5);
+    background-color: ${({ theme }) => theme.backdropColor};
   }
 
   & .container {
     margin: 0;
     padding: 10px 0;
     box-sizing: border-box;
-    background-color: white;
-    box-shadow: 0 0 5px black;
+    background-color: ${({ theme }) => theme.primaryColor};
+    box-shadow: 0 0 5px black; // should remain black even in dark mode
     width: 70%;
     display: flex;
     justify-content: center;
@@ -82,7 +82,8 @@ const StyledPopup = styled.div`
   .subtitle {
     font-size: 1.1rem;
     margin-top: 5px;
-    color: gray;
+    color: ${({ theme }) => theme.textColor};
+    opacity: 0.6;
   }
   .subsubtitle {
     font-size: 0.9rem;

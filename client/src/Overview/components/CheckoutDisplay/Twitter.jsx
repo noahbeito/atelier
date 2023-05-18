@@ -1,9 +1,4 @@
 import React from 'react';
-// import styled from 'styled-components';
-// import PropTypes from 'prop-types';
-
-// const StyledImg = styled.img`
-// `;
 
 export default function Twitter() {
   return (
@@ -16,11 +11,3 @@ export default function Twitter() {
     </a>
   );
 }
-
-// Thumbnail.propTypes = {
-//   num: PropTypes.number.isRequired,
-//   url: PropTypes.string.isRequired,
-//   imgUrl: PropTypes.string.isRequired,
-//   classname: PropTypes.string.isRequired,
-//   changeSelected: PropTypes.func.isRequired,
-// };

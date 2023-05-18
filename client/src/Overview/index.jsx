@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-// import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -13,29 +12,37 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   border: solid 2px black;
+  @media(max-width: 600px){
+    width: 100%;
+  height: 1600px;
+  }
 `;
 export default function Overview() {
   const [renderCheckout, setRenderCheckout] = useState(true);
   const [defaultList, setDefaultList] = useState([]);
-  // const [product, setProduct] = useState(40344);
+  const [product, setProduct] = useState(40344);
   const [defaultNumber, setDefaultNumber] = useState(1);
   const [bgImg, setBgImg] = useState('');
   const dispatch = useDispatch();
-  // setProduct(40344);
-  // 40344,40345, 40346, 40347, 40348
-  // console.log(setProduct);
-  // const product = 40344;
-  const product = useSelector((state) => {
+  const productid = useSelector((state) => {
     if (state.product.data.id) {
       console.log('This is product data id:', state.product.data.id);
+      console.log('This is product data xxxx:', state.product.data);
       return state.product.data.id;
     }
-    return 40344;
+    console.error('This use selector in index is not working');
+    return undefined;
   });
+  if (productid !== product) {
+    setProduct(productid);
+  }
+  console.log('This is default Number Index Line 39: ', defaultNumber);
+  // const product = 40344;
   useEffect(() => {
     dispatch({ type: '@styles/FETCH_DATA' });
     axios.get(`/products/${product}/styles`)
       .then((result) => {
+        console.log('This is set default Number Index Line 45', result.data.results[0].style_id);
         setDefaultList(result.data.results);
         setDefaultNumber(result.data.results[0].style_id);
         dispatch({ type: '@styles/SET_DATA', payload: result.data });
@@ -43,16 +50,15 @@ export default function Overview() {
       .catch((error) => {
         dispatch({ type: '@styles/FETCH_FAILED', payload: error.message });
       });
-  }, []);
+    console.log('This is product in index : ', product);
+  }, [product]);
   const onClickHandler = useCallback(() => {
     setRenderCheckout(!renderCheckout);
   });
   const bgHndle = (val) => {
     setBgImg(val.url);
   };
-  console.log('This is background image : ', bgImg);
-  // console.log('This is default NUMBER: ', defaultNumber);
-  // console.log('This is default list', defaultList);
+  console.log('This is default Number Index Line 60: ', defaultNumber);
   return (
     <Section data-testid="index">
       { renderCheckout
@@ -81,10 +87,3 @@ export default function Overview() {
     </Section>
   );
 }
-// ProductDisplay.propTypes = {
-//   onClickHandler: PropTypes.func.isRequired,
-// };
-
-// ProductDisplay.defaultProps = {
-//   onClickHandler: PropTypes.func.isRequired,
-// };
