@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  render, waitFor, screen, fireEvent,
+  render, screen, fireEvent,
 } from '@testing-library/react';
 
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 
 import configureStore from 'redux-mock-store';
 
