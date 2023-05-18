@@ -15,6 +15,9 @@ import { fetchReviews, fetchMetadata } from './actions/index';
 const StyledFlex = styled.div`
   display: flex;
   flex-direction: row;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    flex-direction: column;
+  }
 `;
 
 const StyledRatingBreakdown = styled(RatingBreakdown)`
@@ -23,6 +26,9 @@ const StyledRatingBreakdown = styled(RatingBreakdown)`
   position: sticky;
   top: 4%;
   height: min-content;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    position: static;
+  }
 `;
 
 const StyledReviewList = styled.div`
@@ -30,12 +36,19 @@ const StyledReviewList = styled.div`
   max-width: 66%;
   padding: 1%;
   padding-left: 2.5%;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    max-width: 100%;
+    padding: 0%;
+  }
 `;
 
 const StyledRatingsReviews = styled.div`
   padding-bottom: 1%;
   position: sticky;
   top: 1%;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    position: static;
+  }
 `;
 
 const StyledMoreReviewButton = styled(Button)`
@@ -62,6 +75,18 @@ const StyledLoading = styled.div`
 const StyledReviews = styled(ReviewList)`
   max-height: calc(100vh - 100px);
   overflow-y: scroll;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    max-height: none;
+    overflow-y: none;
+  }
+`;
+
+const StyledContainer = styled.div`
+  margin: 0 auto;
+  width: 60%;
+  @media (max-width: ${({ theme }) => theme.bpMobile}) {
+    width: 80%;
+  }
 `;
 
 export default function RatingsReviews() {
@@ -94,7 +119,7 @@ export default function RatingsReviews() {
   const handleCloseModal = () => modalRef.current.closeModal();
 
   return (
-    <div>
+    <StyledContainer>
       <StyledRatingsReviews id="ratingsReview">
         RATINGS & REVIEWS
       </StyledRatingsReviews>
@@ -119,8 +144,8 @@ export default function RatingsReviews() {
                       : ''
                   }
                   <StyledAddAReviewButton variant="large-add" onClick={handleAddReview}> ADD A REVIEW </StyledAddAReviewButton>
-                  <Popup ref={modalRef} titles={['Write Your Review', `About the ${productName}`]} handleCloseModal={handleCloseModal}>
-                    <WriteNewReview />
+                  <Popup ref={modalRef} titles={['Write Your Review', `About the ${productName}`]}>
+                    <WriteNewReview productId={productId} handleCloseModal={handleCloseModal} />
                   </Popup>
                 </StyledFlex>
               </StyledReviewList>
@@ -128,6 +153,6 @@ export default function RatingsReviews() {
         }
 
       </StyledFlex>
-    </div>
+    </StyledContainer>
   );
 }
