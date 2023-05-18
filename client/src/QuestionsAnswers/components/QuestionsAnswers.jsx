@@ -15,7 +15,7 @@ import { fetchInitialQuestions, fetchMoreQuestions } from '../actions';
 
 /* * Styles * */
 const Container = styled.div`
-  margin: 0 auto;
+  margin: 3rem auto;
   width: 60%;
   color: ${({ theme }) => theme.textColor};
   .main-title {
