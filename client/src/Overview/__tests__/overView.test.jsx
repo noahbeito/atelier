@@ -3,12 +3,10 @@ import '@testing-library/jest-dom';
 import { useSelector } from 'react-redux';
 import {
   render,
-  fireEvent,
   act,
   screen,
 } from '@testing-library/react';
 import Data from './mockData';
-import AddToFavButton from '../components/AddToCart/AddToFavButton';
 import StyleThumbnail from '../components/StyleThumbnail/StyleThumbnail';
 import StyleSelector from '../components/StyleSelector/StyleSelector';
 import ImageThumbnail from '../components/ImageGallery/ImageThumbnail';
