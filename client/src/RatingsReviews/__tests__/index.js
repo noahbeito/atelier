@@ -2,6 +2,8 @@
 
 import reviews from './reviews.test';
 import metadata from './metadata.test';
+// import ratingBreakdown from './ratingBreakdown.test';
+// import reviewList from './reviewList.test';
 
 describe('Ratings Review Test', () => {
   afterEach(() => {
@@ -9,4 +11,6 @@ describe('Ratings Review Test', () => {
   });
   reviews();
   metadata();
+  // ratingBreakdown();
+  // reviewList();
 });

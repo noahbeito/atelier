@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -111,28 +111,29 @@ export default function ReviewTile({
 
   const dispatch = useDispatch();
 
-  const modalRef = React.useRef();
-  const handleCloseModal = () => modalRef.current.closeModal();
-  const handleOpenModal = () => modalRef.current.openModal();
-
-  const photoMap = photos.map((photo) => (
-    <div>
-      <Thumbnail
-        src={photo.url}
-        key={photo.id}
-        onClick={handleOpenModal}
-      />
-      <Popup
-        ref={modalRef}
-        title={[summary]}
-      >
-        <StyledImg
+  const photoMap = photos.map((photo) => {
+    const modalRef = useRef();
+    const handleCloseModal = () => modalRef.current.closeModal();
+    const handleOpenModal = () => modalRef.current.openModal();
+    return (
+      <div>
+        <Thumbnail
           src={photo.url}
-          handleCloseModal={handleCloseModal}
+          key={photo.id}
+          onClick={handleOpenModal}
         />
-      </Popup>
-    </div>
-  ));
+        <Popup
+          ref={modalRef}
+          titles={[summary]}
+        >
+          <StyledImg
+            src={photo.url}
+            handleCloseModal={handleCloseModal}
+          />
+        </Popup>
+      </div>
+    );
+  });
 
   const handleClickYes = () => {
     if (!clickedYes) {
@@ -141,8 +142,7 @@ export default function ReviewTile({
         .then(() => {
           setHelpfulness(helpfulnessCount + 1);
         })
-        .catch((error) => {
-          console.log(error.message);
+        .catch(() => {
           setClickedYes(false);
         });
     }
@@ -155,8 +155,7 @@ export default function ReviewTile({
         .then(() => {
           setHelpfulness(helpfulnessCount + 1);
         })
-        .catch((error) => {
-          console.log(error.message);
+        .catch(() => {
           setClickedReport(false);
         });
     }
