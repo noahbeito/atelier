@@ -23,7 +23,7 @@ const StyledImage = styled.span`
   & img {
     max-height: 100px;
     max-width: 100px;
-    border: 1px solid black;
+    border: 1px solid ${(props) => props.theme.textColor};
   }
   & .image-exit {
     position: absolute;
@@ -34,11 +34,11 @@ const StyledImage = styled.span`
     right: 5px;
     color: ${(props) => props.theme.secondaryColor};
     cursor: pointer;
-    background-color: white;
-    border: 1px solid black;
+    background-color: ${(props) => props.theme.primaryColor};
+    border: 1px solid ${(props) => props.theme.textColor};
     border-radius: 50%;
     &:hover {
-      background-color: lightgray;
+      background-color: ${(props) => props.theme.background};
     }
   }
 `;
