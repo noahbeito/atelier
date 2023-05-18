@@ -54,17 +54,8 @@ module.exports = {
       responseType: 'json',
       requestType: 'json',
       headers: { Authorization: process.env.API_TOKEN },
-      params: {
-        product_id: req.query.product_id,
-        rating: req.query.ratings,
-        summary: req.query.summary,
-        body: req.query.body,
-        recommmend: req.query.recommmend,
-        name: req.query.name,
-        email: req.query.email,
-        photos: req.query.photos,
-        characteristics: req.query.characteristics,
-      },
+      // params: req.params,
+      data: req.data,
     })
       .then((result) => {
         res.status(201);

@@ -119,8 +119,8 @@ export default function RatingsReviews() {
                       : ''
                   }
                   <StyledAddAReviewButton variant="large-add" onClick={handleAddReview}> ADD A REVIEW </StyledAddAReviewButton>
-                  <Popup ref={modalRef} titles={['Write Your Review', `About the ${productName}`]} handleCloseModal={handleCloseModal}>
-                    <WriteNewReview />
+                  <Popup ref={modalRef} titles={['Write Your Review', `About the ${productName}`]}>
+                    <WriteNewReview productId={productId} handleCloseModal={handleCloseModal} />
                   </Popup>
                 </StyledFlex>
               </StyledReviewList>
