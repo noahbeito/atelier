@@ -36,7 +36,7 @@ const Title = styled.h2`
 const Carousel = styled.div`
   --slider-index: 0;
   display: grid;
-  gap: 1%;
+  gap: 1.1%;
   grid-auto-flow: column;
   grid-auto-columns: 24%;
   list-style-type: none;
