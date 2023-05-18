@@ -25,12 +25,17 @@ const StyledLoading = styled.div`
   margin: 50px auto;
   text-align: center;
 `;
-export default function SizeDropdown({ defaultNumber, setCurrentValue }) {
+export default function SizeDropdown({
+  defaultNumber,
+  setCurrentValue,
+  addsku,
+  changeHandler,
+}) {
   const [dropDownValue, setDropdownValue] = useState({});
   const [quantityValue, setQuantityValue] = useState({});
   const [mapValues, setMapValues] = useState([]);
   const isLoading = useSelector((state) => state.product.isLoading
-                                        || state.overview.productStyles.loading);
+    || state.overview.productStyles.loading);
 
   const styles = useSelector((state) => {
     if (state.overview.productStyles.styles.results) {
@@ -39,38 +44,57 @@ export default function SizeDropdown({ defaultNumber, setCurrentValue }) {
     }
     return [];
   });
+  console.log('This is default Number Size Dropdown Line 42: ', defaultNumber);
   // console.log('This is styles in dropContain:', styles);
   // console.log('This is defaultNumber:', defaultNumber);
   // const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  const previous = [];
+  previous.push(defaultNumber);
   useEffect(() => {
-    if (defaultNumber !== 1) {
-      // console.log('its working default is not 1: ', defaultNumber);
-      const value = styles.filter((element) => element.style_id === defaultNumber);
-      setDropdownValue(value[0].skus);
-    }
-    const reArrange = Object.entries(dropDownValue);
-    console.log('This is rearrange', reArrange);
-    const listToMap = reArrange.map((node, idx) => (
-      {
-        sku: Number(reArrange[idx][0]),
-        size: reArrange[idx][1].size,
-        quantity: reArrange[idx][1].quantity,
-      }
-    ));
-    // console.log('This is effect ENTRIES****:', Object.entries(dropDownValue));
-    // console.log('Thislist to map ENTRIES****:', listToMap);
-    // for ( let number of dropDownValue) {
+    if (styles.length > 0) {
+      console.log('works 111');
+      if (defaultNumber !== 1) {
+        console.log('works 222');
+        const checker = styles.filter((element) => element.style_id === defaultNumber);
+        console.log('THis is checker %%%%%:', checker);
+        if (checker.length > 0) {
+          console.log('works 333');
+          // console.log('Thisis styles in size dropdown: ', styles);
+          console.log('This is defaultNumber in sizeDropdown: ', defaultNumber);
+          const value = styles.filter((element) => element.style_id === defaultNumber);
+          console.log('This is value in sizeDropdown: ', value);
+          // console.log('This is dropDownValue in sizeDropdown: ', dropDownValue);
+          setDropdownValue(value[0].skus);
+        }
+        const reArrange = Object.entries(dropDownValue);
+        console.log('This is rearrange', reArrange);
+        const listToMap = reArrange.map((node, idx) => (
+          {
+            sku: Number(reArrange[idx][0]),
+            size: reArrange[idx][1].size,
+            quantity: reArrange[idx][1].quantity,
+          }
+        ));
+        // console.log('This is effect ENTRIES****:', Object.entries(dropDownValue));
+        // console.log('Thislist to map ENTRIES****:', listToMap);
+        // for ( let number of dropDownValue) {
 
-    // }
-    console.log('this is list to map', listToMap);
-    setMapValues(listToMap);
-  }, [defaultNumber, dropDownValue]);
+        // }
+        console.log('this is list to map', listToMap);
+        setMapValues(listToMap);
+      }
+    }
+  }, [defaultNumber]);
   // console.log('This is dropdown:', dropDownValue);
   const handleChange = (e) => {
     // console.log('HandleChange value', e.target.value);
     const size = e.target.value;
-    // console.log('This is the key', e.target.key);
-    // console.log('Dropdownvalue: ', dropDownValue);
+    mapValues.map((item) => {
+      if (item.size === size) {
+        addsku(item.sku);
+      }
+      return true;
+    });
     setCurrentValue(size);
     setQuantityValue(size);
   };
@@ -83,14 +107,15 @@ export default function SizeDropdown({ defaultNumber, setCurrentValue }) {
           <StyledSelect
             name="Countries"
             onChange={(e) => handleChange(e)}
+            onClick={changeHandler}
             value={quantityValue}
           >
             <option value="Size">Size</option>
             {mapValues.map((item) => (
-              <option key={item.sku} value={item.size}>
-                { item.quantity > 0
+              <option onClick={changeHandler} key={item.sku} value={item.size}>
+                {item.quantity > 0
                   ? item.size
-                  : <s>{item.size}</s> }
+                  : <s>{item.size}</s>}
               </option>
             ))}
           </StyledSelect>
@@ -102,4 +127,6 @@ export default function SizeDropdown({ defaultNumber, setCurrentValue }) {
 SizeDropdown.propTypes = {
   defaultNumber: PropTypes.number.isRequired,
   setCurrentValue: PropTypes.func.isRequired,
+  changeHandler: PropTypes.func.isRequired,
+  addsku: PropTypes.func.isRequired,
 };
