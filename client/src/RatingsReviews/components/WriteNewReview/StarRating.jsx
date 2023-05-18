@@ -72,10 +72,6 @@ const StyledFlexChar = styled(StyledFlexParent)`
   justify-content: center;
 `;
 
-const StyledFlexStar = styled(StyledFlexParent)`
-  min-width: 33%;
-`;
-
 const StyledEmptyStar = styled(Icons.EmptyStar)`
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: gray;
