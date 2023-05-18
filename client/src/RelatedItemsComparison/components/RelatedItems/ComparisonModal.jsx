@@ -12,7 +12,7 @@ const StyledModal = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 128, 128, 0.5);
+  background-color: ${(props) => props.theme.backdropColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,13 +24,14 @@ const StyledContent = styled.div`
   display: grid;
   padding: 0 1rem 1rem 1rem;
   border-radius: 3px;
-  background-color: white;
+  background-color: ${(props) => props.theme.primaryColor};
   grid-template-rows: 10% 10% 80%;
   grid-template-columns: 20% 20% 20% 20% 20%;
   height: 400px;
   width: 600px;
   overflow-y: auto;
   z-index: 20;
+  color: ${(props) => props.theme.textColor};
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 `;
 

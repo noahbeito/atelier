@@ -10,11 +10,13 @@ import { Card } from '../../styles';
 
 const StyledCategory = styled.div`
   font-style: italic;
+  color: ${(props) => props.theme.textColor};
 `;
 const StyledName = styled.div`
   font-weight: bold;
   margin-top: 0.5rem;
   margin-bottom: 0.25rem;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const StyledImg = styled.img`
@@ -31,8 +33,7 @@ const StyledActionWrap = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
-  color: white;
-  box-shadow: rgba(0, 0, 0, 0.5);
+  color: ${(props) => props.theme.primaryColor};
   &:hover {
     transform: scale(1.2);
   }

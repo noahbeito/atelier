@@ -26,6 +26,7 @@ const Title = styled.h2`
   margin-inline: auto;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
+  color: ${(props) => props.theme.textColor};
   `;
 
 const Carousel = styled.div`
@@ -52,7 +53,7 @@ const DefaultCard = styled.li`
   align-self: center;
   height: 400px;
   width: 95%;
-  background-color: #CDCDCD;
+  background-color: ${(props) => props.theme.background};
   border-radius: 3px;
 
   padding: 0.5rem;
@@ -82,10 +83,10 @@ const ChevronButton = styled.button`
   align-self: center;
   height: 84%;
   width: 20%;
-  color: white;
+  color: ${(props) => props.theme.primaryColor};
   font-size: 1.5em;
   z-index: 10;
-  background-color: rgba(0, 128, 128, 0);
+  background-color: transparent;
   border: none;
   border-radius: 3px;
   cursor: pointer;
