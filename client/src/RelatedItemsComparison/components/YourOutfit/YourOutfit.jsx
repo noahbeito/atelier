@@ -8,14 +8,19 @@ import {
   Title, OutfitCarousel, OutfitContainer, List,
 } from '../../styles';
 
+// ** COMPONENT ** //
 export default function YourOutfit({ chevronClickHandler }) {
+  // ** LOCAL STATE ** //
   const [outfit, setOutfit] = useState([]);
   const [viewIndex, setViewIndex] = useState(0);
   const [showLeftChevron, setShowLeftChevron] = useState(false);
   const [showRightChevron, setShowRightChevron] = useState(false);
+
+  // ** IDENTIFIERS ** //
   const symbol = 'Exit';
   const carouselId = 'outfit-carousel';
 
+  // ** ON RENDER ** //
   useEffect(() => {
     const savedOutfit = JSON.parse(localStorage.getItem('outfit'));
     if (savedOutfit) {
@@ -28,6 +33,7 @@ export default function YourOutfit({ chevronClickHandler }) {
     }
   }, []);
 
+  // ** ON OUTFIT UPDATE **//
   useEffect(() => {
     localStorage.setItem('outfit', JSON.stringify(outfit));
     if (outfit.length > 3) {
@@ -37,6 +43,21 @@ export default function YourOutfit({ chevronClickHandler }) {
     }
   }, [outfit]);
 
+  // ** ON CAROUSEL SCROLL ** //
+  useEffect(() => {
+    if (viewIndex + 3 >= outfit.length) {
+      setShowRightChevron(false);
+    } else {
+      setShowRightChevron(true);
+    }
+    if (viewIndex > 0) {
+      setShowLeftChevron(true);
+    } else {
+      setShowLeftChevron(false);
+    }
+  }, [viewIndex]);
+
+  // ** CLICK HANDLERS ** //
   const handleAddToOutfitClick = (productId) => {
     if (!outfit.includes(productId)) {
       setOutfit([...outfit, productId]);
@@ -58,19 +79,7 @@ export default function YourOutfit({ chevronClickHandler }) {
     setViewIndex(viewIndex - 1);
   };
 
-  useEffect(() => {
-    if (viewIndex + 3 >= outfit.length) {
-      setShowRightChevron(false);
-    } else {
-      setShowRightChevron(true);
-    }
-    if (viewIndex > 0) {
-      setShowLeftChevron(true);
-    } else {
-      setShowLeftChevron(false);
-    }
-  }, [viewIndex]);
-
+  // ** STRUCTURE ** //
   return (
     <List>
       <Title>Your Outfit</Title>
