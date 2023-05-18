@@ -12,6 +12,8 @@ import { postReview } from '../../actions/index';
 
 import StarRating from './StarRating';
 
+import validateEmail from '../../../utils/validateEmail';
+
 const StyledRadioButton = styled.label`
   display: flex;
   flex-direction: row;
@@ -128,7 +130,7 @@ export default function WriteNewReview({ productId, handleCloseModal }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         label="Your email"
-        validation={(value) => value.length <= 60}
+        validation={(value) => value.length <= 60 && validateEmail(value)}
         placeholder="Example: jack@email.com!"
         warning="For authentication reasons, you will not be emailed"
         error="Email must be a valid email."
