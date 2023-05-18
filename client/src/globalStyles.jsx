@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Lexend Deca';
   }
+
+  textarea, input {
+    font-family: verdana;
+  }
   * {
     margin: 0;
     padding: 0;
@@ -17,23 +21,46 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const theme = {
+const lightTheme = {
   bpTablet: '1080px',
   bpMobile: '720px',
+
   primaryColor: 'white',
   secondaryColor: 'teal',
   background: '#eee',
   loading: 'gray',
-  textColor: 'black',
-  onSell: 'red',
+  textColor: '#333',
+  onSell: '#bb3838',
   star: 'gold',
   backdropColor: 'rgba(152, 205, 222, 0.5)',
+  marker: '#ffffbf',
+  warning: '#bebe48',
+  toast: '#ffadad',
+  header: 'lightblue',
 };
 
-function Theme({ children, ...props }) {
+const darkTheme = {
+  bpTablet: '1080px',
+  bpMobile: '720px',
+
+  primaryColor: '#111',
+  secondaryColor: '#6485c8',
+  background: '#333',
+  loading: 'gray',
+  textColor: '#eee',
+  onSell: '#bb3838',
+  star: 'gold',
+  backdropColor: 'rgba(152, 205, 222, 0.5)',
+  marker: '#ffffbf',
+  warning: '#bebe48',
+  toast: '#ffadad',
+  header: '#555',
+};
+
+function Theme({ isDarkMode, children, ...props }) {
   return (
     <ThemeProvider
-      theme={theme}
+      theme={isDarkMode ? darkTheme : lightTheme}
       {...props}
     >
       {children}
@@ -42,6 +69,7 @@ function Theme({ children, ...props }) {
 }
 
 Theme.propTypes = {
+  isDarkMode: PropTypes.bool.isRequired,
   children: PropTypes.shape({
     primaryColor: PropTypes.string,
     secondaryColor: PropTypes.string,

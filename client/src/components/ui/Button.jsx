@@ -11,7 +11,7 @@ const buttonBuilder = ({ variant, width }) => {
     background-color: transparent;
     cursor: pointer;
     font-family: sans-serif;
-    color: #333;
+    color: ${({ theme }) => theme.textColor};
     transition: 0.2s;
     width: ${width || 'auto'};
     &:hover, &:focus {
@@ -23,7 +23,7 @@ const buttonBuilder = ({ variant, width }) => {
     ${reset}
     padding: 0 20px;
     font-size: 1.1rem;
-    border: 2px solid black;
+    border: 2px solid ${(props) => props.theme.textColor};
     text-transform: uppercase;
     font-weight: bold;
     margin: 10px;
@@ -33,7 +33,7 @@ const buttonBuilder = ({ variant, width }) => {
     transition: 0.2s;
     height: 80px;
     &:hover, &:focus {
-      background: #eee;
+      background: ${(props) => props.theme.background};
       border-color: ${(props) => props.theme.secondaryColor};
       outline: none;
     }
@@ -42,6 +42,7 @@ const buttonBuilder = ({ variant, width }) => {
     case 'small':
       return css`
         ${reset}
+        color: ${(props) => props.theme.textColor}
         font-size: 0.9rem;
         margin: 0 5px;
         text-decoration: underline;
@@ -73,17 +74,35 @@ const buttonBuilder = ({ variant, width }) => {
           right: 20px;
         }
       `;
+    case 'large-dark':
+      return css`
+        ${large}
+        &, &:hover, &:focus {
+          background-color: ${(props) => props.theme.background};
+          color: ${(props) => props.theme.textColor};
+          border: 2px solid ${(props) => props.theme.background};
+        }
+        &:hover, &:focus {
+          filter: brightness(0.7);
+        }
+      `;
+    case 'large-light':
+      return css`
+        ${large}
+        color: ${(props) => props.theme.textColor};
+        background-color: ${(props) => props.theme.primaryColor};
+      `;
     case 'form':
       return css`
         ${reset}
         background-color: ${(props) => props.theme.secondaryColor};
         padding: 10px 15px;
         font-size: 1.1rem;
-        color: white;
+        color: ${(props) => props.theme.primaryColor};
         border: 2px solid ${(props) => props.theme.secondaryColor};
         &:hover, &:focus {
           color: ${(props) => props.theme.secondaryColor};
-          background-color: white;
+          background-color: ${(props) => props.theme.primaryColor};
           outline: none;
         }
       `;

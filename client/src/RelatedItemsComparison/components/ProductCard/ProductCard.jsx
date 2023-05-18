@@ -8,10 +8,12 @@ import StarRating from '../../../components/StarRating';
 import SalePrice from './SalePrice';
 import { Card } from '../../styles';
 
+// ** STYLES ** //
 const StyledCategory = styled.div`
   font-style: italic;
   color: ${(props) => props.theme.textColor};
 `;
+
 const StyledName = styled.div`
   font-weight: bold;
   margin-top: 0.5rem;
@@ -39,10 +41,14 @@ const StyledActionWrap = styled.div`
   }
 `;
 
+// ** COMPONENT ** //
 export default function ProductCard({
   id, handleRemoveItemClick, symbol, handleStarClick,
 }) {
+  // ** REDUX ** //
   const dispatch = useDispatch();
+
+  // ** LOCAL STATE ** //
   const [photoURL, setPhotoURL] = useState('');
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
@@ -51,6 +57,7 @@ export default function ProductCard({
   const [avgRating, setAvgRating] = useState('');
   const [cardClick, setCardClick] = useState(true);
 
+  // ** AVG STAR RATING CALCULATOR ** //
   const calculateAvgRating = (ratings) => {
     const totalRatings = Object.values(ratings)
       .reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
@@ -58,6 +65,7 @@ export default function ProductCard({
     return avg;
   };
 
+  // ** API ENDPOINTS ** //
   const getNameAndCategory = () => (
     axios.get(`/products/${id}`)
   );
@@ -72,6 +80,7 @@ export default function ProductCard({
     })
   );
 
+  // ** HANDLERS ** //
   const handleClick = () => {
     if (cardClick) {
       dispatch({ type: '@product/FETCH_DATA' });
@@ -93,6 +102,7 @@ export default function ProductCard({
     setCardClick(true);
   };
 
+  // ** ON RENDER ** //
   useEffect(() => {
     axios.all([
       getNameAndCategory(),
@@ -114,6 +124,7 @@ export default function ProductCard({
       });
   }, []);
 
+  // ** STRUCTURE ** //
   return (
     <Card onClick={() => handleClick()} data-testid="product-card">
       <StyledActionWrap>
@@ -138,6 +149,7 @@ export default function ProductCard({
   );
 }
 
+// ** PROPTYPES ** //
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   handleRemoveItemClick: PropTypes.func.isRequired,
