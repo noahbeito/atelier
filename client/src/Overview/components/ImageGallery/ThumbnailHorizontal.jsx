@@ -6,14 +6,10 @@ import Thumbnail from './Thumbnail_Icon';
 import Icons from '../../../components/Icons';
 
 const StyledDiv = styled.div`
-  /* width: 110px; */
   display: flex;
-  /* flex-direction: column; */
-  border: solid 3px lightgrey;
   margin 4px;
-  border-radius: 5px;
-  box-shadow: white 0px 5px 15px;
   background: rgba(122, 111, 107, 0.512);
+  border-radius: 5px;
 `;
 const StyledButtonReplacement = styled.div`
   width: 100%;
@@ -23,32 +19,24 @@ const StyledButtonReplacement = styled.div`
 const StyledLoading = styled.div`
   margin: 50px auto;
   text-align: center;
-  color: gray;
-  box-shadow: gray 0px 5px 15px;
 `;
 export default function ThumbnailList({ bgHandler, defaultNumber }) {
-  // let list = [];
   const [renderList1, setRenderList1] = useState([]);
   const [leftOverList, setLeftOverList] = useState([]);
-  // const [styleArray, setStyleArray] = useState([]);
   const isLoading = useSelector((state) => state.product.isLoading
                                         || state.overview.productStyles.loading);
 
   const styles = useSelector((state) => {
     if (state.overview.productStyles.styles.results) {
-      // list = state.overview.productStyles.styles.results;
       return state.overview.productStyles.styles.results;
     }
     return [];
   });
-  // console.log('This is styles in Thumbnail: ', styles);
   const getPhotoList = (style) => {
     if (style.length === 0) {
       return [];
     }
-    // console.log('****  STYLESARRAY ****: 1', style);
     const defaultStyles = style.filter((element) => element.style_id === defaultNumber);
-    // console.log('This is default styles line 55: ', defaultStyles);
     if (defaultStyles.length === 0) {
       return [];
     }
@@ -59,15 +47,10 @@ export default function ThumbnailList({ bgHandler, defaultNumber }) {
   };
   const photoList = getPhotoList(styles);
   const newList = photoList.slice();
-  // console.log('This is newList in thumbnailist:2', newList);
   useEffect(() => {
-    // setStyleArray(list);
     newList.map((obj, i) => {
       if (i === 0) {
         newList[i].class = 'selected';
-        console.log('This is number 3 : ');
-        console.log('This is newList in thumbnailist:2', newList[i]);
-        // bgHandler(newList[i]);
       } else {
         newList[i].class = 'unselected';
       }
@@ -110,7 +93,6 @@ export default function ThumbnailList({ bgHandler, defaultNumber }) {
     change.map((obj, i) => {
       if (i === num) {
         bgHandler(change[i]);
-        console.log('This is number 4 : ');
         change[i].class = 'selected';
       } else {
         change[i].class = 'unselected';
@@ -119,13 +101,11 @@ export default function ThumbnailList({ bgHandler, defaultNumber }) {
     });
     setRenderList1(change);
   };
-  // console.log('This is newlist testing:', newList);
   return (
-    <StyledDiv>
+    <StyledDiv className="test">
       { newList.length > 7
         ? <Icons.ChevronLeft onClick={rotateUp} />
         : <StyledButtonReplacement />}
-      {/* <Icons.ChevronUp onClick={rotateUp} /> */}
       {isLoading ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
         : (
           <>
@@ -152,7 +132,3 @@ ThumbnailList.propTypes = {
   bgHandler: PropTypes.func.isRequired,
   defaultNumber: PropTypes.number.isRequired,
 };
-
-// ThumbnailList.defaultProps = {
-//   bgHandler: PropTypes.func.isRequired,
-// };

@@ -7,9 +7,6 @@ const StyledDiv = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* border: solid 2px black; */
-  /* margin:2px;
-  padding:5px; */
 `;
 const StyledExpandButton = styled.div`
   width: 100%;
@@ -18,23 +15,41 @@ const StyledExpandButton = styled.div`
   width: 100%;
   flex-wrap: wrap;
   justify-content: flex-end;
-  /* display: flex;
-  flex-direction: column; */
-  /* border: solid 2px black; */
-  /* margin:2px;
-  padding:5px; */
+`;
+const StyledLeftButton = styled.div`
+ width: 30px;
+  background-color: lightgrey;
+  border-radius: 25%;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+const StyledRightButton = styled.div`
+  width: 30px;
+  background-color: lightgrey;
+  border-radius: 25%;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 `;
 const StyledLeftRightNavigation = styled.div`
-  width: 100%;
+  position: absolute;
+  top: 700px;
+  left: 2%;
+  width:calc((100% - 500px));
   height: 15%;
   display: flex;
-  /* flex-direction: column; */
   justify-content: space-between;
-  /* border: solid 2px black; */
-  /* margin:2px;
-  padding:5px; */
+  @media(max-width: 600px){
+    top: 460px;
+    margin-right: 15px;
+  }
 `;
-
+const changeSelected = (event) => {
+  event.stopPropagation();
+};
 export default function ImageGallery() {
   return (
     <StyledDiv>
@@ -42,8 +57,12 @@ export default function ImageGallery() {
         <Icons.Expand data-testid="ExpandIcon" />
       </StyledExpandButton>
       <StyledLeftRightNavigation>
-        <Icons.ArrowLeft data-testid="LeftIcon" />
-        <Icons.ArrowRight data-testid="RightIcon" />
+        <StyledLeftButton>
+          <Icons.ArrowLeft onClick={changeSelected} data-testid="LeftIcon" />
+        </StyledLeftButton>
+        <StyledRightButton>
+          <Icons.ArrowRight onClick={changeSelected} data-testid="RightIcon" />
+        </StyledRightButton>
       </StyledLeftRightNavigation>
     </StyledDiv>
   );

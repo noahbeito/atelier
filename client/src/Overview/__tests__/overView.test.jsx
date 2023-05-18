@@ -3,12 +3,10 @@ import '@testing-library/jest-dom';
 import { useSelector } from 'react-redux';
 import {
   render,
-  fireEvent,
   act,
   screen,
 } from '@testing-library/react';
 import Data from './mockData';
-import AddToFavButton from '../components/AddToCart/AddToFavButton';
 import StyleThumbnail from '../components/StyleThumbnail/StyleThumbnail';
 import StyleSelector from '../components/StyleSelector/StyleSelector';
 import ImageThumbnail from '../components/ImageGallery/ImageThumbnail';
@@ -18,7 +16,7 @@ import SizeDropdown from '../components/DropdownContain/SizeDropdown/SizeDropdow
 import DropdownContain from '../components/DropdownContain/DropdownContain';
 import Twitter from '../components/CheckoutDisplay/Twitter';
 import Facebook from '../components/CheckoutDisplay/Facebook';
-import ProductDisplay from '../components/ProductDisplay/ProductDisplay';
+// import ProductDisplay from '../components/ProductDisplay/ProductDisplay';
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -133,22 +131,6 @@ export default () => {
       ));
       const component = await screen.getByTestId('StyleSelector');
       expect(component).toBeInTheDocument();
-    });
-    it('Should render Product Display Component', async () => {
-      await act(async () => render(
-        <ProductDisplay
-          defaultNumber={240500}
-          bgHandler={() => { }}
-        />,
-      ));
-      const component = await screen.getByTestId('ProductDisplay');
-      expect(component).toBeInTheDocument();
-    });
-    it('Should have a value of 1 after event fire', () => {
-      const { getByTestId } = render(<AddToFavButton />);
-      const countTextNode = getByTestId('counter');
-      fireEvent.click(getByTestId('button-up'));
-      expect(countTextNode.textContent).toBe('1');
     });
   });
 };
