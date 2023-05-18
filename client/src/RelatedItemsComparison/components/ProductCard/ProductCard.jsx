@@ -27,7 +27,7 @@ const StyledImg = styled.img`
   object-fit: cover;
 
   @media (min-width: 1520px) {
-    aspect-ratio: 1;
+    aspect-ratio: 1.2;
   }
 `;
 
