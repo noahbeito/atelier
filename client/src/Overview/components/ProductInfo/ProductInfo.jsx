@@ -9,6 +9,8 @@ const StyledAside = styled.aside`
   display: flex;
   border: solid 2px black;
   padding: 10px;
+  background-color:${(props) => props.theme.primaryColor};
+  color:${(props) => props.theme.textColor};
 `;
 const StyledLoading = styled.div`
   margin: 50px auto;

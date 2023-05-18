@@ -10,6 +10,8 @@ const StyledThumbnailGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
+  background-color:${(props) => props.theme.primaryColor};
+  color:${(props) => props.theme.textColor};
 `;
 const StyledSurround = styled.div`
   border: lightgrey 3px solid;

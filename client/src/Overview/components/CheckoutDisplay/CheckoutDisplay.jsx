@@ -13,13 +13,14 @@ const StyledDiv = styled.div`
   width: 450px;
   height: 98%;
   display: flex;
-  background-color:${(props) => props.theme}
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   margin:2px;
   padding:5px;
   border-left:solid 1px black;
+  background-color:${(props) => props.theme.primaryColor};
+  color:${(props) => props.theme.textColor};
 `;
 const StyledReview = styled.div`
   width: 100%;
