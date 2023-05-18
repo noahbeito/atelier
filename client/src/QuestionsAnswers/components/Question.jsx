@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -33,7 +33,7 @@ const StyledQuestion = styled.div`
     white-space: pre-wrap;
   }
   .mark {
-    background-color: #ffffbf;
+    background-color: ${({ theme }) => theme.marker};
     box-shadow: 0 2px 2px #0005;
     border-radius: 5px;
   }
@@ -64,7 +64,6 @@ const StyledQuestion = styled.div`
       gap: 10px;
     }
 
-    background-color: #eee;
     border-bottom: 2px solid ${(props) => props.theme.secondaryColor};
     margin-top: 5px;
     position: relative;
@@ -148,12 +147,18 @@ export default function Question({ question, searchText }) {
     const temp = clickedYes;
     if (!clickedYes) {
       setClickedYes(true);
+      localStorage.setItem(`atelier-question-yes/${question.question_id}`, true);
+
       axios.put(`/qa/questions/${question.question_id}/helpful`)
         .then(() => {
           dispatch({ type: '@questions/MARK_HELPFUL', question_id: question.question_id });
           setClickedYes(true);
+          localStorage.setItem(`atelier-question-yes/${question.question_id}`, true);
         })
-        .catch(() => setClickedYes(temp));
+        .catch(() => {
+          setClickedYes(temp);
+          localStorage.setItem(`atelier-question-yes/${question.question_id}`, temp);
+        });
     }
   };
 
@@ -167,14 +172,25 @@ export default function Question({ question, searchText }) {
     const temp = clickedReport;
     if (!clickedReport) {
       setClickedReport(true);
+      localStorage.setItem(`atelier-question-report/${question.question_id}`, true);
       axios.put(`/qa/questions/${question.question_id}/report`)
         .then(() => {
           dispatch({ type: '@questions/REPORT', question_id: question.question_id });
           setClickedReport(true);
+          localStorage.setItem(`atelier-question-report/${question.question_id}`, true);
         })
-        .catch(() => setClickedReport(temp));
+        .catch(() => {
+          setClickedReport(temp);
+          localStorage.setItem(`atelier-question-report/${question.question_id}`, temp);
+        });
     }
   };
+
+  /* * Effects * */
+  useEffect(() => {
+    setClickedYes(localStorage.getItem(`atelier-question-yes/${question.question_id}`) || clickedYes);
+    setClickedReport(localStorage.getItem(`atelier-question-report/${question.question_id}`) || clickedReport);
+  }, []);
 
   /* * Structure * */
   return (
