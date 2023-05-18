@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// GLOBAL STYLES FOR RELATED ITEMS WIDGET ** //
 const List = styled.div`
  display: grid;
  grid-template-rows: 10% 90%;
