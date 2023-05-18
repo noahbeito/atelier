@@ -13,6 +13,7 @@ const StyledDiv = styled.div`
   width: 450px;
   height: 98%;
   display: flex;
+  background-color:${(props) => props.theme}
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
