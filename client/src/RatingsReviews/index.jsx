@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ReviewList from './components/ReviewsList/ReviewList';
 import RatingBreakdown from './components/RatingBreakdown/RatingBreakdown';
 import Button from '../components/ui/Button';
+import Popup from '../components/Popup';
 import SortOptions from './components/SortOptions/SortOptions';
-// import WriteNewReview from './components/WriteNewReview/WriteNewReview';
+import WriteNewReview from './components/WriteNewReview/WriteNewReview';
 import Icons from '../components/Icons';
 
 import { fetchReviews, fetchMetadata } from './actions/index';
@@ -67,6 +68,7 @@ export default function RatingsReviews() {
   const [showMoreReviews, setShowMoreReviews] = useState(true);
 
   const productId = useSelector((state) => state.product.data.id);
+  const productName = useSelector((state) => state.product.data.name);
   const sortOption = useSelector((state) => state.sortOption);
   const rloading = useSelector((state) => state.ratingsReviews.rloading);
   const mloading = useSelector((state) => state.ratingsReviews.mloading);
@@ -85,6 +87,11 @@ export default function RatingsReviews() {
       .then(dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 100000 }));
     setShowMoreReviews(false);
   };
+
+  // Attaches reference to open and close functions from within modal
+  const modalRef = useRef();
+  const handleAddReview = () => modalRef.current.openModal();
+  const handleCloseModal = () => modalRef.current.closeModal();
 
   return (
     <div>
@@ -111,7 +118,10 @@ export default function RatingsReviews() {
                       ? <StyledMoreReviewButton variant="large" onClick={fetchAllReviews}> MORE REVIEWS </StyledMoreReviewButton>
                       : ''
                   }
-                  <StyledAddAReviewButton variant="large-add"> ADD A REVIEW </StyledAddAReviewButton>
+                  <StyledAddAReviewButton variant="large-add" onClick={handleAddReview}> ADD A REVIEW </StyledAddAReviewButton>
+                  <Popup ref={modalRef} titles={['Write Your Review', `About the ${productName}`]} handleCloseModal={handleCloseModal}>
+                    <WriteNewReview />
+                  </Popup>
                 </StyledFlex>
               </StyledReviewList>
             )
