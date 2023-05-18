@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import AddToCartButton from './AddToCartButton';
 import AddToFavButton from './AddToFavButton';
 
@@ -9,15 +10,19 @@ const StyledSection = styled.section`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* border: solid 2px black; */
   margin:0px;
   padding:5px;
 `;
-export default function AddToCart() {
+export default function AddToCart({ sku, num }) {
   return (
     <StyledSection>
-      <AddToCartButton />
+      <AddToCartButton sku={sku} num={num} />
       <AddToFavButton />
     </StyledSection>
   );
 }
+
+AddToCart.propTypes = {
+  sku: PropTypes.number.isRequired,
+  num: PropTypes.string.isRequired,
+};
