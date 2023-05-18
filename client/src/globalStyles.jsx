@@ -24,6 +24,10 @@ const theme = {
   secondaryColor: 'teal',
   background: '#eee',
   loading: 'gray',
+  textColor: 'black',
+  onSell: 'red',
+  star: 'gold',
+  backdropColor: 'rgba(152, 205, 222, 0.5)',
 };
 
 function Theme({ children, ...props }) {
