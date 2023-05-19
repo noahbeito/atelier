@@ -63,17 +63,17 @@ export default function SortOptions({ ...props }) {
   const [currentOption, setCurrentOption] = useState('Relevance');
   const sortOptions = ['Relevance', 'Helpful', 'Newest'];
 
-  const parsedOption = () => {
-    if (currentOption === 'Relevance') {
+  const parsedOption = (option) => {
+    if (option === 'Relevance') {
       return 'relevant';
     }
-    return currentOption.toLowerCase();
+    return option.toLowerCase();
   };
 
   const handleCurrentOptionClick = (option) => {
-    dispatch({ type: '@reviews/SET_SORT_OPTION', payload: parsedOption() });
-    dispatch(fetchReviews(productId, parsedOption(), undefined, 100000));
     setCurrentOption(option);
+    dispatch({ type: '@reviews/SET_SORT_OPTION', payload: parsedOption(option) });
+    dispatch(fetchReviews(productId, parsedOption(option), undefined, 100000));
   };
 
   const allowedOptions = sortOptions.map((option) => {
