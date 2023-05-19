@@ -10,7 +10,10 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: row;
   border: solid 2px black;
-  @media(max-width: 600px){
+  @media(max-width: ${((props) => props.theme.bpTablet)}){
+    width: 100%;
+    height: 1600px;
+    display:flex;
     flex-direction: column;
   }
 `;

@@ -16,7 +16,6 @@ import SizeDropdown from '../components/DropdownContain/SizeDropdown/SizeDropdow
 import DropdownContain from '../components/DropdownContain/DropdownContain';
 import Twitter from '../components/CheckoutDisplay/Twitter';
 import Facebook from '../components/CheckoutDisplay/Facebook';
-// import ProductDisplay from '../components/ProductDisplay/ProductDisplay';
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -25,11 +24,7 @@ jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
 }));
-// const mockStore = configureStore();
-// let store;
-// beforeEach(() => {
-//   store = mockStore();
-// });
+
 export default () => {
   describe('Components Render Properly', () => {
     beforeEach(() => {

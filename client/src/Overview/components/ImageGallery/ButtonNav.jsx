@@ -37,8 +37,8 @@ const StyledRightButton = styled.div`
 const StyledLeftRightNavigation = styled.div`
   position: absolute;
   top: 700px;
-  left: 2%;
-  width:calc((100% - 500px));
+  left: 12%;
+  width:calc((100% - (500px + 20%)));
   height: 15%;
   display: flex;
   justify-content: space-between;

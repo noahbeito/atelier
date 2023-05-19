@@ -20,8 +20,11 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   html {
-  scroll-behavior: smooth;
-}
+    scroll-behavior: smooth;
+  }
+  a {
+    
+  }
 `;
 
 const lightTheme = {

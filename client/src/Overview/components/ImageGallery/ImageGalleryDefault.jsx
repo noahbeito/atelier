@@ -18,9 +18,9 @@ const StyledDiv = styled.div`
   :hover{
     cursor: url(${(props) => props.pointers});
   }
-  @media(max-width: 600px){
+  @media(max-width: ${((props) => props.theme.bpTablet)}){
     width: 100%;
-    height: 700px;
+    height: 1600px;
   }
 `;
 const StyledImageTop = styled.div`

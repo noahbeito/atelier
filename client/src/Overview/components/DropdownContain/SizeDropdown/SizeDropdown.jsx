@@ -110,9 +110,14 @@ export default function SizeDropdown({
             onClick={changeHandler}
             value={quantityValue}
           >
-            <option value="Size">Size</option>
+            <option value="Size" aria-label="Button">Size</option>
             {mapValues.map((item) => (
-              <option onClick={changeHandler} key={item.sku} value={item.size}>
+              <option
+                onClick={changeHandler}
+                key={item.sku}
+                aria-label={item.size}
+                value={item.size}
+              >
                 {item.quantity > 0
                   ? item.size
                   : <s>{item.size}</s>}

@@ -85,10 +85,11 @@ export default function QuantityDropdown({
             onChange={(e) => handleChange(e)}
             value={quantityValue}
             data-testid="QuantityDropdown"
+            aria-label="Button"
           >
             <option value="Quantity">Quantity</option>
             {mapValues.map((item) => (
-              <option key={item} value={item}>
+              <option key={item} value={item} aria-label={item}>
                 {item}
               </option>
             ))}
