@@ -28,8 +28,8 @@ color:${(props) => props.theme.textColor};
   transform: scale(1.05);
 }
 &.true {
-  border: lime 3px solid;
-  box-shadow: lime 0px 5px 15px;
+  border: ${(props) => props.theme.secondaryColor} 3px solid;
+  box-shadow:${(props) => props.theme.secondaryColor} 0px 5px 15px;
 }
 .styleFont {
   font-family: sans-serif;
