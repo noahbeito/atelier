@@ -57,6 +57,7 @@ const OutfitCarousel = styled(Carousel)`
   gap: 1.2%;
   transform: translateX(calc(var(--slider-index) * (33.3%)));
   padding-left: 1rem;
+
   @media (max-width: ${(props) => props.theme.bpTablet}) {
     grid-auto-columns: 49%;
     gap: 1%;
