@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import useWindowSize from '../../../hooks/useWindowSize';
+
 const StyledFlex = styled.div`
   display: flex;
   flex-direction: row;
@@ -55,6 +57,7 @@ export default function CharBar({
   value,
 }) {
   const valuePercent = Number(value) / 5;
+  const { width } = useWindowSize();
 
   return (
     <StyledCharsBar className="CharsBar">
@@ -70,9 +73,15 @@ export default function CharBar({
         <StyledCharBarValueLeft>
           {charTable['1']}
         </StyledCharBarValueLeft>
-        <StyledCharBarValueMid>
-          {charTable['3']}
-        </StyledCharBarValueMid>
+        {
+          (width >= 1080)
+            ? (
+              <StyledCharBarValueMid>
+                {charTable['3']}
+              </StyledCharBarValueMid>
+            )
+            : ''
+        }
         <StyledCharBarValueRight>
           {charTable['5']}
         </StyledCharBarValueRight>
