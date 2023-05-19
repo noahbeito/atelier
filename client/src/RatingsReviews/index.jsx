@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -129,25 +129,27 @@ const StyledContainer = styled.div`
 `;
 
 export default function RatingsReviews() {
-  const [showMoreReviews, setShowMoreReviews] = useState(true);
+  // const [showMoreReviews, setShowMoreReviews] = useState(true);
 
   const productId = useSelector((state) => state.product.data.id);
   const productName = useSelector((state) => state.product.data.name);
   const sortOption = useSelector((state) => state.sortOption);
   const rloading = useSelector((state) => state.ratingsReviews.rloading);
   const mloading = useSelector((state) => state.ratingsReviews.mloading);
+  const showMoreReviews = useSelector((state) => state.ratingsReviews.showMoreReviews);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchMetadata(productId));
     dispatch(fetchReviews(productId, sortOption, undefined, 100000));
-    setShowMoreReviews(true);
+    dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 2 });
+    dispatch({ type: '@reviews/SET_SHOW_MORE_REVIEWS', payload: true });
   }, [productId]);
 
   const fetchAllReviews = () => {
     dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 100000 });
-    setShowMoreReviews(false);
+    dispatch({ type: '@reviews/SET_SHOW_MORE_REVIEWS', payload: false });
   };
 
   // Attaches reference to open and close functions from within modal
