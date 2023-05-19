@@ -41,8 +41,8 @@ const StyledActionWrap = styled.div`
   right: 20px;
   color: white;
   &:hover {
-    transform: scale(1.2);
-    fill: yellow;
+    transform: scale(1.5);
+    transition: transform 250ms ease-in-out;
   }
 `;
 
