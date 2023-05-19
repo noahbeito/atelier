@@ -3,9 +3,7 @@ import styled from 'styled-components';
 // GLOBAL STYLES FOR RELATED ITEMS WIDGET ** //
 const List = styled.div`
  display: grid;
- grid-template-rows: 10% 90%;
  grid-template-columns: 25% 25% 25% 25%;
- width: 80%;
  margin: 0 auto;
  position: relative;
  list-style-type: none;
@@ -22,6 +20,8 @@ const Container = styled.div`
 
 const OutfitContainer = styled(Container)`
   grid-area: 2 / 2 / span 1 / span 4;
+  margin: 0;
+  display: inline-block;
 `;
 
 const Title = styled.h2`
@@ -41,9 +41,9 @@ const Carousel = styled.div`
   grid-auto-columns: 24%;
   list-style-type: none;
   transform: translateX(calc(var(--slider-index) * 25%));
-  transition: transform 250ms ease-in-out;
-  margin-top: 1rem;
-  padding-left: 1rem;
+  transition: transform 250ms ease-in-out 0s;
+  padding-left: 1.5rem;
+  min-height: 400px;
 
   @media (max-width: ${(props) => props.theme.bpTablet}) {
     grid-auto-columns: 32.3%;
@@ -56,7 +56,7 @@ const OutfitCarousel = styled(Carousel)`
   grid-auto-columns: 32.3%;
   gap: 1.1%;
   transform: translateX(calc(var(--slider-index) * (33.3%)));
-
+  padding-left: 1rem;
   @media (max-width: ${(props) => props.theme.bpTablet}) {
     grid-auto-columns: 49%;
     gap: 1%;
@@ -67,13 +67,13 @@ const OutfitCarousel = styled(Carousel)`
 const DefaultCard = styled.li`
   position: relative;
   align-self: center;
-  height: 400px;
+  min-height: 350px;
   width: 95%;
-  /* max-width: 275px; */
   background-color: ${(props) => props.theme.background};
   border-radius: 3px;
+  justify-content: space-between;
 
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   z-index: 9;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
@@ -86,20 +86,23 @@ const DefaultCard = styled.li`
 
 const AddCard = styled(DefaultCard)`
   grid-area: 2 / 1 / span 1 / span 1;
-  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   width: 90%;
   z-index: 9;
-  margin-left: 1rem;
-  margin-bottom: 0.1rem;
+  margin-left: 1.5rem;
 `;
 
 const Card = styled(DefaultCard)`
   border: none;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ChevronButton = styled.button`
   align-self: center;
-  height: 84%;
+  height: 60%;
   width: 20%;
   color: ${(props) => props.theme.primaryColor};
   -webkit-text-stroke: 5px black;
