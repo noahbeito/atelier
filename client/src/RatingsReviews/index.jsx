@@ -134,7 +134,7 @@ export default function RatingsReviews() {
   const productId = useSelector((state) => state.product.data.id);
   const productName = useSelector((state) => state.product.data.name);
   const sortOption = useSelector((state) => state.sortOption);
-  const rloading = useSelector((state) => state.ratingsReviews.rloading);
+  // const rloading = useSelector((state) => state.ratingsReviews.rloading);
   const mloading = useSelector((state) => state.ratingsReviews.mloading);
 
   const dispatch = useDispatch();
@@ -143,6 +143,7 @@ export default function RatingsReviews() {
     dispatch(fetchMetadata(productId));
     dispatch(fetchReviews(productId, sortOption, undefined, 100000));
     setShowMoreReviews(true);
+    dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 2 });
   }, [productId]);
 
   const fetchAllReviews = () => {
