@@ -151,7 +151,7 @@ export default function ProductCard({
       <StyledImg src={photoURL} />
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>
-      { salePrice ? <SalePrice salePrice={salePrice} price={price} /> : price }
+      { salePrice ? <SalePrice salePrice={salePrice} price={price} /> : `$${price}`}
       <StyledStarWrap>
         {avgRating ? <StarRating rating={avgRating} /> : <StyledNo>No Reviews</StyledNo>}
       </StyledStarWrap>
