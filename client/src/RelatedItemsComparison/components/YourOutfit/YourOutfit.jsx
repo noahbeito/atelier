@@ -60,7 +60,7 @@ export default function YourOutfit({ chevronClickHandler }) {
   // ** CLICK HANDLERS ** //
   const handleAddToOutfitClick = (productId) => {
     if (!outfit.includes(productId)) {
-      setOutfit([...outfit, productId]);
+      setOutfit([productId, ...outfit]);
     }
   };
 
