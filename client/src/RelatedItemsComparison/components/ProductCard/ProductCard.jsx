@@ -25,6 +25,10 @@ const StyledImg = styled.img`
   max-width: 100%;
   aspect-ratio: .9;
   object-fit: cover;
+
+  @media (min-width: 1520px) {
+    aspect-ratio: 1.2;
+  }
 `;
 
 const StyledStarWrap = styled.div`
@@ -35,9 +39,10 @@ const StyledActionWrap = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
-  color: ${(props) => props.theme.primaryColor};
+  color: white;
   &:hover {
     transform: scale(1.2);
+    fill: yellow;
   }
 `;
 
