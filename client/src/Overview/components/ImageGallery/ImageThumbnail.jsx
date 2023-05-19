@@ -18,8 +18,8 @@ transition: 0.2s;
   transform: scale(1.05);
 }
 &.selected {
-  border: lime 3px solid;
-  box-shadow: lime 0px 5px 15px;
+  border: ${(props) => props.theme.secondaryColor} 3px solid;
+  box-shadow:${(props) => props.theme.secondaryColor} 0px 5px 15px;
 }
 `;
 
