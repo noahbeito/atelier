@@ -115,9 +115,16 @@ const StyledQuestion = styled.div`
   & .closed + .accordion-body {
     max-height: 0;
   }
+
+  .fake {
+    font-family: 'Flow Circular', cursive;
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: ${({ theme }) => theme.loading};
+  }
 `;
 
-export default function Question({ question, searchText }) {
+export default function Question({ question, searchText, fake }) {
   /* * Selectors and states * */
   const productName = useSelector((state) => state.product.data.name);
   const productId = useSelector((state) => state.product.data.id);
@@ -211,20 +218,26 @@ export default function Question({ question, searchText }) {
                   <span className="substring mark">{question.question_body.substring(markStart, markEnd)}</span>
                   <span className="substring">{question.question_body.substring(markEnd)}</span>
                 </span>
-              ) : question.question_body
+              ) : <span className={fake ? 'fake' : ''}>{question.question_body}</span>
             }
           </span>
-          <span className="bar">
-            <Divider>
-              <Helpful
-                helpfulness={question.question_helpfulness || 0}
-                onClick={handleHelpful}
-                clickedYes={clickedYes}
-              />
-              <Button variant="small" onClick={handleAddAnswer}>Add Answer</Button>
-              <Report clickedReport={clickedReport} onClick={handleReportQuestion} />
-            </Divider>
-          </span>
+          {
+            fake ? (
+              <span className="bar fake">################################################</span>
+            ) : (
+              <span className="bar">
+                <Divider>
+                  <Helpful
+                    helpfulness={question.question_helpfulness || 0}
+                    onClick={handleHelpful}
+                    clickedYes={clickedYes}
+                  />
+                  <Button variant="small" onClick={handleAddAnswer}>Add Answer</Button>
+                  <Report clickedReport={clickedReport} onClick={handleReportQuestion} />
+                </Divider>
+              </span>
+            )
+          }
         </div>
         <div className="accordion-body">
           {answerCount.current !== 0
@@ -263,8 +276,10 @@ Question.propTypes = {
     question_helpfulness: PropTypes.number,
   }).isRequired,
   searchText: PropTypes.string,
+  fake: PropTypes.bool,
 };
 
 Question.defaultProps = {
   searchText: '',
+  fake: false,
 };
