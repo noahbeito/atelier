@@ -9,7 +9,6 @@ const StyledWrapper = styled.div`
   width: 100%;
   text-align: center;
   font-size: 2rem;
-  position: relative;
   top: 46%;
   color: ${(props) => props.theme.secondaryColor};
 `;
