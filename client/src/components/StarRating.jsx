@@ -11,7 +11,7 @@ const StyledStar = styled.span`
   display:inline-block;
   position: relative;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-color: ${(props) => props.theme.starBorder};
   &::before {
     display: block;
     content: "\uf005";
