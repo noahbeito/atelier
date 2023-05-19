@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/app.js",
+    "start": "node server/app.js",
     "build": "webpack --config ./webpack.config.js",
+    "server-dev": "nodemon server/app.js",
     "client-dev": "webpack --config ./webpack.config.js  -w",
     "test": "jest --verbose",
     "lint": "eslint --ext .jsx --ext .js ."
