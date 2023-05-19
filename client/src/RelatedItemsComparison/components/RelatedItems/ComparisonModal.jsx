@@ -23,12 +23,12 @@ const StyledModal = styled.div`
 const StyledContent = styled.div`
   position: relative;
   display: grid;
-  padding: 0 1rem 1rem 1rem;
+  padding: 0rem 1rem 1rem 1rem;
   border-radius: 3px;
   background-color: ${(props) => props.theme.primaryColor};
   grid-template-rows: 10% 10% 80%;
   grid-template-columns: 20% 20% 20% 20% 20%;
-  height: 400px;
+  min-height: 400px;
   width: 600px;
   overflow-y: auto;
   z-index: 20;
@@ -56,6 +56,7 @@ const StyledCompare = styled.div`
   grid-area: 3 / 3 / span 1 / span 1;
   justify-self: center;
   text-align: center;
+  padding-bottom: 1.5rem;
 `;
 
 const StyledRelated = styled.div`
@@ -89,6 +90,7 @@ const StyledWrap = styled.div`
 
 const StyledXButton = styled.button`
   grid-area: 1 / 5 / span 1 / span 1;
+  color: ${(props) => props.theme.textColor};
   justify-self: end;
   text-align: end;
   position: fixed;
