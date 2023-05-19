@@ -14,6 +14,11 @@ const StyledDropdown = styled(StyledInline)`
   display: inline-block;
 `;
 
+const StyledParent = styled.div`
+  white-space: nowrap;
+  object-fit: scale-down;
+`;
+
 const StyledDropdownContent = styled.div`
   display: none;
   position: absolute;
@@ -85,7 +90,7 @@ export default function SortOptions() {
   // }, [currentOption]);
 
   return (
-    <>
+    <StyledParent>
       <StyledInline>
         {`${ReviewsNum} reviews, sorted by `}
       </StyledInline>
@@ -97,6 +102,6 @@ export default function SortOptions() {
           {allowedOptions}
         </StyledDropdownContent>
       </StyledDropdown>
-    </>
+    </StyledParent>
   );
 }
