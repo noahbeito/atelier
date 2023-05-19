@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchReviews } from '../../actions/index';
@@ -49,23 +49,11 @@ const StyledCurrentOptions = styled.div`
 export default function SortOptions() {
   const ReviewsNum = useSelector((state) => state.ratingsReviews.reviews.results.length);
   const productId = useSelector((state) => state.product.data.id);
-  const reviewViewLength = useSelector((state) => state.ratingsReviews.reviewViewLength);
 
   const dispatch = useDispatch();
 
   const [currentOption, setCurrentOption] = useState('Relevance');
   const sortOptions = ['Relevance', 'Helpful', 'Newest'];
-
-  const allowedOptions = sortOptions.map((option) => {
-    if (option !== currentOption) {
-      return (
-        <StyledOptions onClick={() => { setCurrentOption(option); }}>
-          {option}
-        </StyledOptions>
-      );
-    }
-    return undefined;
-  });
 
   const parsedOption = () => {
     if (currentOption === 'Relevance') {
@@ -74,10 +62,27 @@ export default function SortOptions() {
     return currentOption.toLowerCase();
   };
 
-  useEffect(() => {
+  const handleCurrentOptionClick = (option) => {
     dispatch({ type: '@reviews/SET_SORT_OPTION', payload: parsedOption() });
-    dispatch(fetchReviews(productId, parsedOption(), undefined, reviewViewLength));
-  }, [currentOption]);
+    dispatch(fetchReviews(productId, parsedOption(), undefined, 100000));
+    setCurrentOption(option);
+  };
+
+  const allowedOptions = sortOptions.map((option) => {
+    if (option !== currentOption) {
+      return (
+        <StyledOptions onClick={() => { handleCurrentOptionClick(option); }}>
+          {option}
+        </StyledOptions>
+      );
+    }
+    return undefined;
+  });
+
+  // useEffect(() => {
+  //   dispatch({ type: '@reviews/SET_SORT_OPTION', payload: parsedOption() });
+  //   dispatch(fetchReviews(productId, parsedOption(), undefined, 100000));
+  // }, [currentOption]);
 
   return (
     <>

@@ -100,16 +100,27 @@ export default function RatingsReviews() {
 
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   dispatch(fetchMetadata(productId));
+  //   dispatch(fetchReviews(productId, undefined, undefined, 2))
+  //     .then(dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 2 }));
+  //   setShowMoreReviews(true);
+  // }, [productId]);
+
+  // const fetchAllReviews = () => {
+  //   dispatch(fetchReviews(productId, sortOption, undefined, 100000))
+  //     .then(dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 100000 }));
+  //   setShowMoreReviews(false);
+  // };
+
   useEffect(() => {
     dispatch(fetchMetadata(productId));
-    dispatch(fetchReviews(productId, undefined, undefined, 2))
-      .then(dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 2 }));
+    dispatch(fetchReviews(productId, sortOption, undefined, 100000));
     setShowMoreReviews(true);
   }, [productId]);
 
   const fetchAllReviews = () => {
-    dispatch(fetchReviews(productId, sortOption, undefined, 100000))
-      .then(dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 100000 }));
+    dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 100000 });
     setShowMoreReviews(false);
   };
 
@@ -125,13 +136,13 @@ export default function RatingsReviews() {
       </StyledRatingsReviews>
       <StyledFlex>
         {
-          rloading
+          mloading
             ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
             : <StyledRatingBreakdown />
         }
 
         {
-          mloading
+          rloading
             ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
             : (
               <StyledReviewList>
