@@ -27,7 +27,7 @@ const StyledBar = styled.div`
   position: relative;
   height: 0.6em;
   width: 100%;
-  background-color: #C3C3C3;
+  background-color: ${(props) => props.theme.background};
   &::after {
     content: "";
     position:absolute;
@@ -35,7 +35,7 @@ const StyledBar = styled.div`
     overflow: hidden;
     width: ${(props) => props.value * 100}%;
     height: 0.6em;
-    background-color: ${(props) => (props.sort ? props.theme.secondaryColor : '#080808')};
+    background-color: ${(props) => (props.sort ? props.theme.secondaryColor : props.theme.textColor)};
   }
 
   ${StyledRatingBar}:hover &::after {

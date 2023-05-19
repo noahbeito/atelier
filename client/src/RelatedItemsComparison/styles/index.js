@@ -4,14 +4,16 @@ import styled from 'styled-components';
 const List = styled.div`
  display: grid;
  grid-template-rows: 10% 90%;
- grid-template-columns: 20% 20% 20% 20% 20%;
+ grid-template-columns: 25% 25% 25% 25%;
+ width: 80%;
+ margin: 0 auto;
  position: relative;
  list-style-type: none;
  overflow-x: hidden;
 `;
 
 const Container = styled.div`
-  grid-area: 2 / 2 / span 1 / span 5;
+  grid-area: 2 / 1 / span 1 / span 4;
   position: relative;
   align-self: center;
   height: 100%;
@@ -19,11 +21,11 @@ const Container = styled.div`
 `;
 
 const OutfitContainer = styled(Container)`
-  grid-area: 2 / 3 / span 1 / span 5;
+  grid-area: 2 / 2 / span 1 / span 4;
 `;
 
 const Title = styled.h2`
-  grid-area: 1 / 2 / span 1 / span 1;
+  grid-area: 1 / 1 / span 1 / span 1;
   min-width: 200px;
   margin-inline: auto;
   margin-top: 1.5rem;
@@ -34,7 +36,7 @@ const Title = styled.h2`
 const Carousel = styled.div`
   --slider-index: 0;
   display: grid;
-  gap: 1%;
+  gap: 1.1%;
   grid-auto-flow: column;
   grid-auto-columns: 24%;
   list-style-type: none;
@@ -67,7 +69,7 @@ const DefaultCard = styled.li`
   align-self: center;
   height: 400px;
   width: 95%;
-  max-width: 275px;
+  /* max-width: 275px; */
   background-color: ${(props) => props.theme.background};
   border-radius: 3px;
 
@@ -83,11 +85,12 @@ const DefaultCard = styled.li`
 `;
 
 const AddCard = styled(DefaultCard)`
-  grid-area: 2 / 2 / span 1 / span 1;
+  grid-area: 2 / 1 / span 1 / span 1;
   position: relative;
-  width: 91.5%;
+  width: 90%;
   z-index: 9;
   margin-left: 1rem;
+  margin-bottom: 0.1rem;
 `;
 
 const Card = styled(DefaultCard)`
@@ -117,16 +120,16 @@ const ChevronButton = styled.button`
 `;
 
 const StyledRightButton = styled(ChevronButton)`
-  grid-area: 2 / 5 / span 1 / span 1;
+  grid-area: 2 / 4 / span 1 / span 1;
   justify-self: end;
 `;
 
 const StyledLeftButton = styled(ChevronButton)`
-  grid-area: 2 / 2 / span 1 / span 1;
+  grid-area: 2 / 1 / span 1 / span 1;
 `;
 
 const StyledLeftOutfitButton = styled(StyledLeftButton)`
-    grid-area: 2 / 3 / span 1 / span 1;
+    grid-area: 2 / 2 / span 1 / span 1;
 `;
 
 export {

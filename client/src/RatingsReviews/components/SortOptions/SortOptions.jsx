@@ -17,7 +17,7 @@ const StyledDropdown = styled(StyledInline)`
 const StyledDropdownContent = styled.div`
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: ${(props) => props.theme.background};
   font-size: 100%;
   min-width: 10%;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);

@@ -94,7 +94,7 @@ const StyledResponse = styled(Response)`
 const StyledReviewTile = styled.div`
   padding-bottom: 3%;
   padding-top: 3%;
-  border-bottom: solid black 2px;
+  border-bottom: solid ${(props) => props.theme.textColor} 2px;
 `;
 
 export default function ReviewTile({
