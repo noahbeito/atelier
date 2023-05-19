@@ -36,7 +36,7 @@ const Title = styled.h2`
 const Carousel = styled.div`
   --slider-index: 0;
   display: grid;
-  gap: 1.1%;
+  gap: 1.2%;
   grid-auto-flow: column;
   grid-auto-columns: 24%;
   list-style-type: none;
@@ -54,7 +54,7 @@ const Carousel = styled.div`
 
 const OutfitCarousel = styled(Carousel)`
   grid-auto-columns: 32.3%;
-  gap: 1.1%;
+  gap: 1.2%;
   transform: translateX(calc(var(--slider-index) * (33.3%)));
   padding-left: 1rem;
   @media (max-width: ${(props) => props.theme.bpTablet}) {
@@ -125,11 +125,12 @@ const ChevronButton = styled.button`
 const StyledRightButton = styled(ChevronButton)`
   grid-area: 2 / 4 / span 1 / span 1;
   justify-self: end;
-  margin-right: 1rem;
+  padding-right: 0.7rem;
 `;
 
 const StyledLeftButton = styled(ChevronButton)`
   grid-area: 2 / 1 / span 1 / span 1;
+  padding-left: 0.7rem;
 `;
 
 const StyledLeftOutfitButton = styled(StyledLeftButton)`
