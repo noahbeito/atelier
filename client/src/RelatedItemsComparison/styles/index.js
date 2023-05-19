@@ -122,7 +122,7 @@ const ChevronButton = styled.button`
 const StyledRightButton = styled(ChevronButton)`
   grid-area: 2 / 4 / span 1 / span 1;
   justify-self: end;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 `;
 
 const StyledLeftButton = styled(ChevronButton)`
