@@ -26,8 +26,9 @@ const StyledReview = styled.div`
   width: 100%;
   height: 25px;
   display: flex;
-&.ratingtext {
-  color: black;
+.ratingtext {
+    background-color:${(props) => props.theme.primaryColor};
+    color:${(props) => props.theme.textColor};
 }
 `;
 const StyledProductDetails = styled.div`
@@ -92,7 +93,7 @@ export default function ProductDisplay({
         <p className="category">{currentItem.category}</p>
         <div>
           <p className="name">{currentItem.name}</p>
-          <p className="defaultprice">{currentItem.default_price}</p>
+          <p className="defaultprice">{`$ ${currentItem.default_price}`}</p>
         </div>
         <p className="slogan">{currentItem.slogan}</p>
         <StyledSocialMedia>
