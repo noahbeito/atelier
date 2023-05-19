@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
@@ -22,11 +22,16 @@ const StyledSearch = styled.div`
 `;
 
 export default function KeywordSearch({ ...props }) {
-  const searchText = useSelector((state) => state.questionsAnswers.search.text);
   const dispatch = useDispatch();
+  const sort = useSelector((state) => state.ratingsReviews.sort);
+  const [keywordVal, setKeywordVal] = useState('');
 
-  const onChangeHandler = (e) => {
-    dispatch({ type: '@qa/search/SET_SEARCH', payload: e.target.value });
+  const updateKeyword = (e) => {
+    setKeywordVal(e.target.value);
+    if (e.target.value.length >= 3) {
+      // console.log('dispatching')
+      dispatch({ type: '@reviews/sort/UPDATE', payload: { ...sort, keyword: (e.target.value).toLowerCase() } });
+    }
   };
 
   return (
@@ -34,9 +39,9 @@ export default function KeywordSearch({ ...props }) {
       <Input
         className="search"
         data-testid="search"
-        value={searchText}
-        onChange={onChangeHandler}
-        placeholder="Have a question? Search for answers..."
+        value={keywordVal}
+        onChange={updateKeyword}
+        placeholder="Search reviews..."
       />
       <Icons.Search className="icon" size="lg" />
     </StyledSearch>

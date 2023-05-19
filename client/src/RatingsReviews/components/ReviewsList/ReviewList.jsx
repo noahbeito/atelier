@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ReviewTile from './ReviewTile';
@@ -11,6 +11,7 @@ export default function ReviewList({
   const filter = useSelector((state) => state.ratingsReviews.filter);
   const sort = useSelector((state) => state.ratingsReviews.sort);
   const length = useSelector((state) => state.ratingsReviews.reviewViewLength);
+  const dispatch = useDispatch();
 
   const [reviewListView, setReviewListView] = useState(reviews);
 
@@ -18,10 +19,18 @@ export default function ReviewList({
     const results = [];
     reviews.forEach((review) => {
       const roundedRating = Math.round(review.rating);
-      if (sort[roundedRating]) {
+      if (
+        sort[roundedRating] || review.body.toLowerCase().includes(sort.keyword)
+        || review.summary.toLowerCase().includes(sort.keyword)
+        || review.reviewer_name.toLowerCase().includes(sort.keyword)
+      ) {
         results.push(review);
       }
     });
+
+    if (results.length < length) {
+      dispatch({ type: '@reviews/SET_SHOW_MORE_REVIEWS', payload: false });
+    }
     return results;
   };
 
