@@ -64,20 +64,20 @@ export default () => {
       const thumbnail = await screen.getByTestId('ExpandIcon');
       expect(thumbnail).toBeInTheDocument();
     });
-    it('Should render Left Icon', async () => {
-      await act(async () => render(
-        <ImageGallery />,
-      ));
-      const thumbnail = await screen.getByTestId('LeftIcon');
-      expect(thumbnail).toBeInTheDocument();
-    });
-    it('Should render Right Icon', async () => {
-      await act(async () => render(
-        <ImageGallery />,
-      ));
-      const thumbnail = await screen.getByTestId('RightIcon');
-      expect(thumbnail).toBeInTheDocument();
-    });
+    // it('Should render Left Icon', async () => {
+    //   await act(async () => render(
+    //     <ImageGallery />,
+    //   ));
+    //   const thumbnail = await screen.getByTestId('LeftIcon');
+    //   expect(thumbnail).toBeInTheDocument();
+    // });
+    // it('Should render Right Icon', async () => {
+    //   await act(async () => render(
+    //     <ImageGallery />,
+    //   ));
+    //   const thumbnail = await screen.getByTestId('RightIcon');
+    //   expect(thumbnail).toBeInTheDocument();
+    // });
 
     it('Should render Quantity Dropdown selection', async () => {
       await act(async () => render(

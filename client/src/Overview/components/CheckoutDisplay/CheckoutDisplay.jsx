@@ -26,12 +26,9 @@ const StyledReview = styled.div`
   width: 100%;
   height: 25px;
   display: flex;
-&.ratingtext {
-  a {
-    /* background-color:${(props) => props.theme.background}; */
+.ratingtext {
+    background-color:${(props) => props.theme.primaryColor};
     color:${(props) => props.theme.textColor};
-    background-color: red;
-  }
 }
 `;
 const StyledProductDetails = styled.div`

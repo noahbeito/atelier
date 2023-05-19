@@ -23,9 +23,6 @@ const GlobalStyle = createGlobalStyle`
   html {
     scroll-behavior: smooth;
   }
-  a {
-    
-  }
 `;
 
 const lightTheme = {

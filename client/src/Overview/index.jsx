@@ -12,7 +12,7 @@ const Section = styled.section`
   height: 1000px;
   display: flex;
   flex-direction: column;
-  border: solid 2px black;
+  border: solid 2px ${(props) => props.theme.textColor};
   @media(max-width: ${((props) => props.theme.bpMobile)}){
     width: 100%;
     height: 1600px;
