@@ -7,14 +7,24 @@ import ProductInfo from './components/ProductInfo/ProductInfo';
 import ImageGalleryExpand from './components/ImageGallery/ImageGalleryExpand';
 
 const Section = styled.section`
-  width: 100%;
+ margin-left: 10%;
+  width: 80%;
   height: 1000px;
   display: flex;
   flex-direction: column;
-  border: solid 2px black;
-  @media(max-width: 600px){
+  border: solid 2px ${(props) => props.theme.textColor};
+  @media(max-width: ${((props) => props.theme.bpMobile)}){
     width: 100%;
-  height: 1600px;
+    height: 1600px;
+  }
+  @media(max-width: ${((props) => props.theme.bpTablet)})){
+    width: 100%;
+    height: 1600px;
+  }
+  a {
+    /* background-color:${(props) => props.theme.background}; */
+    color:${(props) => props.theme.textColor};
+    background-color: red;
   }
 `;
 export default function Overview() {
@@ -61,7 +71,7 @@ export default function Overview() {
   console.log('This is default Number Index Line 60: ', defaultNumber);
   return (
     <Section data-testid="index">
-      { renderCheckout
+      {renderCheckout
         ? (
           <ProductDisplay
             data-testid="ProductDisplay"
@@ -72,7 +82,7 @@ export default function Overview() {
             defaultNumberHandler={setDefaultNumber}
             bg={bgImg}
             bgHandler={bgHndle}
-            onClickHandler={onClickHandler || (() => {})}
+            onClickHandler={onClickHandler || (() => { })}
           />
         )
         : (

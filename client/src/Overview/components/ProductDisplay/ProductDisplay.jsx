@@ -9,8 +9,11 @@ const StyledDiv = styled.div`
   height: 80%;
   display: flex;
   flex-direction: row;
-  border: solid 2px black;
-  @media(max-width: 600px){
+  border: solid 2px ${(props) => props.theme.textColor};
+  @media(max-width: ${((props) => props.theme.bpTablet)}){
+    width: 100%;
+    height: 1600px;
+    display:flex;
     flex-direction: column;
   }
 `;

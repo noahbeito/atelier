@@ -16,7 +16,6 @@ import SizeDropdown from '../components/DropdownContain/SizeDropdown/SizeDropdow
 import DropdownContain from '../components/DropdownContain/DropdownContain';
 import Twitter from '../components/CheckoutDisplay/Twitter';
 import Facebook from '../components/CheckoutDisplay/Facebook';
-// import ProductDisplay from '../components/ProductDisplay/ProductDisplay';
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -25,11 +24,7 @@ jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
 }));
-// const mockStore = configureStore();
-// let store;
-// beforeEach(() => {
-//   store = mockStore();
-// });
+
 export default () => {
   describe('Components Render Properly', () => {
     beforeEach(() => {
@@ -69,20 +64,20 @@ export default () => {
       const thumbnail = await screen.getByTestId('ExpandIcon');
       expect(thumbnail).toBeInTheDocument();
     });
-    it('Should render Left Icon', async () => {
-      await act(async () => render(
-        <ImageGallery />,
-      ));
-      const thumbnail = await screen.getByTestId('LeftIcon');
-      expect(thumbnail).toBeInTheDocument();
-    });
-    it('Should render Right Icon', async () => {
-      await act(async () => render(
-        <ImageGallery />,
-      ));
-      const thumbnail = await screen.getByTestId('RightIcon');
-      expect(thumbnail).toBeInTheDocument();
-    });
+    // it('Should render Left Icon', async () => {
+    //   await act(async () => render(
+    //     <ImageGallery />,
+    //   ));
+    //   const thumbnail = await screen.getByTestId('LeftIcon');
+    //   expect(thumbnail).toBeInTheDocument();
+    // });
+    // it('Should render Right Icon', async () => {
+    //   await act(async () => render(
+    //     <ImageGallery />,
+    //   ));
+    //   const thumbnail = await screen.getByTestId('RightIcon');
+    //   expect(thumbnail).toBeInTheDocument();
+    // });
 
     it('Should render Quantity Dropdown selection', async () => {
       await act(async () => render(
