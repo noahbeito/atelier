@@ -41,8 +41,8 @@ const StyledActionWrap = styled.div`
   right: 20px;
   color: white;
   &:hover {
-    transform: scale(1.2);
-    fill: yellow;
+    transform: scale(1.5);
+    transition: transform 250ms ease-in-out;
   }
 `;
 
@@ -151,7 +151,7 @@ export default function ProductCard({
       <StyledImg src={photoURL} />
       <StyledCategory>{category}</StyledCategory>
       <StyledName>{name}</StyledName>
-      { salePrice ? <SalePrice salePrice={salePrice} price={price} /> : price }
+      { salePrice ? <SalePrice salePrice={salePrice} price={price} /> : `$${price}`}
       <StyledStarWrap>
         {avgRating ? <StarRating rating={avgRating} /> : <StyledNo>No Reviews</StyledNo>}
       </StyledStarWrap>
