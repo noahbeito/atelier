@@ -10,6 +10,7 @@ export default function ReviewList({
   const reviews = useSelector((state) => state.ratingsReviews.reviews.results);
   const filter = useSelector((state) => state.ratingsReviews.filter);
   const sort = useSelector((state) => state.ratingsReviews.sort);
+  const length = useSelector((state) => state.ratingsReviews.reviewViewLength);
 
   const [reviewListView, setReviewListView] = useState(reviews);
 
@@ -26,11 +27,11 @@ export default function ReviewList({
 
   useEffect(() => {
     if (filter) {
-      setReviewListView(filterReviews());
+      setReviewListView(filterReviews().slice(0, length));
     } else {
-      setReviewListView(reviews);
+      setReviewListView(reviews.slice(0, length));
     }
-  }, [filter, sort, reviews]);
+  }, [filter, sort, reviews, length]);
 
   const reviewTileMap = reviewListView.map((review) => (
     <ReviewTile
