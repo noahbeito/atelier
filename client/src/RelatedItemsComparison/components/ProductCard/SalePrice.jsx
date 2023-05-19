@@ -17,7 +17,7 @@ const StyledPrice = styled.div`
 export default function SalePrice({ salePrice, price }) {
   return (
     <div>
-      <StyledSalePrice>{salePrice}</StyledSalePrice>
+      <StyledSalePrice>{`$${salePrice}`}</StyledSalePrice>
       <StyledPrice>{price}</StyledPrice>
     </div>
   );
