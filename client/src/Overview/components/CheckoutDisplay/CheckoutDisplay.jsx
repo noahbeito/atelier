@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import AddToCart from '../AddToCart/AddToCart';
@@ -8,30 +7,36 @@ import StyleSelector from '../StyleSelector/StyleSelector';
 import DropdownContain from '../DropdownContain/DropdownContain';
 import Twitter from './Twitter';
 import Facebook from './Facebook';
-// import StarRating from '../../../components/StarRating';
+import Ratings from './Ratings';
 
 const StyledDiv = styled.div`
-  /* width: 40%; */
   width: 450px;
   height: 98%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  /* border: solid 2px black; */
   margin:2px;
   padding:5px;
   border-left:solid 1px black;
+  background-color:${(props) => props.theme.primaryColor};
+  color:${(props) => props.theme.textColor};
+`;
+const StyledReview = styled.div`
+  width: 100%;
+  height: 25px;
+  display: flex;
+&.ratingtext {
+  color: black;
+}
 `;
 const StyledProductDetails = styled.div`
-  /* width: 40%; */
   width: 98%;
   height: 98%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: left;
-  /* border: solid 2px black; */
   margin:2px;
   padding:5px;
 .category {
@@ -50,7 +55,6 @@ const StyledSection = styled.section`
   height: 200px;
   display: flex;
   flex-direction: column;
-  /* border: solid 2px blue; */
   padding:2px;
 `;
 const StyledSocialMedia = styled.section`
@@ -66,9 +70,9 @@ export default function ProductDisplay({
   defaultNumber,
   defaultNumberHandler,
 }) {
+  const [sku, setSku] = useState(0);
+  const [numOfOrders, setNumOfOrders] = useState(0);
   const [currentItem, setCurrentItem] = useState({});
-  // const ReviewsNum = useSelector((state) => state.ratingsReviews.reviews.results.length);
-  // console.log('This is where thangs selector is');
   useEffect(() => {
     axios.get(`/products/${product}`)
       .then((result) => {
@@ -77,11 +81,14 @@ export default function ProductDisplay({
       .catch((error) => {
         throw error;
       });
-  }, []);
+  }, [product]);
   return (
     <StyledDiv>
       <StyledProductDetails>
-        {/* <StarRating rating={3} className="StarRating" /> */}
+        <StyledReview>
+          <Ratings />
+          <a className="ratingtext" href="#ratingsReview">Ratings & Reviews</a>
+        </StyledReview>
         <p className="category">{currentItem.category}</p>
         <div>
           <p className="name">{currentItem.name}</p>
@@ -99,8 +106,12 @@ export default function ProductDisplay({
         defaultNumberHandler={defaultNumberHandler}
       />
       <StyledSection>
-        <DropdownContain defaultNumber={defaultNumber} />
-        <AddToCart />
+        <DropdownContain
+          addsku={setSku}
+          setNumOfOrders={setNumOfOrders}
+          defaultNumber={defaultNumber}
+        />
+        <AddToCart sku={sku} num={numOfOrders} />
       </StyledSection>
     </StyledDiv>
   );

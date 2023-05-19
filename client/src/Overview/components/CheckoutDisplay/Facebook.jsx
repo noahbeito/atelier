@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div`
   margin-left: 10px;
+  margin-bottom:4px;
 `;
 export default function Facebook() {
   return (
