@@ -12,7 +12,7 @@ const StyledFlex = styled.div`
 
 const StyledCharBar = styled(StyledFlex)`
   height: .6em;
-  background-color: #C3C3C3;
+  background-color: ${(props) => props.theme.background};
 
   &::after {
     content: "\uf0d7";
@@ -21,13 +21,13 @@ const StyledCharBar = styled(StyledFlex)`
     position: absolute;
     top: -150%;
     left: ${(props) => props.value * 100}%;
-    color: #080808;
+    color: ${(props) => props.theme.textColor};
   }
 `;
 
 const StyledCharBarMid = styled(StyledFlex)`
-  border-left: 0.6em solid white;
-  border-right: 0.6em solid white;
+  border-left: 0.6em solid ${(props) => props.theme.primaryColor};
+  border-right: 0.6em solid ${(props) => props.theme.primaryColor};
 `;
 
 const StyledCharBarValueLeft = styled(StyledFlex)`

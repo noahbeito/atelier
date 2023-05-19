@@ -81,24 +81,27 @@ export default function YourOutfit({ chevronClickHandler }) {
 
   // ** STRUCTURE ** //
   return (
-    <List>
+    <div>
       <Title>Your Outfit</Title>
-      <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
-      {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} carouselId={carouselId} />}
-      <OutfitContainer>
-        <OutfitCarousel id={carouselId}>
-          {outfit.map((productId) => (
-            <ProductCard
-              id={productId}
-              handleRemoveItemClick={handleRemoveItemClick}
-              symbol={symbol}
-              key={productId}
-            />
-          ))}
-        </OutfitCarousel>
-      </OutfitContainer>
-      {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
-    </List>
+      <List>
+        <AddItemToOutfit clickHandler={handleAddToOutfitClick} />
+        {showLeftChevron
+          && <ChevronLeft clickHandler={leftClickHandler} carouselId={carouselId} />}
+        <OutfitContainer>
+          <OutfitCarousel id={carouselId}>
+            {outfit.map((productId) => (
+              <ProductCard
+                id={productId}
+                handleRemoveItemClick={handleRemoveItemClick}
+                symbol={symbol}
+                key={productId}
+              />
+            ))}
+          </OutfitCarousel>
+        </OutfitContainer>
+        {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
+      </List>
+    </div>
   );
 }
 
