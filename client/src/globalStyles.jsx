@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Font Awesome 5 Free";
     src: url('/assets/fonts/font-awesome/fa-free-solid-900.otf');
   }
+  @import url('https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap');
   body {
     font-family: 'Lexend Deca';
   }

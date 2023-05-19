@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Icons from '../../components/Icons';
-
 import Search from './Search';
 import QuestionsList from './QuestionsList';
 import Button from '../../components/ui/Button';
@@ -28,21 +26,11 @@ const Container = styled.div`
   }
 `;
 
-const StyledLoading = styled.div`
-  margin: 50px auto;
-  text-align: center;
-  color: ${(props) => props.theme.loading};
-`;
-
-/* * Selectors * */
-const getIsLoading = (state) => state.product.isLoading || state.questionsAnswers.main.loading;
-
 export default function QuestionsAnswers() {
   const dispatch = useDispatch();
 
   const searchText = useSelector((state) => state.questionsAnswers.search.text);
   const questions = useSelector((state) => state.questionsAnswers.main.questions);
-  const isLoading = useSelector(getIsLoading);
   const product = useSelector((state) => state.product.data);
 
   const [maxQuestions, setMaxQuestions] = useState(4);
@@ -83,19 +71,16 @@ export default function QuestionsAnswers() {
     <Container>
       <h2 className="main-title">Questions & Answers</h2>
       <Search />
-      {isLoading ? <StyledLoading data-testid="loading"><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
-        : (
-          <>
-            <QuestionsList questions={questions.slice(0, maxQuestions)} />
-            <FlexLeft>
-              {questions.length > maxQuestions && <Button variant="large-base" onClick={moreQuestionsHandler}>More Answered Questions</Button>}
-              <Button variant="large-add" onClick={handleAddQuestion}>Add A Question</Button>
-            </FlexLeft>
-            <Popup ref={modalRef} titles={['Ask Your Question', `About the ${product.name}`]}>
-              <AddQuestion productId={product.id} handleCloseModal={handleCloseModal} />
-            </Popup>
-          </>
-        )}
+      <>
+        <QuestionsList questions={questions.slice(0, maxQuestions)} />
+        <FlexLeft>
+          {questions.length > maxQuestions && <Button variant="large-base" onClick={moreQuestionsHandler}>More Answered Questions</Button>}
+          <Button variant="large-add" onClick={handleAddQuestion}>Add A Question</Button>
+        </FlexLeft>
+        <Popup ref={modalRef} titles={['Ask Your Question', `About the ${product.name}`]}>
+          <AddQuestion productId={product.id} handleCloseModal={handleCloseModal} />
+        </Popup>
+      </>
     </Container>
   );
 }
