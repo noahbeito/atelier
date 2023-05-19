@@ -4,17 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ReviewList from './components/ReviewsList/ReviewList';
 import RatingBreakdown from './components/RatingBreakdown/RatingBreakdown';
-import Button from '../components/ui/Button';
-import Popup from '../components/Popup';
+import KeywordSearch from './components/KeywordSearch/KeywordSearch';
 import SortOptions from './components/SortOptions/SortOptions';
 import WriteNewReview from './components/WriteNewReview/WriteNewReview';
+
 import Icons from '../components/Icons';
+import Button from '../components/ui/Button';
+import Popup from '../components/Popup';
 
 import { fetchReviews, fetchMetadata } from './actions/index';
 
 const StyledFlex = styled.div`
   display: flex;
   flex-direction: row;
+  background-color: ${(props) => props.theme.primaryColor};
   @media (max-width: ${({ theme }) => theme.bpMobile}) {
     flex-direction: column;
   }
@@ -24,8 +27,9 @@ const StyledRatingBreakdown = styled(RatingBreakdown)`
   flex-grow: 1;
   padding-right: 2.5%;
   position: sticky;
-  top: 4%;
+  top: 12%;
   height: min-content;
+  background-color: ${(props) => props.theme.primaryColor};
   @media (max-width: ${({ theme }) => theme.bpMobile}) {
     position: static;
   }
@@ -36,18 +40,20 @@ const StyledReviewList = styled.div`
   max-width: 66%;
   padding: 1%;
   padding-left: 2.5%;
+
+  .SortOptions {
+    background-color: ${(props) => props.theme.primaryColor};
+    position: sticky;
+    top: 12%;
+    padding-bottom: 2%;
+    @media (max-width: ${({ theme }) => theme.bpMobile}) {
+      position: relative;
+    }
+  }
+
   @media (max-width: ${({ theme }) => theme.bpMobile}) {
     max-width: 100%;
     padding: 0%;
-  }
-`;
-
-const StyledRatingsReviews = styled.div`
-  padding-bottom: 1%;
-  position: sticky;
-  top: 1%;
-  @media (max-width: ${({ theme }) => theme.bpMobile}) {
-    position: static;
   }
 `;
 
@@ -73,8 +79,8 @@ const StyledLoading = styled.div`
 `;
 
 const StyledReviews = styled(ReviewList)`
-  max-height: calc(100vh - 100px);
-  overflow-y: scroll;
+  max-height: calc(75vh);
+  overflow-y: auto;
   @media (max-width: ${({ theme }) => theme.bpMobile}) {
     max-height: none;
     overflow-y: none;
@@ -84,9 +90,42 @@ const StyledReviews = styled(ReviewList)`
 const StyledContainer = styled.div`
   margin: 0 auto;
   width: 60%;
+
   @media (max-width: ${({ theme }) => theme.bpMobile}) {
     width: 80%;
   }
+
+  .RatingsReviewsHeader {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1em;
+    align-items: baseline;
+    position: sticky;
+    top: 9%;
+    background-color: ${(props) => props.theme.primaryColor};
+    @media (max-width: ${({ theme }) => theme.bpMobile}) {
+      flex-direction: column;
+      position: relative;
+      top: none;
+    }
+  }
+
+  .Header {
+    font-size: 2em;
+    font-family: Inter;
+    align-self: center;
+    flex-grow: 2;
+  }
+
+  .KeywordSearch {
+    align-self: center;
+    flex-grow: 1;
+    @media (max-width: ${({ theme }) => theme.bpMobile}) {
+      width: 100%;
+      margin-bottom: 1em;
+    }
+  }
+
 `;
 
 export default function RatingsReviews() {
@@ -99,19 +138,6 @@ export default function RatingsReviews() {
   const mloading = useSelector((state) => state.ratingsReviews.mloading);
 
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(fetchMetadata(productId));
-  //   dispatch(fetchReviews(productId, undefined, undefined, 2))
-  //     .then(dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 2 }));
-  //   setShowMoreReviews(true);
-  // }, [productId]);
-
-  // const fetchAllReviews = () => {
-  //   dispatch(fetchReviews(productId, sortOption, undefined, 100000))
-  //     .then(dispatch({ type: '@reviews/SET_REVIEWS_VIEWS_LENGTH', payload: 100000 }));
-  //   setShowMoreReviews(false);
-  // };
 
   useEffect(() => {
     dispatch(fetchMetadata(productId));
@@ -131,9 +157,13 @@ export default function RatingsReviews() {
 
   return (
     <StyledContainer>
-      <StyledRatingsReviews id="ratingsReview">
-        RATINGS & REVIEWS
-      </StyledRatingsReviews>
+      <div className="RatingsReviewsHeader">
+        <p id="ratingsReview" className="Header">
+          RATINGS & REVIEWS
+        </p>
+        <KeywordSearch className="KeywordSearch" />
+      </div>
+
       <StyledFlex>
         {
           mloading
@@ -146,7 +176,7 @@ export default function RatingsReviews() {
             ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
             : (
               <StyledReviewList>
-                <SortOptions />
+                <SortOptions className="SortOptions" />
                 <StyledReviews />
                 <StyledFlex>
                   {

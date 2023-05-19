@@ -87,12 +87,10 @@ export default function RelatedItemsComparison() {
 
   return (
     <Wrapper>
-      {/* <h2>Related Items</h2> */}
       <RelatedItems
         chevronClickHandler={chevronClickHandler}
         handleStarClick={handleStarClick}
       />
-      {/* <h2>Your Outfit</h2> */}
       <YourOutfit chevronClickHandler={chevronClickHandler} />
       {showModal
       && (

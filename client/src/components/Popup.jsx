@@ -34,15 +34,16 @@ const StyledPopup = styled.div`
     background-color: ${({ theme }) => theme.primaryColor};
     box-shadow: 0 0 5px black; // should remain black even in dark mode
     width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    place-items: center;
     border-radius: 10px;
+    max-height: 80vh;
     overflow: scroll;
+    z-index: 200;
 
     position: absolute;
     transform: translate(-50%, -150%) scale(0.2);
-    top: 50%;
+    top: 55%;
     left: 50%;
     transition: 0.5s;
 

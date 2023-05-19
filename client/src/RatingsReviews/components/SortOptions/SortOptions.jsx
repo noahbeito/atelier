@@ -7,6 +7,9 @@ import { fetchReviews } from '../../actions/index';
 const StyledInline = styled.div`
   font-size: 150%;
   display: inline;
+  @media (max-width: ${({ theme }) => theme.bpTablet}) {
+    font-size: 120%;
+  }
 `;
 
 const StyledDropdown = styled(StyledInline)`
@@ -51,7 +54,7 @@ const StyledCurrentOptions = styled.div`
   }
 `;
 
-export default function SortOptions() {
+export default function SortOptions({ ...props }) {
   const ReviewsNum = useSelector((state) => state.ratingsReviews.reviews.results.length);
   const productId = useSelector((state) => state.product.data.id);
 
@@ -84,13 +87,8 @@ export default function SortOptions() {
     return undefined;
   });
 
-  // useEffect(() => {
-  //   dispatch({ type: '@reviews/SET_SORT_OPTION', payload: parsedOption() });
-  //   dispatch(fetchReviews(productId, parsedOption(), undefined, 100000));
-  // }, [currentOption]);
-
   return (
-    <StyledParent>
+    <StyledParent {...props}>
       <StyledInline>
         {`${ReviewsNum} reviews, sorted by `}
       </StyledInline>

@@ -51,6 +51,9 @@ const StyledUserInfo = styled.div`
   display: flex;
   flex-direction: row;
   padding-bottom: 2%;
+  @media (max-width: ${({ theme }) => theme.bpTablet}) {
+    flex-direction: column;
+  }
   @media (max-width: ${({ theme }) => theme.bpMobile}) {
     flex-direction: column;
   }
@@ -66,6 +69,10 @@ const StyledNameDate = styled.div`
   display: flex;
   flex-direction: row;
   margin-left: auto;
+  @media (max-width: ${({ theme }) => theme.bpTablet}) {
+    padding-top: 2%;
+    margin: 0;
+  }
   @media (max-width: ${({ theme }) => theme.bpMobile}) {
     padding-top: 2%;
     margin: 0;
