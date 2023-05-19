@@ -104,7 +104,7 @@ const ChevronButton = styled.button`
   align-self: center;
   height: 60%;
   width: 20%;
-  color: ${(props) => props.theme.primaryColor};
+  color: white;
   -webkit-text-stroke: 5px black;
   font-size: 1.5em;
   z-index: 10;
