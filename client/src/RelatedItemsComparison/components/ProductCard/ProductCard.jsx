@@ -16,8 +16,6 @@ const StyledCategory = styled.div`
 
 const StyledName = styled.div`
   font-weight: bold;
-  margin-top: 0.5rem;
-  margin-bottom: 0.25rem;
   color: ${(props) => props.theme.textColor};
 `;
 
@@ -32,7 +30,9 @@ const StyledImg = styled.img`
 `;
 
 const StyledStarWrap = styled.div`
-  margin-top: 0.25rem;
+  .no-stars span::before {
+    color: ${(props) => props.theme.loading};
+  }
 `;
 
 const StyledActionWrap = styled.div`
@@ -44,6 +44,11 @@ const StyledActionWrap = styled.div`
     transform: scale(1.2);
     fill: yellow;
   }
+`;
+
+const StyledNo = styled.div`
+  color: ${(props) => props.theme.loading};
+  font-style: italic;
 `;
 
 // ** COMPONENT ** //
@@ -59,7 +64,7 @@ export default function ProductCard({
   const [name, setName] = useState('');
   const [price, setPrice] = useState(null);
   const [salePrice, setSalePrice] = useState('');
-  const [avgRating, setAvgRating] = useState('');
+  const [avgRating, setAvgRating] = useState(undefined);
   const [cardClick, setCardClick] = useState(true);
 
   // ** AVG STAR RATING CALCULATOR ** //
@@ -148,7 +153,7 @@ export default function ProductCard({
       <StyledName>{name}</StyledName>
       { salePrice ? <SalePrice salePrice={salePrice} price={price} /> : price }
       <StyledStarWrap>
-        <StarRating rating={avgRating} />
+        {avgRating ? <StarRating rating={avgRating} /> : <StyledNo>No Reviews</StyledNo>}
       </StyledStarWrap>
     </Card>
   );

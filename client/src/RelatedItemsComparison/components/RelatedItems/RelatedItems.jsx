@@ -75,19 +75,21 @@ export default function RelatedItems({ chevronClickHandler, handleStarClick }) {
   }, [viewIndex]);
 
   return (
-    <List>
+    <div>
       <Title>Related Items</Title>
-      {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
-      <Container>
-        <Carousel id={carouselId} data-testid={carouselId}>
-          {noRelatedItems && <NoRelatedItemsCard />}
-          {relatedProducts.map((id) => (
-            <ProductCard handleStarClick={handleStarClick} id={id} symbol={symbol} key={id} />
-          ))}
-        </Carousel>
-      </Container>
-      {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
-    </List>
+      <List>
+        {showLeftChevron && <ChevronLeft clickHandler={leftClickHandler} />}
+        <Container>
+          <Carousel id={carouselId} data-testid={carouselId}>
+            {noRelatedItems && <NoRelatedItemsCard />}
+            {relatedProducts.map((id) => (
+              <ProductCard handleStarClick={handleStarClick} id={id} symbol={symbol} key={id} />
+            ))}
+          </Carousel>
+        </Container>
+        {showRightChevron && <ChevronRight clickHandler={rightClickHandler} />}
+      </List>
+    </div>
   );
 }
 

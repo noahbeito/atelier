@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import RelatedItems from './components/RelatedItems/RelatedItems';
 import YourOutfit from './components/YourOutfit/YourOutfit';
 import ComparisonModal from './components/RelatedItems/ComparisonModal';
+
+const Wrapper = styled.div`
+  width: 65%;
+  margin: 0 auto;
+`;
 
 export default function RelatedItemsComparison() {
   const [showModal, setShowModal] = useState(false);
@@ -80,11 +86,13 @@ export default function RelatedItemsComparison() {
   };
 
   return (
-    <div>
+    <Wrapper>
+      {/* <h2>Related Items</h2> */}
       <RelatedItems
         chevronClickHandler={chevronClickHandler}
         handleStarClick={handleStarClick}
       />
+      {/* <h2>Your Outfit</h2> */}
       <YourOutfit chevronClickHandler={chevronClickHandler} />
       {showModal
       && (
@@ -97,6 +105,6 @@ export default function RelatedItemsComparison() {
         compareFeatures={compareFeatures}
       />
       )}
-    </div>
+    </Wrapper>
   );
 }
