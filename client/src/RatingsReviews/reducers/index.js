@@ -1,7 +1,7 @@
 const nFilter = (action) => (
   action.payload[1] || action.payload[2]
   || action.payload[3] || action.payload[3]
-  || action.payload[5] || action.payload.keyword);
+  || action.payload[5]);
 
 const ratingsReviewsReducer = (
   state = {
@@ -40,9 +40,7 @@ const ratingsReviewsReducer = (
       3: false,
       4: false,
       5: false,
-      keyword: '',
     },
-    showMoreReviews: true,
     rloading: true,
     mloading: true,
     error: null,
@@ -66,15 +64,12 @@ const ratingsReviewsReducer = (
       return { ...state, mloading: false, meta: action.payload };
     case '@reviews/meta/FAILED':
       return { ...state, mloading: false, error: action.payload };
-
     case '@reviews/sort/UPDATE':
       return { ...state, filter: nFilter(action), sort: action.payload };
     case '@reviews/SET_SORT_OPTION':
       return { ...state, sortOption: action.payload };
     case '@reviews/SET_REVIEWS_VIEWS_LENGTH':
       return { ...state, reviewViewLength: action.payload };
-    case '@reviews/SET_SHOW_MORE_REVIEWS':
-      return { ...state, showMoreReviews: action.payload };
 
     default:
       return state;
