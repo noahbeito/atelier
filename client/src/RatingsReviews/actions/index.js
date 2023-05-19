@@ -4,7 +4,7 @@ export const fetchReviews = (
   productId,
   sort = 'relevant',
   page = 1,
-  count = 10000,
+  count = 100000,
 ) => (dispatch) => {
   dispatch({ type: '@reviews/FETCH_DATA' });
   if (productId !== undefined) {

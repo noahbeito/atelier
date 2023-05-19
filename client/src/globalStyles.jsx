@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Font Awesome 5 Free";
     src: url('/assets/fonts/font-awesome/fa-free-solid-900.otf');
   }
+  @import url('https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap');
   body {
     font-family: 'Lexend Deca';
   }
@@ -35,6 +36,7 @@ const lightTheme = {
   textColor: '#333',
   onSell: '#bb3838',
   star: 'gold',
+  starBorder: '#333',
   backdropColor: 'rgba(152, 205, 222, 0.5)',
   marker: '#ffffbf',
   warning: '#bebe48',
@@ -52,7 +54,8 @@ const darkTheme = {
   loading: 'gray',
   textColor: '#eee',
   onSell: '#bb3838',
-  star: 'gold',
+  star: 'orange',
+  starBorder: '#555',
   backdropColor: 'rgba(152, 205, 222, 0.5)',
   marker: '#ffffbf',
   warning: '#bebe48',
