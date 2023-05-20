@@ -134,7 +134,7 @@ export default function RatingsReviews() {
   const productId = useSelector((state) => state.product.data.id);
   const productName = useSelector((state) => state.product.data.name);
   const sortOption = useSelector((state) => state.sortOption);
-  // const rloading = useSelector((state) => state.ratingsReviews.rloading);
+  const rloading = useSelector((state) => state.ratingsReviews.rloading);
   const mloading = useSelector((state) => state.ratingsReviews.mloading);
 
   const dispatch = useDispatch();
@@ -173,7 +173,7 @@ export default function RatingsReviews() {
         }
 
         {
-          mloading
+          rloading
             ? <StyledLoading><Icons.Loading size="2x" className="fa-spin" /></StyledLoading>
             : (
               <StyledReviewList>
