@@ -136,7 +136,13 @@ export default function ProductCard({
 
   // ** STRUCTURE ** //
   return (
-    <Card onClick={() => handleClick()} data-testid="product-card">
+    <Card
+      onClick={() => handleClick()}
+      onKeyPress={() => handleClick()}
+      data-testid="product-card"
+      role="button"
+      tabIndex="0"
+    >
       <StyledActionWrap>
         <ActionButton
           id={id}
