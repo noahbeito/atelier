@@ -5,14 +5,12 @@ const List = styled.div`
  display: grid;
  grid-template-columns: 25% 25% 25% 25%;
  margin: 0 auto;
- position: relative;
  list-style-type: none;
  overflow-x: hidden;
 `;
 
 const Container = styled.div`
   grid-area: 2 / 1 / span 1 / span 4;
-  position: relative;
   align-self: center;
   height: 100%;
   overflow-x: hidden;
@@ -81,9 +79,10 @@ const DefaultCard = styled.li`
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   transition: 0.2s;
-  &:hover {
+  &:hover, &:focus {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transform: scale(1.05);
+    outline: none;
   }
 `;
 
@@ -93,7 +92,6 @@ const AddCard = styled(DefaultCard)`
   justify-content: space-around;
   align-items: center;
   width: 90%;
-  z-index: 9;
   margin-left: 1.5rem;
 `;
 
@@ -118,10 +116,11 @@ const ChevronButton = styled.button`
   .chevron {
     font-weight: 900;
   }
-  &:hover {
+  &:hover, &:focus {
     transform: scale(1.1);
     background-color: rgba(0, 128, 128, 0.8);
     transition: background-color 500ms, transform 500ms ease-in-out;
+    outline: none;
   }
 `;
 

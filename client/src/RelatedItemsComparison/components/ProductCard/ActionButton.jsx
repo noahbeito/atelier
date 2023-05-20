@@ -20,6 +20,7 @@ export default function ActionButton({
         onMouseLeave={() => handleMouseLeave()}
         role="button"
         tabIndex="0"
+        className="action-button"
       />
     );
   }
@@ -33,6 +34,7 @@ export default function ActionButton({
         onMouseLeave={() => handleMouseLeave()}
         role="button"
         tabIndex="0"
+        className="action-button"
       />
     );
   }

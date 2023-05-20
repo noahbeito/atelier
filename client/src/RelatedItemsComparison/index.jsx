@@ -9,6 +9,10 @@ import ComparisonModal from './components/RelatedItems/ComparisonModal';
 const Wrapper = styled.div`
   width: 65%;
   margin: 0 auto;
+
+  @media (max-width: ${(props) => props.theme.bpTablet}) {
+    margin-top: 280px;
+  }
 `;
 
 export default function RelatedItemsComparison() {

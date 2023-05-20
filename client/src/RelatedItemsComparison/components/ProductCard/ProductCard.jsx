@@ -44,6 +44,11 @@ const StyledActionWrap = styled.div`
     transform: scale(1.5);
     transition: transform 250ms ease-in-out;
   }
+  .action-button:focus {
+    outline: none;
+    transform: scale(1.5);
+    transition: transform 250ms ease-in-out;
+  }
 `;
 
 const StyledNo = styled.div`
