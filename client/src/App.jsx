@@ -44,7 +44,7 @@ export default function App() {
 
   useEffect(() => {
     dispatch({ type: '@product/FETCH_DATA' });
-    axios.get('/products/41012')
+    axios.get('/products/40389')
       .then((result) => {
         dispatch({ type: '@product/SET_DATA', payload: result.data });
       })
