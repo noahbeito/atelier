@@ -79,7 +79,7 @@ const DefaultCard = styled.li`
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   transition: 0.2s;
-  &:hover, &:focus {
+  &:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transform: scale(1.05);
     outline: none;
@@ -116,11 +116,10 @@ const ChevronButton = styled.button`
   .chevron {
     font-weight: 900;
   }
-  &:hover, &:focus {
+  &:hover {
     transform: scale(1.1);
     background-color: rgba(0, 128, 128, 0.8);
     transition: background-color 500ms, transform 500ms ease-in-out;
-    outline: none;
   }
 `;
 
